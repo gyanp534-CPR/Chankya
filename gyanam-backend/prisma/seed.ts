@@ -39,6 +39,7 @@ async function main() {
   const conceptsList = concepts as SeedConcept[];
   const frequencyList = frequencies as SeedFrequency[];
   const taxonomySeed = taxonomy as SeedTaxonomy;
+  console.log(`Seed start: subjects=${taxonomySeed.subjects.length}, concepts=${conceptsList.length}`);
   const topicGroupsBySubject = new Map(
     taxonomySeed.subjects.map((subject) => [
       subject.name,
@@ -123,22 +124,29 @@ async function main() {
     });
   }
 
-  const questionCount = await prisma.question.count({
-    where: { deletedAt: null },
-  });
-  if (questionCount === 0) {
-    const topic = await prisma.topic.findFirst({
+  const questionCount = await prisma.question.count({ where: { deletedAt: null } });
+  console.log(`Seed check: existing questions=${questionCount}`);
+  if (questionCount < 20) {
+    let topic = await prisma.topic.findFirst({
       where: { deletedAt: null, subject: { deletedAt: null } },
       orderBy: { id: "asc" },
       select: { id: true },
     });
 
     if (!topic) {
-      throw new Error("No topics available to seed demo questions.");
+      console.log("No topics found; creating minimal subject/topic for demo questions.");
+      const subject = await prisma.subject.create({
+        data: { name: "General Studies (Demo)", order: 1 },
+        select: { id: true },
+      });
+      topic = await prisma.topic.create({
+        data: { subjectId: subject.id, name: "Demo Topic", weight: 1 },
+        select: { id: true },
+      });
     }
 
     const demoQuestions = Array.from({ length: 25 }).map((_, index) => ({
-      topicId: topic.id,
+      topicId: topic!.id,
       stem: `Demo Question ${index + 1}: Choose the correct option.`,
       options: ["Option A", "Option B", "Option C", "Option D"],
       correctIndex: 0,
@@ -148,7 +156,9 @@ async function main() {
 
     await prisma.question.createMany({
       data: demoQuestions,
+      skipDuplicates: true,
     });
+    console.log("Seed: demo questions inserted.");
   }
 }
 
