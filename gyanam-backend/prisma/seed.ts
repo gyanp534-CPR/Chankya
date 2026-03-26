@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 import concepts from "./concepts.seed.json" with { type: "json" };
 import frequencies from "./concept-frequency.seed.json" with { type: "json" };
 import taxonomy from "./taxonomy.seed.json" with { type: "json" };
@@ -37,8 +38,8 @@ const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) {
   throw new Error("DATABASE_URL is not set. Cannot run seed.");
 }
-process.env.DATABASE_URL = databaseUrl;
-const prisma = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: databaseUrl });
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   const conceptsList = concepts as SeedConcept[];
