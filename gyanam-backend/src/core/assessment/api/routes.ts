@@ -103,6 +103,36 @@ function getAuthenticatedUserId(request: {
   }
 }
 
+function getGuestUserId(request: { headers: { "x-guest-id"?: string } }): string | null {
+  const raw = request.headers["x-guest-id"];
+  if (!raw) {
+    return null;
+  }
+  const trimmed = raw.trim();
+  if (!trimmed) {
+    return null;
+  }
+  return `guest:${trimmed}`;
+}
+
+function getUserIdOrGuest(request: {
+  headers: { authorization?: string; "x-guest-id"?: string };
+  cookies?: Record<string, string | undefined>;
+  server: { jwt: { verify: <T>(token: string) => T } };
+}): string {
+  try {
+    return getAuthenticatedUserId(request);
+  } catch (error) {
+    if (error instanceof AppError && error.statusCode === 401) {
+      const guest = getGuestUserId(request);
+      if (guest) {
+        return guest;
+      }
+    }
+    throw error;
+  }
+}
+
 function sanitizeQuestions<T extends object>(questions: T[]): Array<Omit<T, "correctIndex">> {
   return questions.map((question) => {
     const { correctIndex: _ignored, ...rest } = question as T & { correctIndex?: number };
@@ -115,7 +145,7 @@ export const assessmentRoutes = (assessmentService: AssessmentService): FastifyP
     fastify.post("/tests/assemble", async (request) => {
       const diagnostic = diagnosticAssemblySchema.safeParse(request.body);
       if (diagnostic.success) {
-        const userId = getAuthenticatedUserId(request);
+        const userId = getUserIdOrGuest(request);
         const result =
           diagnostic.data.mode === "diagnostic_mixed"
             ? await assessmentService.startMixedDiagnosticAttempt({
@@ -165,7 +195,7 @@ export const assessmentRoutes = (assessmentService: AssessmentService): FastifyP
         throw new AppError(ERROR_CODES.authInvalidPayload, "Invalid session params.", 400, paramsParsed.error.flatten());
       }
 
-      const userId = getAuthenticatedUserId(request);
+      const userId = getUserIdOrGuest(request);
       const session = await assessmentService.getAttemptSession({
         userId,
         attemptId: paramsParsed.data.attemptId,
@@ -186,7 +216,7 @@ export const assessmentRoutes = (assessmentService: AssessmentService): FastifyP
         throw new AppError(ERROR_CODES.authInvalidPayload, "Invalid evaluate payload.", 400, parsed.error.flatten());
       }
 
-      const userId = getAuthenticatedUserId(request);
+      const userId = getUserIdOrGuest(request);
       const result = await assessmentService.evaluateAttemptAnswer({
         userId,
         attemptId: parsed.data.attemptId,
@@ -203,7 +233,7 @@ export const assessmentRoutes = (assessmentService: AssessmentService): FastifyP
         throw new AppError(ERROR_CODES.authInvalidPayload, "Invalid test submit payload.", 400, parsed.error.flatten());
       }
 
-      const userId = getAuthenticatedUserId(request);
+      const userId = getUserIdOrGuest(request);
       const result = await assessmentService.submitAttempt({
         attemptId: parsed.data.attemptId,
         userId,
