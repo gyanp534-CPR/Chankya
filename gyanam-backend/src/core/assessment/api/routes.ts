@@ -133,6 +133,28 @@ function getUserIdOrGuest(request: {
   }
 }
 
+async function ensureGuestUser(
+  fastify: { prisma?: { users: { upsert: (args: unknown) => Promise<unknown> } } },
+  userId: string,
+): Promise<void> {
+  if (!userId.startsWith("guest:") || !fastify.prisma) {
+    return;
+  }
+  const suffix = userId.replace("guest:", "");
+  const safe = suffix.replace(/[^a-zA-Z0-9_-]/g, "-");
+  const email = `guest+${safe}@guest.local`;
+  await fastify.prisma.users.upsert({
+    where: { id: userId },
+    update: {},
+    create: {
+      id: userId,
+      email,
+      passwordHash: "guest",
+      role: "student",
+    },
+  });
+}
+
 function sanitizeQuestions<T extends object>(questions: T[]): Array<Omit<T, "correctIndex">> {
   return questions.map((question) => {
     const { correctIndex: _ignored, ...rest } = question as T & { correctIndex?: number };
@@ -146,6 +168,7 @@ export const assessmentRoutes = (assessmentService: AssessmentService): FastifyP
       const diagnostic = diagnosticAssemblySchema.safeParse(request.body);
       if (diagnostic.success) {
         const userId = getUserIdOrGuest(request);
+        await ensureGuestUser(fastify, userId);
         const result =
           diagnostic.data.mode === "diagnostic_mixed"
             ? await assessmentService.startMixedDiagnosticAttempt({
@@ -196,6 +219,7 @@ export const assessmentRoutes = (assessmentService: AssessmentService): FastifyP
       }
 
       const userId = getUserIdOrGuest(request);
+      await ensureGuestUser(fastify, userId);
       const session = await assessmentService.getAttemptSession({
         userId,
         attemptId: paramsParsed.data.attemptId,
@@ -217,6 +241,7 @@ export const assessmentRoutes = (assessmentService: AssessmentService): FastifyP
       }
 
       const userId = getUserIdOrGuest(request);
+      await ensureGuestUser(fastify, userId);
       const result = await assessmentService.evaluateAttemptAnswer({
         userId,
         attemptId: parsed.data.attemptId,
@@ -234,6 +259,7 @@ export const assessmentRoutes = (assessmentService: AssessmentService): FastifyP
       }
 
       const userId = getUserIdOrGuest(request);
+      await ensureGuestUser(fastify, userId);
       const result = await assessmentService.submitAttempt({
         attemptId: parsed.data.attemptId,
         userId,
