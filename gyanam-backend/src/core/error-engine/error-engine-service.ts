@@ -267,6 +267,9 @@ export class ErrorEngineService {
 
     for (let index = 0; index < recentAttempts.length; index += 1) {
       const attempt = recentAttempts[index];
+      if (!attempt) {
+        continue;
+      }
       if (!attempt.isCorrect && attempt.errorType) {
         errorWindow.push(attempt.errorType);
         if (errorWindow.length > RECENT_ERRORS_MAX) {

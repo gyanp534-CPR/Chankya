@@ -225,7 +225,18 @@ export class AssessmentService {
     };
   }
 
-  public async createTestSet(input: CreateTestSetInput): Promise<{ testSetId: string; questions: Question[] }> {
+  public async createTestSet(input: CreateTestSetInput): Promise<{
+    testSetId: string;
+    questions: Question[];
+    adaptiveDebug?: {
+      systemAction: "increase_difficulty" | "maintain_level" | "focus_revision" | "trigger_recovery" | null;
+      userState: string | null;
+      previousUserState: string | null;
+      stateHistory: string[];
+      transitionType: "improving" | "declining" | "stable" | null;
+      strategy: ReturnType<typeof resolveAdaptiveStrategy>;
+    };
+  }> {
     const questionPool = await this.deps.questions.findBySubject(input.subjectId);
     if (questionPool.length === 0) {
       throw new AppError(ERROR_CODES.authInvalidPayload, "No questions available for subject.", 400);

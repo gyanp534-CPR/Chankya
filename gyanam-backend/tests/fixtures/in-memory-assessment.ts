@@ -42,6 +42,16 @@ export class InMemoryQuestionRepository implements QuestionRepository {
       }
     }
   }
+
+  public async getTopicLabels(topicIds: string[]): Promise<Record<string, string>> {
+    const labels: Record<string, string> = {};
+    for (const question of this.questions) {
+      if (topicIds.includes(question.topicId)) {
+        labels[question.topicId] = question.topicId;
+      }
+    }
+    return labels;
+  }
 }
 
 export class InMemoryTestSetRepository implements TestSetRepository {
@@ -150,7 +160,7 @@ export class InMemoryAttemptRepository implements AttemptRepository {
 export class InMemoryEventRepository implements EventRepository {
   public readonly events: Array<{ eventName: string; payload: Record<string, unknown> }> = [];
 
-  public async log(eventName: "test_created" | "attempt_started" | "attempt_submitted", payload: Record<string, unknown>): Promise<void> {
+  public async log(eventName: "test_created" | "attempt_started" | "attempt_submitted" | "override_used", payload: Record<string, unknown>): Promise<void> {
     this.events.push({ eventName, payload });
   }
 }

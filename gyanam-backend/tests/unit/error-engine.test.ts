@@ -28,6 +28,21 @@ class InMemoryErrorRepo implements ErrorEngineRepository {
     const rows = this.attempts.filter((attempt) => attempt.userId === userId);
     return rows.slice(-limit);
   }
+
+  public async getRecentErrorAttemptsWithTopic(userId: string, limit: number): Promise<Array<{
+    topicId: string | null;
+    errorType: string | null;
+    createdAt: Date;
+  }>> {
+    const rows = this.attempts
+      .filter((attempt) => attempt.userId === userId)
+      .slice(-limit);
+    return rows.map((attempt) => ({
+      topicId: null,
+      errorType: attempt.errorType ?? null,
+      createdAt: attempt.createdAt,
+    }));
+  }
 }
 
 function buildService() {
