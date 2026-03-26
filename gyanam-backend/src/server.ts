@@ -24,6 +24,10 @@ async function main() {
     console.log("AUTO_MIGRATE enabled. Running prisma migrate deploy...");
     await runCommand("npx prisma migrate deploy");
   }
+  if (process.env.AUTO_SEED === "true") {
+    console.log("AUTO_SEED enabled. Running prisma db seed...");
+    await runCommand("npx prisma db seed");
+  }
   const { app, env } = await createApp();
   await app.listen({ port: env.PORT, host: "0.0.0.0" });
 }
