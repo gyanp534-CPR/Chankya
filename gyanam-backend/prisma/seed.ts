@@ -33,7 +33,14 @@ type SeedTaxonomy = {
   subjects: SeedSubject[];
 };
 
-const prisma = new PrismaClient();
+const databaseUrl = process.env.DATABASE_URL;
+if (!databaseUrl) {
+  throw new Error("DATABASE_URL is not set. Cannot run seed.");
+}
+
+const prisma = new PrismaClient({
+  datasources: { db: { url: databaseUrl } },
+});
 
 async function main() {
   const conceptsList = concepts as SeedConcept[];
