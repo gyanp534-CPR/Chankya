@@ -1,0 +1,165 @@
+PROJECT BRIEF (DETAILED)
+
+1) DATA ACQUISITION & COVERAGE
+- Official UPSC PDFs downloaded for 2016–2025 (GS1 + CSAT).
+- Fetcher expanded to read current + archive tables.
+- Total coverage: 20 official PDFs.
+
+2) GS1 NORMALIZATION STATUS
+- All GS1 years normalized and capped to Q1–Q100 (including 2023 placeholders).
+- 2017 was heavily over-segmented; now trimmed to 100.
+- 2023 missing Q66/Q68 restored as placeholders.
+
+3) AUTOMATION & SCRIPTS ADDED
+- refresh-gs1-ocr.ts: OCR parse + normalize GS1 (2016–2025 except 2023).
+- run-gs1-year.ts: run OCR + normalize + trim for a single year.
+- trim-pyq-normalized.ts: trims any GS1 year to Q1–Q100.
+- stabilize-gs1-counts.ts: trims all GS1 years except 2023.
+- bootstrap-pyq-metadata.ts: builds metadata layer.
+- report-pyq-metadata.ts: generates metadata analytics.
+- bump-version.ts: automated version bumps + changelog update.
+
+4) OCR PREPROCESSING PIPELINE
+Implemented in parse-upsc-pdf.ts:
+PDF → image extraction → image cleanup → OCR → text output.
+Includes grayscale, normalize, sharpen, threshold, left/right split.
+
+CURRENT OCR STATUS
+- GS1 2016 OCR refresh + normalize + trim completed (100 rows).
+- GS1 2017 OCR refresh + normalize + trim completed (100 rows).
+- GS1 2018 OCR refresh + normalize + trim completed (100 rows).
+- GS1 2019 OCR refresh + normalize + trim completed (100 rows).
+- GS1 2020 OCR refresh + normalize + trim completed (100 rows).
+- GS1 2021 OCR refresh + normalize + trim completed (100 rows).
+- GS1 2022 OCR refresh + normalize + trim completed (100 rows).
+- GS1 2024 OCR refresh + normalize + trim completed (100 rows).
+- GS1 2025 OCR refresh + normalize + trim completed (100 rows).
+- GS1 2023 kept at 100 (placeholder-friendly; 1 officially dropped).
+
+CSAT OCR STATUS
+- CSAT 2016–2025 OCR text generated in raw folders (`data/pyq/papers/<year>/csat/raw/question-paper.txt`).
+- CSAT 2023–2025 manual text files available in `docs/pyq-questions/csat/CSAT-YYYY.txt`.
+
+CURRENT PROJECT STATUS (SUMMARY)
+- GS1 manual uploads and normalization completed for 2016–2025.
+- GS1 answer keys are captured in `docs/pyq-questions/gs1/answer-keys/`.
+- CSAT text files are in progress; diagrams use placeholders when available.
+- CSAT normalization completed for 2016–2025 (per-year `normalized.json`).
+- CSAT auto-review completed for 2016–2025 (per-year status flags).
+- CSAT answer keys added for 2016–2025 and applied to normalized files (Q1–Q80).
+- CSAT ingestion completed for 2016–2025 (Q1–Q80 ingested; >80 demoted to pending_review).
+
+CSAT GOLD DATASET v1 (FROZEN)
+- Status: Frozen for downstream graph + engine work (no further tagging/schema edits).
+- Canonical file: `gyanam-backend/data/pyq/tagging/csat-2016-2025.csv`.
+- Graph exports created:
+  - `gyanam-backend/data/pyq/tagging/csat.concept.nodes.v1.csv`
+  - `gyanam-backend/data/pyq/tagging/csat.concept.edges.v1.csv`
+  - `gyanam-backend/data/pyq/tagging/csat.error.nodes.v1.csv`
+  - `gyanam-backend/data/pyq/tagging/csat.error.edges.v1.csv`
+
+DEFERRED IMPROVEMENTS (EXPLICITLY POSTPONED)
+- Concept hierarchy (topic → subtopic → concept) should be built during Concept Graph stage.
+- Optional error clustering (`error_cluster`: conceptual/cognitive/behavioral) for personalization.
+- Potential trap_type expansion (e.g., Option Framing Trap, Data Interpretation Trap) after product MVP.
+- Potential trend_tag expansion (Emerging/Stable) after MVP validation.
+- Freeze schema: no new fields or renames until graph + learning engine are stable.
+
+ARCHIVE STATUS (RAW PDF + OCR)
+- Local archive zips (by year): `d:\Chanyakya\Chankya\archive\pyq\by-year\pyq-raw-YYYY.zip`
+- Google Drive archive folder: https://drive.google.com/drive/folders/12vH909MSFLud3jm8324m_3puu7nPSDiG?usp=sharing
+- Contents include PDFs, OCR text, OCR images (cleaned + pages), and external OCR folders (smallpdf/ilovepdf).
+- Archive uploaded to Drive; local zips retained for backup. Raw PDFs/OCR not tracked in git.
+
+5) PARSER LOCK POLICY
+- Parser is considered stable and locked.
+- Any quality improvements should come from OCR preprocessing.
+
+6) METADATA LAYER
+- data/pyq/pyq.metadata.v1.json
+- data/pyq/pyq.metadata.analytics.v1.json
+Fields include subject, topic, concept tags.
+
+7) INGESTION GUARDRAILS
+- ingest-pyq.ts now validates GS1 counts.
+- Warns if counts not exactly 100 (2023 allowed 100).
+- Fails if count <95 or >105.
+
+8) WORKFLOW SCRIPTS
+- npm run refresh:gs1:ocr
+- npm run gs1:year -- --year <YYYY>
+- npm run stabilize:gs1
+- npm run ingest:pyq
+- npm run report:pyq:metadata
+- npm run export:gs1:txt
+- npm run debug:pyq -- --year <YYYY> --paper <GS1|CSAT>
+- npm run normalize:pyq -- --year <YYYY> --paper <GS1|CSAT> --no-merge
+- npm run bump:version -- --type <major|minor|patch>
+
+PYTHON UTILITIES
+- `scripts/python/export_pdf_to_docx.py` exports PDF pages to a DOCX with images.
+- `scripts/python/ocr_pdf_to_text.py` runs OCR in Python and outputs a `.txt` compatible with TS normalization.
+
+CSAT DIAGRAM POLICY
+- When a question references a diagram/figure/chart, include an inline placeholder in the text file:
+  `[IMAGE: <id> | type=diagram | topic=<optional>]`
+- Store the actual image separately under:
+  `gyanam-backend/docs/pyq-questions/csat/images/<year>/<id>.png`
+- If the image is not yet captured, keep the placeholder so the question can still be normalized and flagged for later image capture.
+
+9) VERSIONING & RELEASES
+- CHANGELOG.md maintained (Keep a Changelog).
+- docs/versioning.md describes release workflow.
+- docs/release-tag-template.md provides tag/release notes format.
+
+
+ML ROADMAP (LIGHTWEIGHT)
+
+Goal:
+- Parser “learns” from corrected questions.
+- Current parser is rule-based; needs training loop.
+
+Stage 1: Build Training Dataset
+- Use clean 100-question JSON per year as ground truth.
+- Pair OCR output vs ground truth.
+- Generate diff dataset.
+
+Stage 2: Lightweight ML Model
+- Line-level classifier: question / option / noise.
+- Small model: MiniLM or DistilBERT.
+- Few thousand labeled lines enough.
+
+Stage 3: Integrate into Pipeline
+OCR text → ML line classifier → segmenter → normalized JSON.
+
+Stage 4: Expand
+- CSAT-specific model (passage-aware).
+- Answer prediction.
+- Topic tagging automation.
+
+
+NEXT STEP
+If you want me to start ML scaffolding, provide:
+1) JSON schema of clean GS1.
+2) Location/folder of clean files.
+3) Whether you want line-level labels or question-level.
+
+DOCS BASELINE
+- We use this Project Brief as the primary “state of the project”.
+- README.md links to versioning and high-level workspace info.
+- Update this brief as the single source of truth for progress.
+
+LATEST RUNS
+- `npm run ingest:pyq` completed without errors.
+- `npm run report:pyq:metadata` regenerated analytics.
+
+CONTRACT SUMMARY (Short Form)
+- Intent: clean, reviewable PYQ records before enrichment or ML.
+- Flow: PDF → OCR → raw text → normalization → JSON → ingestion.
+- GS1 invariant: 100 questions (2023 allowed 100 placeholders).
+- Every question: 4 options, sequential IDs, no empty text.
+- If invariants break, fix OCR or upstream extraction first.
+
+MANUAL CROSSCHECK
+- `docs/pyq-questions/gs1/gs1-YYYY.txt` contains GS1 questions year-wise.
+- `docs/pyq-questions/gs1/gs1-summary.txt` lists counts and missing text/options.

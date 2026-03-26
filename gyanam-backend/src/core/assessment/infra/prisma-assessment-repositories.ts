@@ -1,0 +1,323 @@
+import type { Prisma, PrismaClient } from "@prisma/client";
+import type { AttemptResponse, Question } from "@gyanam/shared";
+import type {
+  AttemptRepository,
+  EventRepository,
+  QuestionRepository,
+  TestSetRepository,
+  PersistedAttempt,
+  TestSetRecord,
+} from "../domain/types.js";
+
+function toQuestion(row: {
+  id: string;
+  topicId: string;
+  stem: string;
+  options: string[];
+  difficulty: "easy" | "medium" | "hard";
+  tags: string[];
+  correctIndex: number;
+}): Question & { correctIndex: number } {
+  return {
+    id: row.id,
+    topicId: row.topicId,
+    stem: row.stem,
+    options: row.options,
+    difficulty: row.difficulty,
+    tags: row.tags,
+    correctIndex: row.correctIndex,
+  };
+}
+
+export class PrismaQuestionRepository implements QuestionRepository {
+  public constructor(private readonly db: PrismaClient) {}
+
+  public async findDiagnosticSubjectId(): Promise<string | null> {
+    const subjectIds = await this.findDiagnosticSubjectIds(1);
+    return subjectIds[0] ?? null;
+  }
+
+  public async findDiagnosticSubjectIds(limit: number): Promise<string[]> {
+    const subjects = await this.db.subject.findMany({
+      where: {
+        deletedAt: null,
+        topics: {
+          some: {
+            deletedAt: null,
+            questions: {
+              some: {
+                deletedAt: null,
+              },
+            },
+          },
+        },
+      },
+      orderBy: [{ order: "asc" }, { id: "asc" }],
+      select: { id: true },
+      take: Math.max(1, limit),
+    });
+
+    return subjects.map((subject) => subject.id);
+  }
+
+  public async findBySubject(subjectId: string): Promise<(Question & { correctIndex: number })[]> {
+    const rows = await this.db.question.findMany({
+      where: {
+        deletedAt: null,
+        topic: {
+          subjectId,
+          deletedAt: null,
+          subject: {
+            deletedAt: null,
+          },
+        },
+      },
+      orderBy: [{ difficulty: "asc" }, { id: "asc" }],
+    });
+
+    return rows.map(toQuestion);
+  }
+
+  public async incrementExposure(questionIds: string[]): Promise<void> {
+    if (questionIds.length === 0) {
+      return;
+    }
+
+    await this.db.question.updateMany({
+      where: { id: { in: questionIds } },
+      data: { exposureCount: { increment: 1 } },
+    });
+  }
+
+  public async getTopicLabels(topicIds: string[]): Promise<Record<string, string>> {
+    if (topicIds.length === 0) {
+      return {};
+    }
+
+    const rows = await this.db.topic.findMany({
+      where: { id: { in: topicIds }, deletedAt: null, subject: { deletedAt: null } },
+      select: {
+        id: true,
+        name: true,
+        subject: { select: { name: true } },
+      },
+    });
+
+    return Object.fromEntries(
+      rows.map((row) => [row.id, `${row.subject.name} - ${row.name}`]),
+    );
+  }
+}
+
+export class PrismaTestSetRepository implements TestSetRepository {
+  public constructor(private readonly db: PrismaClient) {}
+
+  public async create(input: {
+    subjectId: string;
+    mode: "practice" | "exam";
+    seed: number;
+    questionIds: string[];
+    questionCount: number;
+    createdBy?: string;
+  }): Promise<TestSetRecord> {
+    const created = await this.db.testSet.create({
+      data: {
+        subjectId: input.subjectId,
+        mode: input.mode,
+        seed: input.seed,
+        questionCount: input.questionCount,
+        createdBy: input.createdBy,
+        questions: {
+          createMany: {
+            data: input.questionIds.map((questionId, index) => ({
+              questionId,
+              sortOrder: index,
+            })),
+          },
+        },
+      },
+      include: {
+        questions: true,
+      },
+    });
+
+    return {
+      id: created.id,
+      subjectId: created.subjectId,
+      questionIds: created.questions.sort((a, b) => a.sortOrder - b.sortOrder).map((item) => item.questionId),
+      mode: created.mode,
+      createdAt: created.createdAt.toISOString(),
+      seed: created.seed,
+      questionCount: created.questionCount,
+    };
+  }
+
+  public async findById(testId: string): Promise<TestSetRecord | null> {
+    const row = await this.db.testSet.findFirst({
+      where: {
+        id: testId,
+        deletedAt: null,
+      },
+      include: {
+        questions: {
+          orderBy: { sortOrder: "asc" },
+        },
+      },
+    });
+
+    if (!row) {
+      return null;
+    }
+
+    return {
+      id: row.id,
+      subjectId: row.subjectId,
+      questionIds: row.questions.map((q) => q.questionId),
+      mode: row.mode,
+      createdAt: row.createdAt.toISOString(),
+      seed: row.seed,
+      questionCount: row.questionCount,
+    };
+  }
+
+  public async findQuestionsForTest(testId: string): Promise<(Question & { correctIndex: number })[]> {
+    const rows = await this.db.testSetQuestion.findMany({
+      where: { testSetId: testId },
+      include: { question: true },
+      orderBy: { sortOrder: "asc" },
+    });
+
+    return rows.map((row) => toQuestion(row.question));
+  }
+}
+
+export class PrismaAttemptRepository implements AttemptRepository {
+  public constructor(private readonly db: PrismaClient) {}
+
+  public async create(input: { userId: string; testId: string; startedAt: Date }): Promise<PersistedAttempt> {
+    const row = await this.db.testAttempt.create({
+      data: {
+        userId: input.userId,
+        testId: input.testId,
+        startedAt: input.startedAt,
+      },
+    });
+
+    return {
+      id: row.id,
+      userId: row.userId,
+      testId: row.testId,
+      startedAt: row.startedAt.toISOString(),
+      startedAtDate: row.startedAt,
+      completedAt: row.completedAt?.toISOString(),
+      durationSeconds: row.durationSeconds ?? undefined,
+    };
+  }
+
+  public async findById(attemptId: string): Promise<PersistedAttempt | null> {
+    const row = await this.db.testAttempt.findFirst({
+      where: { id: attemptId, deletedAt: null },
+    });
+
+    if (!row) {
+      return null;
+    }
+
+    return {
+      id: row.id,
+      userId: row.userId,
+      testId: row.testId,
+      startedAt: row.startedAt.toISOString(),
+      startedAtDate: row.startedAt,
+      completedAt: row.completedAt?.toISOString(),
+      durationSeconds: row.durationSeconds ?? undefined,
+    };
+  }
+
+  public async saveResponses(attemptId: string, responses: AttemptResponse[]): Promise<void> {
+    if (responses.length === 0) {
+      return;
+    }
+
+    await this.db.$transaction(async (tx) => {
+      for (const response of responses) {
+        await tx.attemptResponse.upsert({
+          where: {
+            attemptId_questionId: {
+              attemptId,
+              questionId: response.questionId,
+            },
+          },
+          create: {
+            attemptId,
+            questionId: response.questionId,
+            selectedIndex: response.selectedIndex,
+            timeSpentSeconds: response.timeSpentSeconds,
+            exposureCount: 1,
+          },
+          update: {
+            selectedIndex: response.selectedIndex,
+            timeSpentSeconds: response.timeSpentSeconds,
+            exposureCount: { increment: 1 },
+          },
+        });
+      }
+    });
+  }
+
+  public async completeAttempt(input: {
+    attemptId: string;
+    completedAt: Date;
+    durationSeconds: number;
+    totalQuestions: number;
+    attemptedCount: number;
+    correctCount: number;
+    incorrectCount: number;
+    skippedCount: number;
+    rawScore: number;
+    pauseEvents?: unknown;
+  }): Promise<PersistedAttempt> {
+    const row = await this.db.testAttempt.update({
+      where: { id: input.attemptId },
+      data: {
+        completedAt: input.completedAt,
+        durationSeconds: input.durationSeconds,
+        totalQuestions: input.totalQuestions,
+        attemptedCount: input.attemptedCount,
+        correctCount: input.correctCount,
+        incorrectCount: input.incorrectCount,
+        skippedCount: input.skippedCount,
+        rawScore: input.rawScore,
+        pauseEvents: input.pauseEvents as Prisma.InputJsonValue | undefined,
+      },
+    });
+
+    return {
+      id: row.id,
+      userId: row.userId,
+      testId: row.testId,
+      startedAt: row.startedAt.toISOString(),
+      startedAtDate: row.startedAt,
+      completedAt: row.completedAt?.toISOString(),
+      durationSeconds: row.durationSeconds ?? undefined,
+    };
+  }
+}
+
+export class PrismaEventRepository implements EventRepository {
+  public constructor(private readonly db: PrismaClient) {}
+
+  public async log(
+    eventName: "test_created" | "attempt_started" | "attempt_submitted" | "override_used",
+    payload: Record<string, unknown>,
+  ): Promise<void> {
+    await this.db.eventLog.create({
+      data: {
+        eventName,
+        requestId: typeof payload.requestId === "string" ? payload.requestId : null,
+        userId: typeof payload.userId === "string" ? payload.userId : null,
+        payload: payload as Prisma.InputJsonValue,
+      },
+    });
+  }
+}

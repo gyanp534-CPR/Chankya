@@ -1,0 +1,40 @@
+﻿CSAT 2016-2025 count: 305
+
+Error Prone Area Distribution:
+  State Construction Failure: 98
+  Incomplete Inference: 86
+  Overgeneralization: 47
+  Assumption Misinterpretation: 28
+  Concept Confusion: 25
+  Misreading: 8
+  Surface Matching: 5
+  Equation Setup Error: 3
+  Calculation Error: 2
+  Relationship Mapping Error: 1
+  Calculation Setup Error: 1
+  Early Assumption Error: 1
+
+Reasoning Type Distribution:
+  Reading Interpretation: 154
+  Logical Deduction: 104
+  Concept Application: 46
+  Numerical Optimization: 1
+
+Trap Type Distribution:
+  Inference Trap: 154
+  Constraint Satisfaction Trap: 100
+  None: 26
+  Hidden Constraint Trap: 17
+  Fact Twist: 4
+  Logical Reversal Trap: 4
+
+Cognitive Level Distribution:
+  L2: 116
+  L4: 100
+  L3: 89
+
+Question Intent Distribution:
+  Reading Interpretation: 154
+  System Solving: 100
+  Concept Application: 47
+  Elimination Logic: 4

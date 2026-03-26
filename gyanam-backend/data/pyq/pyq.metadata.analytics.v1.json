@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2026-03-14T04:35:02.607Z",
+  "totals": {
+    "questions": 1598,
+    "subjects": 7,
+    "topics": 1,
+    "concepts": 0
+  },
+  "subjectFrequency": [
+    {
+      "subject": "Unassigned",
+      "count": 1577
+    },
+    {
+      "subject": "Polity",
+      "count": 6
+    },
+    {
+      "subject": "History",
+      "count": 5
+    },
+    {
+      "subject": "Environment",
+      "count": 4
+    },
+    {
+      "subject": "Geography",
+      "count": 3
+    },
+    {
+      "subject": "Economy",
+      "count": 2
+    },
+    {
+      "subject": "Science & Technology",
+      "count": 1
+    }
+  ],
+  "topicRecurrence": [
+    {
+      "topic": "Unassigned",
+      "count": 1598
+    }
+  ],
+  "conceptFrequency": [],
+  "questionPatterns": [
+    {
+      "pattern": "other",
+      "count": 593
+    },
+    {
+      "pattern": "which-following",
+      "count": 133
+    },
+    {
+      "pattern": "consider-following",
+      "count": 132
+    },
+    {
+      "pattern": "how-many",
+      "count": 62
+    },
+    {
+      "pattern": "matching",
+      "count": 51
+    },
+    {
+      "pattern": "statement-based",
+      "count": 29
+    }
+  ]
+}

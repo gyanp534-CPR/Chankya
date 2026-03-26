@@ -1,0 +1,8 @@
+CSAT-2020 encoding fixes (pass 2)
+Format: Line | Q# | Before => After
+
+246 | Q11 | ⊗ + 1⊗ + 5⊗ + ⊗⊗ + ⊗1 = 1⊗⊗ => * + 1* + 5* + ** + *1 = 1**
+248 | Q11 | for which digit does the symbol ⊗ stand? => for which digit does the symbol * stand?
+909 | Q51 | (b) 1⅓ m => (b) 11/3 m
+954 | Q53 | The recurring decimal representation 1.272727… is equivalent to: => The recurring decimal representation 1.272727... is equivalent to:
+1350 | Q58 | For what value of n, the sum of digits in the number (10ⁿ + 1) is 2? => For what value of n, the sum of digits in the number (10 + 1) is 2?

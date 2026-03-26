@@ -1,0 +1,7 @@
+{
+  "core_fields": [
+    "primary_concept",
+    "question_intent",
+    "cognitive_level"
+  ]
+}

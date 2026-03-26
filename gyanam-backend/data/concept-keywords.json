@@ -1,0 +1,32 @@
+[
+  { "conceptId": "POL-PAR-004", "keywords": ["money bill", "financial bill", "article 110"] },
+  { "conceptId": "POL-PAR-006", "keywords": ["parliamentary privilege", "privilege motion", "breach of privilege"] },
+  { "conceptId": "POL-CF-003", "keywords": ["basic structure", "kesavananda", "constitutional identity"] },
+  { "conceptId": "POL-FR-003", "keywords": ["right to equality", "article 14", "equal protection"] },
+  { "conceptId": "POL-FED-006", "keywords": ["fiscal federalism", "tax devolution", "finance commission transfer"] },
+
+  { "conceptId": "ECO-MON-003", "keywords": ["repo rate", "reverse repo", "policy rate"] },
+  { "conceptId": "ECO-MON-001", "keywords": ["rbi", "reserve bank", "central bank"] },
+  { "conceptId": "ECO-EF-003", "keywords": ["inflation", "cpi", "wpi"] },
+  { "conceptId": "ECO-FIS-005", "keywords": ["gst", "goods and services tax", "indirect tax"] },
+  { "conceptId": "ECO-EXT-001", "keywords": ["balance of payments", "bop", "current account"] },
+
+  { "conceptId": "ENV-CNV-001", "keywords": ["ramsar", "wetland", "wetlands convention"] },
+  { "conceptId": "ENV-CNV-002", "keywords": ["biodiversity convention", "cbd", "biological diversity"] },
+  { "conceptId": "ENV-CNV-007", "keywords": ["paris agreement", "ndc", "unfccc"] },
+  { "conceptId": "ENV-CC-001", "keywords": ["greenhouse effect", "greenhouse gas", "global warming"] },
+  { "conceptId": "ENV-CC-002", "keywords": ["carbon sequestration", "carbon sink", "afforestation"] },
+
+  { "conceptId": "HIS-MOD-001", "keywords": ["british expansion", "east india company", "annexation"] },
+  { "conceptId": "HIS-FRE-002", "keywords": ["swadeshi", "boycott movement", "bengal partition"] },
+  { "conceptId": "HIS-FRE-004", "keywords": ["non cooperation", "1920", "khilafat"] },
+
+  { "conceptId": "GEO-CLI-002", "keywords": ["monsoon", "onset of monsoon", "retreating monsoon"] },
+  { "conceptId": "GEO-CLI-005", "keywords": ["el nino", "la nina", "enso"] },
+  { "conceptId": "GEO-PHY-002", "keywords": ["plate tectonics", "lithosphere", "plate boundary"] },
+  { "conceptId": "GEO-IND-003", "keywords": ["river system", "ganga", "brahmaputra"] },
+
+  { "conceptId": "SNT-SPC-001", "keywords": ["satellite orbit", "geostationary", "polar orbit"] },
+  { "conceptId": "SNT-HLT-001", "keywords": ["vaccine", "immunization", "booster dose"] },
+  { "conceptId": "SNT-EMG-001", "keywords": ["artificial intelligence", "machine learning", "ai model"] }
+]

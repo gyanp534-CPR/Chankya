@@ -1,0 +1,17 @@
+{
+  "High Priority": [
+    "Polity",
+    "Economy",
+    "Environment"
+  ],
+  "Medium Priority": [
+    "History",
+    "Geography",
+    "Culture",
+    "Science & Technology",
+    "Social Justice"
+  ],
+  "Low Priority": [
+    "Misc"
+  ]
+}

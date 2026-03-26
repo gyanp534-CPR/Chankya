@@ -1,0 +1,10 @@
+CSAT-2020 encoding fixes (pass 4)
+Format: Line | Q# | Before => After
+
+168 | Q7 | 1 × 5 × 10 × 15 × 20 × 25 × 30 × 35 × 40 × 45 × 50 × 55 × 60 => 1 x 5 x 10 x 15 x 20 x 25 x 30 x 35 x 40 x 45 x 50 x 55 x 60
+449 | Q20 | You're now holding the middle core of the paper-this is where UPSC quietly shifts from "reading" to decision-making under ambiguity. Let's convert it clean, structured, and machine-ready 👇 => 
+906 | Q51 | What is the greatest length x such that 3½ m and 8¾ m are integral multiples of x? => What is the greatest length x such that 31/2 m and 83/4 m are integral multiples of x?
+908 | Q51 | (a) 1½ m => (a) 11/2 m
+910 | Q51 | (c) 1¼ m => (c) 11/4 m
+911 | Q51 | (d) 1¾ m => (d) 13/4 m
+1313 | Q56 | 51 × 27 × 35 × 62 × 75 is divided by 100? => 51 x 27 x 35 x 62 x 75 is divided by 100?

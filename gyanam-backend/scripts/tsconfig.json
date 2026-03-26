@@ -1,0 +1,32 @@
+{
+  "extends": "../tsconfig.json",
+  "include": [
+    "apply-pyq-enrichment.ts",
+    "auto-review-normalized-pyq.ts",
+    "bootstrap-pyq-answer-sources.ts",
+    "bootstrap-pyq-enrichment.ts",
+    "bootstrap-pyq-metadata.ts",
+    "bump-version.ts",
+    "debug-pdf-parse.ts",
+    "enrich-pyq-answers.ts",
+    "extract-upsc-answer-key.ts",
+    "fetch-coaching-answer-keys.ts",
+    "fetch-upsc-pyq.ts",
+    "fetch-upsc-answer-key.ts",
+    "ingest-pyq.ts",
+    "normalize-pyq.ts",
+    "parse-upsc-pdf.ts",
+    "pdf-poppler.d.ts",
+    "pyq-enrichment-utils.ts",
+    "pyq-paths.ts",
+    "pyq-review-utils.ts",
+    "report-pyq-metadata.ts",
+    "review-normalized-pyq.ts",
+    "refresh-gs1-ocr.ts",
+    "run-gs1-year.ts",
+    "stabilize-gs1-counts.ts",
+    "trim-pyq-normalized.ts",
+    "validate-normalized-pyq.ts"
+  ],
+  "exclude": ["../dist", "../node_modules"]
+}

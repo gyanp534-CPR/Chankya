@@ -1,0 +1,381 @@
+{
+  "year": 2016,
+  "paperType": "GS1",
+  "generatedAt": "2026-03-15T15:33:29.637Z",
+  "goldPath": "data\\pyq\\gold\\papers\\2016\\gs1\\gold.json",
+  "ocrPath": "data\\pyq\\papers\\2016\\gs1\\normalized.ocr.json",
+  "totalGoldRows": 100,
+  "rowsCompared": 100,
+  "exactMatchCount": 33,
+  "exactMatchRate": 0.33,
+  "questionTextMismatchCount": 64,
+  "optionRowMismatchCount": 3,
+  "optionSlotMismatchCount": 4,
+  "missingInOcrCount": 0,
+  "missingInGoldCount": 0,
+  "rowErrorCount": 67,
+  "rowErrorRate": 0.67,
+  "rowsWithAnyMismatch": 67,
+  "mismatchSamples": [
+    {
+      "id": "UPSC_2016_GS1_Q1",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "Which of the following statements is/are correct? 1. A Bill pending in the Lok Sabha lapses on its prorogation. 2. A Bill pending in the Rajya Sabha, which has not been passed by the Lok Sabha, shall not lapse on dissolution of the Lok Sabha. Select the correct answer using the code given below.",
+      "ocrQuestionText": "Which of the following statements is/are correct? A Bill pending in the Lok Sabha lapses on its prorogation. A Bill pending in the Rajya Sabha, which has not been passed by the Lok Sabha, shall not lapse on dissolution of the Lok Sabha. Select the correct answer using the code given below.",
+      "goldOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ]
+    },
+    {
+      "id": "UPSC_2016_GS1_Q2",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "Which of the following is/are the indicator/indicators used by IFPRI to compute the Global Hunger Index Report? 1. Undernourishment 2. Child stunting 3. Child mortality Select the correct answer using the code given below.",
+      "ocrQuestionText": "Which of the following is/are the indicator/indicators used by IFPRI to compute the Global Hunger Index Report? Undernourishment Child stunting Child mortality Select the correct answer using the code given below.",
+      "goldOptions": [
+        "1 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 3 only"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 and 3 only",
+        "1, 2 and 3",
+        "1 and 3 only"
+      ]
+    },
+    {
+      "id": "UPSC_2016_GS1_Q3",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "There has been a persistent deficit budget year after year. Which action/actions of the following can be taken by the Government to reduce the deficit? 1. Reducing revenue expenditure 2. Introducing new welfare schemes 3. Rationalising subsidies 4. Reducing import duty Select the correct answer using the code given below.",
+      "ocrQuestionText": "There has been a persistent deficit budget year after year. Which action/actions of the following can be taken by the Government to reduce the deficit? Reducing revenue expenditure Introducing new welfare schemes Rationalising subsidies Reducing import duty Select the correct answer using the code given below.",
+      "goldOptions": [
+        "1 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2, 3 and 4"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2, 3 and 4"
+      ]
+    },
+    {
+      "id": "UPSC_2016_GS1_Q4",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "The establishment of \"Payment Banks\" is being allowed in India to promote financial inclusion. Which of the following statements is/are correct in this context? 1. Mobile telephone companies and supermarket chains that are owned and controlled by residents are eligible to be promoters of Payment Banks. 2. Payment Banks can issue both credit cards and debit cards. 3. Payment Banks cannot undertake lending activities. Select the correct answer using the code given below.",
+      "ocrQuestionText": "The establishment of “Payment Banks” is being allowed in India to promote financial inclusion. Which of the following statements is/are correct in this context? Mobile telephone companies and supermarket chains that are owned and controlled by residents are eligible to be promoters of Payment Banks. Payment Banks can issue both credit cards and debit cards. Payment Banks cannot undertake lending activities. Select the correct answer using the code given below.",
+      "goldOptions": [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 only",
+        "1, 2 and 3"
+      ],
+      "ocrOptions": [
+        "1 and 2 only",
+        "1 and 3 only",
+        "2 only",
+        "1, 2 and 3"
+      ]
+    },
+    {
+      "id": "UPSC_2016_GS1_Q5",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "With reference to 'LiFi', recently in the news, which of the following statements is/are correct? 1. It uses light as the medium for high-speed data transmission. 2. It is a wireless technology and is several times faster than 'WiFi'. Select the correct answer using the code given below.",
+      "ocrQuestionText": "With reference to ‘LiFi, recently in the news, which of the following statements is/are correct? It uses light as the medium for high-speed data transmission. It is a wireless technology and is several times faster than ‘WiFi. Select the correct answer using the code given below.",
+      "goldOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ]
+    },
+    {
+      "id": "UPSC_2016_GS1_Q6",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "The term 'Intended Nationally Determined Contributions' is sometimes seen in the context of",
+      "ocrQuestionText": "The term ‘Intended Nationally Determined Contributions is sometimes seen in the context of",
+      "goldOptions": [
+        "pledges made by the European countries to rehabilitate refugees from the war-affected Middle East",
+        "plan of action outlined by the countries of the world to combat climate change",
+        "capital contributed by the member countries in the establishment of Asian Infrastructure Investment Bank",
+        "plan of action outlined by the countries of the world regarding Sustainable Development Goals"
+      ],
+      "ocrOptions": [
+        "pledges made by the European countries to rehabilitate refugees from the war-affected Middle East",
+        "plan of action outlined by the countries of the world to combat climate change",
+        "capital contributed by the member countries in the establishment of Asian Infrastructure Investment Bank",
+        "plan of action outlined by the countries of the world regarding Sustainable Development Goals"
+      ]
+    },
+    {
+      "id": "UPSC_2016_GS1_Q8",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "With reference to 'IFC Masala Bonds', sometimes seen in the news, which of the statements given below is/are correct? 1. The International Finance Corporation, which offers these bonds, is an arm of the World Bank. 2. They are the rupee-denominated bonds and are a source of debt financing for the public and private sector. Select the correct answer using the code given below.",
+      "ocrQuestionText": "With reference to ‘IFC Masala Bonds, sometimes seen in the news, which of the statements given below is/are correct? The International Finance Corporation, which offers these bonds, is an arm of the World Bank. They are the rupee-denominated bonds and are a source of debt financing for the public and private sector. Select the correct answer using the code given below.",
+      "goldOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ]
+    },
+    {
+      "id": "UPSC_2016_GS1_Q9",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "Regarding the taxation system of Krishna Deva, the ruler of Vijayanagar, consider the following statements: 1. The tax on land was fixed depending on the quality of the land. 2. Private owners of workshops paid an industries tax. Which of the statements given above is/are correct?",
+      "ocrQuestionText": "Regarding the taxation system of Krishna Deva, the ruler of Vijayanagar, consider the following statements: The tax on land was fixed depending on the quality of the land. Private owners of workshops paid an industries tax. Which of the statements given above is/are correct?",
+      "goldOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ]
+    },
+    {
+      "id": "UPSC_2016_GS1_Q12",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "Which of the following is/are included in the capital budget of the Government of India? 1. Expenditure on acquisition of assets like roads, buildings, machinery, etc. 2. Loans received from foreign governments 3. Loans and advances granted to the States and Union Territories Select the correct answer using the code given below.",
+      "ocrQuestionText": "Which of the following is/are included in the capital budget of the Government of India? Expenditure on acquisition of assets like roads, buildings, machinery, etc. Loans received from foreign governments Loans and advances granted to the States and Union Territories Select the correct answer using the code given below.",
+      "goldOptions": [
+        "1 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+      ]
+    },
+    {
+      "id": "UPSC_2016_GS1_Q13",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "What is/are the importance/importance of the \"United Nations Convention to Combat Desertification\"? 1. It aims to promote effective action through innovative national programmes and supportive international partnerships. 2. It has a special/particular focus on South Asia and North Africa regions, and its Secretariat facilitates the allocation of major portion of financial resources to these regions. 3. It is committed to bottom-up approach, encouraging the participation of local people in combating the desertification. Select the correct answer using the code given below.",
+      "ocrQuestionText": "What is/are the importance/importance of the “United Nations Convention to Combat Desertification”? It aims to promote effective action through innovative national programmes and supportive international partnerships. It has a special/particular focus on South Asia and North Africa regions, and its Secretariat facilitates the allocation of major portion of financial resources to these regions. It is committed to bottom‑up approach, encouraging the participation of local people in combating the desertification. Select the correct answer using the code given below.",
+      "goldOptions": [
+        "1 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+      ]
+    },
+    {
+      "id": "UPSC_2016_GS1_Q14",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "Recently, which one of the following currencies has been proposed to be added to the basket of IMF's SDR?",
+      "ocrQuestionText": "Recently, which one of the following currencies has been proposed to be added to the basket of IMFs SDR?",
+      "goldOptions": [
+        "Rouble",
+        "Rand",
+        "Indian Rupee",
+        "Renminbi"
+      ],
+      "ocrOptions": [
+        "Rouble",
+        "Rand",
+        "Indian Rupee",
+        "Renminbi"
+      ]
+    },
+    {
+      "id": "UPSC_2016_GS1_Q15",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "With reference to the International Monetary and Financial Committee (IMFC), consider the following statements: 1. IMFC discusses matters of concern affecting the global economy, and advises the International Monetary Fund (IMF) on the direction of its work. 2. The World Bank participates as observer in IMFC meetings. Which of the statements given above is/are correct?",
+      "ocrQuestionText": "With reference to the International Monetary and Financial Committee (IMFC), consider the following statements: IMFC discusses matters of concern affecting the global economy, and advises the International Monetary Fund (IMF) on the direction of its work. The World Bank participates as observer in IMFC meetings. Which of the statements given above is/are correct?",
+      "goldOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ]
+    },
+    {
+      "id": "UPSC_2016_GS1_Q17",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "With reference to the cultural history of medieval India, consider the following statements: 1. Siddhas of the Tamil region were monotheistic and condemned idolatry. 2. Lingayats of Kannada region questioned the theory of rebirth and rejected the caste hierarchy. Which of the statements given above is/are correct?",
+      "ocrQuestionText": "With reference to the cultural history of medieval India, consider the following statements: Siddhas of the Tamil region were monotheistic and condemned idolatry. Lingayats of Kannada region questioned the theory of rebirth and rejected the caste hierarchy. Which of the statements given above is/are correct?",
+      "goldOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ]
+    },
+    {
+      "id": "UPSC_2016_GS1_Q18",
+      "questionTextMatches": true,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "goldQuestionText": "Which of the following best describes the term \"import cover\", sometimes seen in the news?",
+      "ocrQuestionText": "Which of the following best describes the term “import cover”, sometimes seen in the news?",
+      "goldOptions": [
+        "It is the ratio of value of imports to the Gross Domestic Product of a country",
+        "It is the total value of imports of a country in a year",
+        "It is the ratio between the value of exports and that of imports between two countries",
+        "It is the number of months of imports that could be paid for by a country's international reserves"
+      ],
+      "ocrOptions": [
+        "It is the ratio of value of imports to the Gross Domestic Product of a country",
+        "It is the total value of imports of a country in a year",
+        "It is the ratio between the value of exports and that of imports between two countries",
+        "It is the number of months of imports that could be paid for by a countrys international reserves"
+      ]
+    },
+    {
+      "id": "UPSC_2016_GS1_Q19",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "Consider the following pairs: Community sometimes mentioned in the news : In the affairs of 1. Kurd : Bangladesh 2. Madhesi : Nepal 3. Rohingya : Myanmar 4. Which of the pairs given above is/are correctly matched?",
+      "ocrQuestionText": "Consider the following pairs: Community sometimes mentioned in the news: In the affairs of Kurd: Bangladesh Madhesi: Nepal Rohingya: Myanmar Which of the pairs given above is/are correctly matched?",
+      "goldOptions": [
+        "1 and 2",
+        "2 only",
+        "2 and 3",
+        "3 only"
+      ],
+      "ocrOptions": [
+        "1 and 2",
+        "2 only",
+        "2 and 3",
+        "3 only"
+      ]
+    }
+  ]
+}

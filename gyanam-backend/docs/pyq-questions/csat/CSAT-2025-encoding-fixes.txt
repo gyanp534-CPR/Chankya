@@ -1,0 +1,66 @@
+Line 5 | Q | Passage â€“ 1 => Passage – 1
+Line 28 | Q | Passage â€“ 2 => Passage – 2
+Line 30 | Q | The history of renewable energy suggests there is a steep learning curve, meaning that, as more is produced, costs fall rapidly because of economies of scale and learning by doing. The firmsâ€™ green innovation is path-dependent: the more a firm does, the more it is likely to do in the future. The strongest evidence for this is the collapse in the price of solar energy, which became about 90% cheaper during the 2010s, repeatedly beating forecasts. Moving early and gradually gives economies more time to adjust, allowing them to reap the benefits of path-dependent green investment without much disruption. A late, more chaotic transition is costlier. => The history of renewable energy suggests there is a steep learning curve, meaning that, as more is produced, costs fall rapidly because of economies of scale and learning by doing. The firms’ green innovation is path-dependent: the more a firm does, the more it is likely to do in the future. The strongest evidence for this is the collapse in the price of solar energy, which became about 90% cheaper during the 2010s, repeatedly beating forecasts. Moving early and gradually gives economies more time to adjust, allowing them to reap the benefits of path-dependent green investment without much disruption. A late, more chaotic transition is costlier.
+Line 66 | Q6 | p âˆ’ q = q âˆ’ r. => p - q = q - r.
+Line 102 | Q9 | Team Y tied the score in 10% less overs. Had Team Yâ€™s average run rate (runs per over) been 50% higher, the scores would have been tied in 12 overs. => Team Y tied the score in 10% less overs. Had Team Y’s average run rate (runs per over) been 50% higher, the scores would have been tied in 12 overs.
+Line 117 | Q10 | (a) p(10â´ âˆ’ kÂ²)Â² = q Ã— 10â¸ => (a) p(104 - k²)² = q × 108
+Line 118 | Q10 | (b) p(10â´ âˆ’ kÂ²)Â² = q Ã— 10â´ => (b) p(104 - k²)² = q × 104
+Line 119 | Q10 | (c) p(10â´ âˆ’ kÂ²) = q Ã— 10â´ => (c) p(104 - k²) = q × 104
+Line 120 | Q10 | (d) p(10â´ âˆ’ kÂ²) = q Ã— 10â¸ => (d) p(104 - k²) = q × 108
+Line 122 | Q10 | Passage â€“ 1 => Passage – 1
+Line 149 | Q12 | Passage â€“ 2 => Passage – 2
+Line 157 | Q13 | (a) Indiaâ€™s political executive should be aware that poverty and social inequality and the consequent sense of insecurity is the main social problem. => (a) India’s political executive should be aware that poverty and social inequality and the consequent sense of insecurity is the main social problem.
+Line 204 | Q17 | The petrol price shot up by 10% as a result of the hike in crude oil prices. The price of petrol before the hike was â‚¹90 per litre. A person travels 2200 km every month and his car gives a mileage of 16 km per litre. By how many km should he reduce his travel if he wants to maintain his expenditure at the previous level? => The petrol price shot up by 10% as a result of the hike in crude oil prices. The price of petrol before the hike was ?90 per litre. A person travels 2200 km every month and his car gives a mileage of 16 km per litre. By how many km should he reduce his travel if he wants to maintain his expenditure at the previous level?
+Line 226 | Q19 | I. If A â‰¤ B > C < D > E > F â‰¥ G = H; then B is always greater than E. => I. If A = B > C < D > E > F = G = H; then B is always greater than E.
+Line 228 | Q19 | II. If P > Q = R â‰¥ S = T â‰¤ U = V > W; then S is always less than V. => II. If P > Q = R = S = T = U = V > W; then S is always less than V.
+Line 241 | Q20 | 1 Ã— 3 Ã— 5 Ã— 7 Ã— 9 Ã— â€¦ Ã— 999 ? => 1 × 3 × 5 × 7 × 9 × … × 999 ?
+Line 308 | Q26 | If 4 â‰¤ x â‰¤ 8 and 2 â‰¤ y â‰¤ 7, then what is the ratio of maximum value of (x + y) to minimum value of (x âˆ’ y)? => If 4 = x = 8 and 2 = y = 7, then what is the ratio of maximum value of (x + y) to minimum value of (x - y)?
+Line 312 | Q26 | (c) âˆ’15/2 => (c) -15/2
+Line 317 | Q27 | Let both p and k be prime numbers such that (pÂ² + k) is also a prime number less than 30. => Let both p and k be prime numbers such that (p² + k) is also a prime number less than 30.
+Line 339 | Q29 | PQR âˆ’ PS = PPT => PQR - PS = PPT
+Line 365 | Q30 | Passage â€“ 1 => Passage – 1
+Line 369 | Q30 | Higher education should not â€œeither be a mere servant of the government policy or a passive respondent to public mood.â€ Higher learning is all about how to think rather than what to think. Teaching has to be re-invented. => Higher education should not “either be a mere servant of the government policy or a passive respondent to public mood.” Higher learning is all about how to think rather than what to think. Teaching has to be re-invented.
+Line 395 | Q32 | Passage â€“ 2 => Passage – 2
+Line 432 | Q35 | 7 Ã— 343 Ã— 385 Ã— 1000 Ã— 2401 Ã— 77777 => 7 × 343 × 385 × 1000 × 2401 × 77777
+Line 434 | Q35 | is divisible by 35â¿? => is divisible by 35n?
+Line 465 | Q38 | If P = +, Q = âˆ’, R = Ã—, S = Ã·, then insert the proper notations between the successive numbers in the equation => If P = +, Q = -, R = ×, S = ÷, then insert the proper notations between the successive numbers in the equation
+Line 487 | Q40 | If NÂ² = 12345678987654321, then how many digits does the number N have? => If N² = 12345678987654321, then how many digits does the number N have?
+Line 494 | Q40 | Passage â€“ 1 => Passage – 1
+Line 529 | Q42 | Passage â€“ 2 => Passage – 2
+Line 531 | Q42 | In only 50 years, the worldâ€™s consumption of raw materials has nearly quadrupled, to more than 100 billion tons. Less than 9% of this is reused. => In only 50 years, the world’s consumption of raw materials has nearly quadrupled, to more than 100 billion tons. Less than 9% of this is reused.
+Line 535 | Q42 | Buyersâ€™ risks are being aggravated by their suppliersâ€™ poor environmental and labour standards. Reusing materials makes sense. Once batteries reach the ends of their lives, they should go back to a factory where their ingredients can be recovered and put into new batteries. => Buyers’ risks are being aggravated by their suppliers’ poor environmental and labour standards. Reusing materials makes sense. Once batteries reach the ends of their lives, they should go back to a factory where their ingredients can be recovered and put into new batteries.
+Line 581 | Q46 | (1â¿ + 2â¿) => (1n + 2n)
+Line 603 | Q48 | 123456789101112â€¦ ? => 123456789101112… ?
+Line 639 | Q50 | I. The result of the match between P and Q is a draw with the score 0â€“0. => I. The result of the match between P and Q is a draw with the score 0–0.
+Line 648 | Q50 | Passage â€“ 1 => Passage – 1
+Line 650 | Q50 | It is hard to predict how changes in the climate and the atmosphereâ€™s chemistry will affect the prevalence and virulence of agricultural diseases. => It is hard to predict how changes in the climate and the atmosphere’s chemistry will affect the prevalence and virulence of agricultural diseases.
+Line 656 | Q50 | They are spectacular at growing in todayâ€™s conditions but genetic variations that are not immediately useful to them have been bred out. => They are spectacular at growing in today’s conditions but genetic variations that are not immediately useful to them have been bred out.
+Line 689 | Q52 | Passage â€“ 2 => Passage – 2
+Line 691 | Q52 | â€œA good statesman, like any other sensible human being, learns more from his opponents than from his fervent supporters. => “A good statesman, like any other sensible human being, learns more from his opponents than from his fervent supporters.
+Line 699 | Q52 | The national unity of free people depends upon a sufficiently even balance of political power to make it impracticable for the administration to be arbitrary and for opposition to be revolutionary and irreconcilable.â€ => The national unity of free people depends upon a sufficiently even balance of political power to make it impracticable for the administration to be arbitrary and for opposition to be revolutionary and irreconcilable.”
+Line 730 | Q55 | P is the brother of Q and R. S is Râ€™s mother. T is Pâ€™s father. => P is the brother of Q and R. S is R’s mother. T is P’s father.
+Line 734 | Q55 | II. Q is Tâ€™s son. => II. Q is T’s son.
+Line 735 | Q55 | III. T is Qâ€™s father. => III. T is Q’s father.
+Line 736 | Q55 | IV. S is Pâ€™s mother. => IV. S is P’s mother.
+Line 737 | Q55 | V. R is Tâ€™s daughter. => V. R is T’s daughter.
+Line 738 | Q55 | VI. P is Sâ€™s son. => VI. P is S’s son.
+Line 767 | Q58 | The 5-digit number PQRST (all distinct digits) is such that T â‰  0. => The 5-digit number PQRST (all distinct digits) is such that T ? 0.
+Line 810 | Q60 | Passage â€“ 1 => Passage – 1
+Line 814 | Q60 | It generates jobs â€” and there is no other way to fix a countryâ€™s unemployment challenge without a further impetus to private business. => It generates jobs — and there is no other way to fix a country’s unemployment challenge without a further impetus to private business.
+Line 818 | Q60 | A vibrant corporate capitalist base also leads to additional revenues for the State â€” which in turn, can be used for greater welfare for the marginalized and creating a more level playing field in terms of opportunities. => A vibrant corporate capitalist base also leads to additional revenues for the State — which in turn, can be used for greater welfare for the marginalized and creating a more level playing field in terms of opportunities.
+Line 847 | Q62 | Passage â€“ 2 => Passage – 2
+Line 849 | Q62 | â€œA network of voluntary associations stands as a â€˜bufferâ€™ between the relatively powerless individual and the potentially powerful State.â€ => “A network of voluntary associations stands as a ‘buffer’ between the relatively powerless individual and the potentially powerful State.”
+Line 911 | Q67 | 9Â³ + 9â´ + 9âµ + 9â¶ + â€¦ + 9Â¹â°â° => 9³ + 94 + 95 + 96 + … + 9¹°°
+Line 942 | Q69 | PP Ã— PQ = RRSS => PP × PQ = RRSS
+Line 944 | Q69 | where P â‰¤ 3 and Q â‰¤ 4, => where P = 3 and Q = 4,
+Line 964 | Q70 | Statement II: Râ€™s father is the brother of Q. => Statement II: R’s father is the brother of Q.
+Line 977 | Q70 | Passage â€“ 1 => Passage – 1
+Line 979 | Q70 | A single number for inflation is an aggregate across different commodities and services â€” the price rise differs for different items of consumption. => A single number for inflation is an aggregate across different commodities and services — the price rise differs for different items of consumption.
+Line 1003 | Q71 | Passage â€“ 2 => Passage – 2
+Line 1045 | Q74 | Is (p + q)Â² âˆ’ 4pq positive, where p and q are natural numbers? => Is (p + q)² - 4pq positive, where p and q are natural numbers?
+Line 1078 | Q76 | Value-I = Maximum value of p Ã— q when p, q are positive integers. => Value-I = Maximum value of p × q when p, q are positive integers.
+Line 1080 | Q76 | Value-II = Maximum value of p Ã— q when p â‰¥ âˆ’6, q â‰¥ âˆ’4. => Value-II = Maximum value of p × q when p = -6, q = -4.
+Line 1093 | Q77 | Value-I = Minimum value of the average when the numbers are consecutive integers â‰¥ âˆ’5. => Value-I = Minimum value of the average when the numbers are consecutive integers = -5.
+Line 1113 | Q78 | (b) k âˆ’ 1 => (b) k - 1
+Line 1123 | Q79 | I. xÂ² > xÂ³ => I. x² > x³
+Line 1124 | Q79 | II. x > âˆšx => II. x > vx

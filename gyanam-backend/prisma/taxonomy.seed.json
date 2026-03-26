@@ -1,0 +1,90 @@
+{
+  "version": "v1.0",
+  "subjects": [
+    {
+      "name": "History",
+      "order": 1,
+      "topics": [
+        { "name": "Ancient India", "weight": 1.0 },
+        { "name": "Medieval India", "weight": 0.9 },
+        { "name": "Modern India", "weight": 1.2 },
+        { "name": "Freedom Struggle", "weight": 1.2 },
+        { "name": "Art & Culture", "weight": 1.0 },
+        { "name": "Post-Independence India", "weight": 0.8 }
+      ]
+    },
+    {
+      "name": "Geography",
+      "order": 2,
+      "topics": [
+        { "name": "Physical Geography", "weight": 1.1 },
+        { "name": "Indian Geography", "weight": 1.2 },
+        { "name": "World Geography", "weight": 0.9 },
+        { "name": "Climatology", "weight": 1.0 },
+        { "name": "Oceanography", "weight": 0.8 },
+        { "name": "Economic Geography", "weight": 0.8 }
+      ]
+    },
+    {
+      "name": "Polity",
+      "order": 3,
+      "topics": [
+        { "name": "Constitutional Foundations", "weight": 1.2 },
+        { "name": "Fundamental Rights & Duties", "weight": 1.2 },
+        { "name": "Parliament", "weight": 1.1 },
+        { "name": "Executive & Judiciary", "weight": 1.1 },
+        { "name": "Federal Structure", "weight": 1.0 },
+        { "name": "Local Governance", "weight": 0.8 },
+        { "name": "Constitutional Bodies & Institutions", "weight": 1.0 }
+      ]
+    },
+    {
+      "name": "Economy",
+      "order": 4,
+      "topics": [
+        { "name": "Economic Fundamentals", "weight": 1.0 },
+        { "name": "Monetary System", "weight": 1.1 },
+        { "name": "Fiscal Policy", "weight": 1.1 },
+        { "name": "Banking & Finance", "weight": 1.1 },
+        { "name": "External Sector", "weight": 0.9 },
+        { "name": "Agriculture & Rural Economy", "weight": 0.9 },
+        { "name": "Infrastructure & Investment", "weight": 0.9 }
+      ]
+    },
+    {
+      "name": "Environment",
+      "order": 5,
+      "topics": [
+        { "name": "Ecology & Biodiversity", "weight": 1.2 },
+        { "name": "Climate Change", "weight": 1.1 },
+        { "name": "Environmental Conventions", "weight": 1.0 },
+        { "name": "Conservation & Protected Areas", "weight": 1.0 },
+        { "name": "Pollution & Environmental Governance", "weight": 0.9 }
+      ]
+    },
+    {
+      "name": "Science & Technology",
+      "order": 6,
+      "topics": [
+        { "name": "Space Technology", "weight": 1.0 },
+        { "name": "Biotechnology", "weight": 1.1 },
+        { "name": "Health Science", "weight": 1.0 },
+        { "name": "Emerging Technologies", "weight": 1.0 },
+        { "name": "Defence Technology", "weight": 0.8 },
+        { "name": "Digital & Electronics", "weight": 0.8 }
+      ]
+    },
+    {
+      "name": "Current Affairs",
+      "order": 7,
+      "topics": [
+        { "name": "International Relations", "weight": 1.0 },
+        { "name": "Government Schemes & Policy", "weight": 1.0 },
+        { "name": "Reports, Indices & Institutions", "weight": 0.9 },
+        { "name": "Economy Current Affairs", "weight": 0.8 },
+        { "name": "Environment Current Affairs", "weight": 0.8 },
+        { "name": "Science & Tech Current Affairs", "weight": 0.8 }
+      ]
+    }
+  ]
+}

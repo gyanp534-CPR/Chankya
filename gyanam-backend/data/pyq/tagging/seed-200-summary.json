@@ -1,0 +1,29 @@
+{
+  "total": 200,
+  "bySubject": {
+    "Polity": 40,
+    "Economy": 40,
+    "Environment": 35,
+    "History": 30,
+    "Geography": 25,
+    "Science & Technology": 15,
+    "Current Affairs": 15
+  },
+  "byYear": {
+    "2016": 20,
+    "2017": 20,
+    "2018": 20,
+    "2019": 20,
+    "2020": 20,
+    "2021": 20,
+    "2022": 20,
+    "2023": 20,
+    "2024": 20,
+    "2025": 20
+  },
+  "yearTarget": {
+    "min": 15,
+    "target": 20,
+    "max": 25
+  }
+}

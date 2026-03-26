@@ -1,0 +1,29 @@
+[
+  { "conceptId": "POL-CF-003", "frequencyScore": 9, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "POL-FR-003", "frequencyScore": 7, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "POL-FR-008", "frequencyScore": 6, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "POL-PAR-004", "frequencyScore": 7, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "POL-FED-006", "frequencyScore": 6, "frequencyVersion": "pyq_v1" },
+
+  { "conceptId": "ECO-EF-003", "frequencyScore": 6, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "ECO-MON-001", "frequencyScore": 7, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "ECO-MON-003", "frequencyScore": 8, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "ECO-FIS-005", "frequencyScore": 7, "frequencyVersion": "pyq_v1" },
+
+  { "conceptId": "ENV-CNV-001", "frequencyScore": 7, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "ENV-CNV-002", "frequencyScore": 6, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "ENV-CNV-007", "frequencyScore": 5, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "ENV-CC-001", "frequencyScore": 6, "frequencyVersion": "pyq_v1" },
+
+  { "conceptId": "HIS-ANC-001", "frequencyScore": 5, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "HIS-MOD-001", "frequencyScore": 8, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "HIS-FRE-002", "frequencyScore": 7, "frequencyVersion": "pyq_v1" },
+
+  { "conceptId": "GEO-CLI-002", "frequencyScore": 7, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "GEO-CLI-005", "frequencyScore": 6, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "GEO-PHY-002", "frequencyScore": 6, "frequencyVersion": "pyq_v1" },
+
+  { "conceptId": "SNT-SPC-001", "frequencyScore": 6, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "SNT-HLT-001", "frequencyScore": 6, "frequencyVersion": "pyq_v1" },
+  { "conceptId": "SNT-EMG-001", "frequencyScore": 5, "frequencyVersion": "pyq_v1" }
+]

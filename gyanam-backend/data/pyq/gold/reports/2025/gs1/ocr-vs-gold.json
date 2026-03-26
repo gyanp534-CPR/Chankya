@@ -1,0 +1,117 @@
+{
+  "year": 2025,
+  "paperType": "GS1",
+  "generatedAt": "2026-03-15T15:33:29.841Z",
+  "goldPath": "data\\pyq\\gold\\papers\\2025\\gs1\\gold.json",
+  "ocrPath": "data\\pyq\\papers\\2025\\gs1\\normalized.ocr.json",
+  "totalGoldRows": 40,
+  "rowsCompared": 40,
+  "exactMatchCount": 36,
+  "exactMatchRate": 0.9,
+  "questionTextMismatchCount": 4,
+  "optionRowMismatchCount": 0,
+  "optionSlotMismatchCount": 0,
+  "missingInOcrCount": 0,
+  "missingInGoldCount": 60,
+  "rowErrorCount": 4,
+  "rowErrorRate": 0.1,
+  "rowsWithAnyMismatch": 4,
+  "mismatchSamples": [
+    {
+      "id": "UPSC_2025_GS1_Q5",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "Consider the following statements: Statement I: 1. In India, income from allied agricultural activities like poultry farming and wool rearing in rural areas is exempted from any tax. 2. Statement II: 3. In India, rural agricultural land is not considered a capital asset under the provisions of the Income-tax Act, 1961. 4. Which one of the following is correct in respect of the above statements?",
+      "ocrQuestionText": "Consider the following statements: Statement I: In India, income from allied agricultural activities like poultry farming and wool rearing in rural areas is exempted from any tax. Statement II: In India, rural agricultural land is not considered a capital asset under the provisions of the Income-tax Act, 1961. Which one of the following is correct in respect of the above statements?",
+      "goldOptions": [
+        "Both Statement I and Statement II are correct and Statement II explains Statement I",
+        "Both Statement I and Statement II are correct but Statement II does not explain Statement I",
+        "Statement I is correct but Statement II is not correct",
+        "Statement I is not correct but Statement II is correct"
+      ],
+      "ocrOptions": [
+        "Both Statement I and Statement II are correct and Statement II explains Statement I",
+        "Both Statement I and Statement II are correct but Statement II does not explain Statement I",
+        "Statement I is correct but Statement II is not correct",
+        "Statement I is not correct but Statement II is correct"
+      ]
+    },
+    {
+      "id": "UPSC_2025_GS1_Q7",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "Consider the following statements: Statement I: 1. As regards returns from an investment in a company, generally, bondholders are considered to be relatively at lower risk than stockholders. 2. Statement II: 3. Bondholders are lenders to a company whereas stockholders are its owners. 4. Statement III: 5. For repayment purpose, bondholders are prioritized over stockholders by a company. 6. Which one of the following is correct in respect of the above statements?",
+      "ocrQuestionText": "Consider the following statements: Statement I: As regards returns from an investment in a company, generally, bondholders are considered to be relatively at lower risk than stockholders. Statement II: Bondholders are lenders to a company whereas stockholders are its owners. Statement III: For repayment purpose, bondholders are prioritized over stockholders by a company. Which one of the following is correct in respect of the above statements?",
+      "goldOptions": [
+        "Both Statement II and Statement III are correct and both of them explain Statement I",
+        "Both Statement I and Statement II are correct and Statement II explains Statement I",
+        "Only one of the Statements II and III is correct and that explains Statement I",
+        "Neither Statement II nor Statement III is correct"
+      ],
+      "ocrOptions": [
+        "Both Statement II and Statement III are correct and both of them explain Statement I",
+        "Both Statement I and Statement II are correct and Statement II explains Statement I",
+        "Only one of the Statements II and III is correct and that explains Statement I",
+        "Neither Statement II nor Statement III is correct"
+      ]
+    },
+    {
+      "id": "UPSC_2025_GS1_Q9",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "Consider the following statements: Statement I: 1. Circular economy reduces the emissions of greenhouse gases. 2. Statement II: 3. Circular economy reduces the use of raw materials as inputs. 4. Statement III: 5. Circular economy reduces wastage in the production process. 6. Which one of the following is correct in respect of the above statements?",
+      "ocrQuestionText": "Consider the following statements: Statement I: Circular economy reduces the emissions of greenhouse gases. Statement II: Circular economy reduces the use of raw materials as inputs. Statement III: Circular economy reduces wastage in the production process. Which one of the following is correct in respect of the above statements?",
+      "goldOptions": [
+        "Both Statement II and Statement III are correct and both of them explain Statement I",
+        "Both Statement II and Statement III are correct but only one of them explains Statement I",
+        "Only one of the Statements II and III is correct and that explains Statement I",
+        "Neither Statement II nor Statement III is correct"
+      ],
+      "ocrOptions": [
+        "Both Statement II and Statement III are correct and both of them explain Statement I",
+        "Both Statement II and Statement III are correct but only one of them explains Statement I",
+        "Only one of the Statements II and III is correct and that explains Statement I",
+        "Neither Statement II nor Statement III is correct"
+      ]
+    },
+    {
+      "id": "UPSC_2025_GS1_Q89",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "Consider the following statements: Statement I: 1. In India, State Governments have no power for making rules for grant of concessions in respect of extraction of minor minerals even though such minerals are located in their territories. 2. Statement II: 3. In India, the Central Government has the power to notify minor minerals under the relevant law. 4. Which one of the following is correct in respect of the above statements?",
+      "ocrQuestionText": "Consider the following statements: Statement I: In India, State Governments have no power for making rules for grant of concessions in respect of extraction of minor minerals even though such minerals are located in their territories. Statement II: In India, the Central Government has the power to notify minor minerals under the relevant law. Which one of the following is correct in respect of the above statements?",
+      "goldOptions": [
+        "Both Statement I and Statement II are correct and Statement II explains Statement I",
+        "Both Statement I and Statement II are correct but Statement II does not explain Statement I",
+        "Statement I is correct but Statement II is not correct",
+        "Statement I is not correct but Statement II is correct"
+      ],
+      "ocrOptions": [
+        "Both Statement I and Statement II are correct and Statement II explains Statement I",
+        "Both Statement I and Statement II are correct but Statement II does not explain Statement I",
+        "Statement I is correct but Statement II is not correct",
+        "Statement I is not correct but Statement II is correct"
+      ]
+    }
+  ]
+}

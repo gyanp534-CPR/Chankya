@@ -1,0 +1,3 @@
+CSAT-2017 encoding fixes (pass 2)
+Format: Line | Q# | Before => After
+

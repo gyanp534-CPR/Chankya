@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "version": "v1",
+    "source": "expert_defined",
+    "last_updated": "2026-03-23"
+  },
+  "nodes": {
+    "Memory Gap": {
+      "weight": 0.25,
+      "cluster": "behavioral",
+      "severity": "medium",
+      "description": "Failure due to lack of recall of facts or concepts"
+    },
+    "Partial Knowledge Trap": {
+      "weight": 0.35,
+      "cluster": "behavioral",
+      "severity": "high",
+      "description": "Partial understanding leads to confident but wrong elimination"
+    },
+    "Fact Misassociation": {
+      "weight": 0.15,
+      "cluster": "behavioral",
+      "severity": "medium",
+      "description": "Mixes or swaps related facts, pairs, or attributes"
+    },
+    "Concept Confusion": {
+      "weight": 0.10,
+      "cluster": "conceptual",
+      "severity": "very_high",
+      "description": "Core concept is misunderstood or conflated"
+    },
+    "Incomplete Inference": {
+      "weight": 0.07,
+      "cluster": "cognitive",
+      "severity": "high",
+      "description": "Stops reasoning early or misses required logical step"
+    },
+    "Overgeneralization": {
+      "weight": 0.05,
+      "cluster": "cognitive",
+      "severity": "high",
+      "description": "Applies a rule too broadly beyond its valid scope"
+    },
+    "Misreading": {
+      "weight": 0.02,
+      "cluster": "behavioral",
+      "severity": "low",
+      "description": "Misreads question conditions, words, or options"
+    },
+    "Equation Setup Error": {
+      "weight": 0.005,
+      "cluster": "conceptual",
+      "severity": "very_high",
+      "description": "Builds the wrong equation or model for the problem"
+    },
+    "State Construction Failure": {
+      "weight": 0.005,
+      "cluster": "cognitive",
+      "severity": "very_high",
+      "description": "Fails to construct or track intermediate states in multi-step reasoning"
+    },
+    "Step Skipping": {
+      "weight": 0.0,
+      "cluster": "cognitive",
+      "severity": "very_high",
+      "description": "Skips required steps and jumps to a conclusion"
+    }
+  },
+  "edges": {
+    "Memory Gap": {
+      "Partial Knowledge Trap": { "weight": 0.65, "type": "progression" },
+      "Fact Misassociation": { "weight": 0.25, "type": "progression" },
+      "Misreading": { "weight": 0.10, "type": "progression" }
+    },
+    "Partial Knowledge Trap": {
+      "Partial Knowledge Trap": { "weight": 0.40, "type": "reinforcement" },
+      "Fact Misassociation": { "weight": 0.20, "type": "progression" },
+      "Overgeneralization": { "weight": 0.20, "type": "progression" },
+      "Incomplete Inference": { "weight": 0.20, "type": "progression" }
+    },
+    "Fact Misassociation": {
+      "Partial Knowledge Trap": { "weight": 0.50, "type": "progression" },
+      "Fact Misassociation": { "weight": 0.30, "type": "reinforcement" },
+      "Memory Gap": { "weight": 0.20, "type": "progression" }
+    },
+    "Concept Confusion": {
+      "Equation Setup Error": { "weight": 0.30, "type": "progression" },
+      "State Construction Failure": { "weight": 0.30, "type": "progression" },
+      "Overgeneralization": { "weight": 0.20, "type": "progression" },
+      "Partial Knowledge Trap": { "weight": 0.20, "type": "progression" }
+    },
+    "Misreading": {
+      "Incomplete Inference": { "weight": 0.40, "type": "progression" },
+      "Partial Knowledge Trap": { "weight": 0.30, "type": "progression" },
+      "Misreading": { "weight": 0.20, "type": "reinforcement" },
+      "Memory Gap": { "weight": 0.10, "type": "progression" }
+    },
+    "Overgeneralization": {
+      "Incomplete Inference": { "weight": 0.40, "type": "progression" },
+      "Partial Knowledge Trap": { "weight": 0.30, "type": "progression" },
+      "Overgeneralization": { "weight": 0.30, "type": "reinforcement" }
+    },
+    "Incomplete Inference": {
+      "Partial Knowledge Trap": { "weight": 0.40, "type": "progression" },
+      "Overgeneralization": { "weight": 0.30, "type": "progression" },
+      "Incomplete Inference": { "weight": 0.30, "type": "reinforcement" }
+    },
+    "Equation Setup Error": {
+      "State Construction Failure": { "weight": 0.40, "type": "progression" },
+      "Concept Confusion": { "weight": 0.30, "type": "progression" },
+      "Partial Knowledge Trap": { "weight": 0.30, "type": "progression" }
+    },
+    "State Construction Failure": {
+      "Step Skipping": { "weight": 0.40, "type": "progression" },
+      "Partial Knowledge Trap": { "weight": 0.30, "type": "progression" },
+      "Concept Confusion": { "weight": 0.30, "type": "progression" }
+    }
+  }
+}

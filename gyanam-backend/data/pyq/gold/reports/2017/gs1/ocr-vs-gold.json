@@ -1,0 +1,381 @@
+{
+  "year": 2017,
+  "paperType": "GS1",
+  "generatedAt": "2026-03-15T15:52:53.630Z",
+  "goldPath": "data\\pyq\\gold\\papers\\2017\\gs1\\gold.json",
+  "ocrPath": "data\\pyq\\papers\\2017\\gs1\\normalized.ocr.json",
+  "totalGoldRows": 100,
+  "rowsCompared": 100,
+  "exactMatchCount": 77,
+  "exactMatchRate": 0.77,
+  "questionTextMismatchCount": 21,
+  "optionRowMismatchCount": 4,
+  "optionSlotMismatchCount": 5,
+  "missingInOcrCount": 0,
+  "missingInGoldCount": 0,
+  "rowErrorCount": 23,
+  "rowErrorRate": 0.23,
+  "rowsWithAnyMismatch": 23,
+  "mismatchSamples": [
+    {
+      "id": "UPSC_2017_GS1_Q11",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "Which of the following statements is/are correct regarding the Monetary Policy Committee (MPC)? 1. It decides the RBI's benchmark interest rates. 2. It is a 12-member body including the Governor of RBI and is reconstituted every year. 3. It functions under the chairmanship of the Union Finance Minister. Select the correct answer using the code given below:",
+      "ocrQuestionText": "Which of the following statements is/are correct regarding the Monetary Policy Committee (MPC)? 1. It decides the RBIs benchmark interest rates. 2. It is a 12-member body including the Governor of RBI and is reconstituted every year. 3. It functions under the chairmanship of the Union Finance Minister. Select the correct answer using the code given below:",
+      "goldOptions": [
+        "1 only",
+        "1 and 2 only",
+        "3 only",
+        "2 and 3 only"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "1 and 2 only",
+        "3 only",
+        "2 and 3 only"
+      ]
+    },
+    {
+      "id": "UPSC_2017_GS1_Q18",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "The term 'Digital Single Market Strategy' seen in the news refers to",
+      "ocrQuestionText": "The term ‘Digital Single Market Strategy seen in the news refers to",
+      "goldOptions": [
+        "ASEAN",
+        "BRICS",
+        "EC",
+        "G20"
+      ],
+      "ocrOptions": [
+        "ASEAN",
+        "BRICS",
+        "EC",
+        "G20"
+      ]
+    },
+    {
+      "id": "UPSC_2017_GS1_Q20",
+      "questionTextMatches": true,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        false
+      ],
+      "goldQuestionText": "With reference to the Prohibition of Benami Property Transactions Act, 1988 (PBPT Act), consider the following statements: 1. A property transaction is not treated as a benami transaction if the owner of the property is not aware of the transaction. 2. Properties held benami are liable for confiscation by the Government. 3. The Act provides for three authorities for investigation but does not provide for any appellate mechanism. Which of the statements given above is/are correct?",
+      "ocrQuestionText": "With reference to the Prohibition of Benami Property Transactions Act, 1988 (PBPT Act), consider the following statements: 1. A property transaction is not treated as a benami transaction if the owner of the property is not aware of the transaction. 2. Properties held benami are liable for confiscation by the Government. 3. The Act provides for three authorities for investigation but does not provide for any appellate mechanism. Which of the statements given above is/are correct?",
+      "goldOptions": [
+        "1 only",
+        "2 only",
+        "1 and 3 only",
+        "2 and 3 only # Questions 21-43 (Typed Text)"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 only",
+        "1 and 3 only",
+        "2 and 3 only"
+      ]
+    },
+    {
+      "id": "UPSC_2017_GS1_Q27",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "The term 'Domestic Content Requirement' is sometimes seen in the news with reference to",
+      "ocrQuestionText": "The term ‘Domestic Content Requirement is sometimes seen in the news with reference to",
+      "goldOptions": [
+        "Developing solar power production in our country",
+        "Granting licenses to foreign T.V. channels in our country",
+        "Exporting our food products to other countries",
+        "Permitting foreign educational institutions to set up their campuses in our country"
+      ],
+      "ocrOptions": [
+        "Developing solar power production in our country",
+        "Granting licenses to foreign T.V. channels in our country",
+        "Exporting our food products to other countries",
+        "Permitting foreign educational institutions to set up their campuses in our country"
+      ]
+    },
+    {
+      "id": "UPSC_2017_GS1_Q33",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "What is/are the advantage/advantages of implementing the 'National Agriculture Market' scheme? 1. It is a pan-India electronic trading portal for agricultural commodities. 2. It provides the farmers access to nationwide market, with prices commensurate with the quality of their produce. Select the correct answer using the code given below:",
+      "ocrQuestionText": "What is/are the advantage/advantages of implementing the ‘National Agriculture Market scheme? 1. It is a pan-India electronic trading portal for agricultural commodities. 2. It provides the farmers access to nationwide market, with prices commensurate with the quality of their produce. Select the correct answer using the code given below:",
+      "goldOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ]
+    },
+    {
+      "id": "UPSC_2017_GS1_Q34",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "With reference to the 'National Intellectual Property Rights Policy', consider the following statements: 1. It reiterates India's commitment to the Doha Development Agenda and the TRIPS Agreement. 2. Department of Industrial Policy and Promotion is the nodal agency for regulating intellectual property rights in India. Which of the statements given above is/are correct?",
+      "ocrQuestionText": "With reference to the ‘National Intellectual Property Rights Policy, consider the following statements: 1. It reiterates India's commitment to the Doha Development Agenda and the TRIPS Agreement. 2. Department of Industrial Policy and Promotion is the nodal agency for regulating intellectual property rights in India. Which of the statements given above is/are correct?",
+      "goldOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ]
+    },
+    {
+      "id": "UPSC_2017_GS1_Q39",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "With reference to 'Quality Council of India (QCI)', consider the following statements: 1. QCI was set up jointly by the Government of India and the Indian industry. 2. Chairman of QCI is appointed by the Prime Minister on the recommendations of the industry to the Government. Which of the above statements is/are correct?",
+      "ocrQuestionText": "With reference to ‘Quality Council of India (QCI), consider the following statements: 1. QCI was set up jointly by the Government of India and the Indian industry. 2. Chairman of QCI is appointed by the Prime Minister on the recommendations of the industry to the Government. Which of the above statements is/are correct?",
+      "goldOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ]
+    },
+    {
+      "id": "UPSC_2017_GS1_Q41",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "With reference to Asia Pacific Ministerial Conference on Housing and Urban Development (APMCHUD), consider the following statements: 1. The first APMCHUD was held in India in 2006 on the theme 'Emerging Urban Forms - Policy Responses and Governance Structure'. 2. India hosts all the Annual Ministerial Conferences in partnership with ADB, APEC and ASEAN. Which of the statements given above is/are correct?",
+      "ocrQuestionText": "With reference to Asia Pacific Ministerial Conference on Housing and Urban Development (APMCHUD), consider the following statements: 1. The first APMCHUD was held in India in 2006 on the theme ‘Emerging Urban Forms – Policy Responses and Governance Structure. 2. India hosts all the Annual Ministerial Conferences in partnership with ADB, APEC and ASEAN. Which of the statements given above is/are correct?",
+      "goldOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ]
+    },
+    {
+      "id": "UPSC_2017_GS1_Q42",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "Democracy's superior virtue lies in the fact that it calls into activity",
+      "ocrQuestionText": "Democracys superior virtue lies in the fact that it calls into activity",
+      "goldOptions": [
+        "the intelligence and character of ordinary men and women",
+        "the methods for strengthening executive leadership",
+        "a superior individual with dynamism and vision",
+        "a band of dedicated party workers"
+      ],
+      "ocrOptions": [
+        "the intelligence and character of ordinary men and women",
+        "the methods for strengthening executive leadership",
+        "a superior individual with dynamism and vision",
+        "a band of dedicated party workers"
+      ]
+    },
+    {
+      "id": "UPSC_2017_GS1_Q43",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "Which of the following is a most likely consequence of implementing the 'Unified Payments Interface (UPI)'?",
+      "ocrQuestionText": "Which of the following is a most likely consequence of implementing the ‘Unified Payments Interface (UPI)?",
+      "goldOptions": [
+        "Mobile wallets will not be necessary for online payments",
+        "Digital currency will totally replace the physical currency in about two decades",
+        "FDI inflows will drastically increase",
+        "Direct transfer of subsidies to poor people will become very effective"
+      ],
+      "ocrOptions": [
+        "Mobile wallets will not be necessary for online payments",
+        "Digital currency will totally replace the physical currency in about two decades",
+        "FDI inflows will drastically increase",
+        "Direct transfer of subsidies to poor people will become very effective"
+      ]
+    },
+    {
+      "id": "UPSC_2017_GS1_Q44",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "The terms 'Event Horizon', 'Singularity', 'String Theory' and 'Standard Model' are sometimes seen in the news in the context of",
+      "ocrQuestionText": "The terms ‘Event Horizon, ‘Singularity, ‘String Theory and ‘Standard Model are sometimes seen in the news in the context of",
+      "goldOptions": [
+        "Observation and understanding of the Universe",
+        "Study of the solar and the lunar eclipses",
+        "Placing satellites in the orbit of the Earth",
+        "Origin and evolution of living organisms on the Earth"
+      ],
+      "ocrOptions": [
+        "Observation and understanding of the Universe",
+        "Study of the solar and the lunar eclipses",
+        "Placing satellites in the orbit of the Earth",
+        "Origin and evolution of living organisms on the Earth"
+      ]
+    },
+    {
+      "id": "UPSC_2017_GS1_Q45",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "With reference to agriculture in India, how can the technique of 'genome sequencing', often seen in the news, be used in the immediate future? 1. Genome sequencing can be used to identify genetic markers for disease resistance and drought tolerance in various crop plants. 2. This technique helps in reducing the time required to develop new varieties of crop plants. 3. It can be used to decipher the host-pathogen relationships in crops. Select the correct answer using the code given below:",
+      "ocrQuestionText": "With reference to agriculture in India, how can the technique of ‘genome sequencing, often seen in the news, be used in the immediate future? 1. Genome sequencing can be used to identify genetic markers for disease resistance and drought tolerance in various crop plants. 2. This technique helps in reducing the time required to develop new varieties of crop plants. 3. It can be used to decipher the host-pathogen relationships in crops. Select the correct answer using the code given below:",
+      "goldOptions": [
+        "1 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 and 3 only",
+        "1 and 3 only",
+        "1, 2 and 3"
+      ]
+    },
+    {
+      "id": "UPSC_2017_GS1_Q52",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "With reference to 'Global Climate Change Alliance', which of the following statements is/are correct? 1. It is an initiative of the European Union. 2. It provides technical and financial support to targeted developing countries to integrate climate change into their development policies and budgets. 3. It is coordinated by World Resources Institute (WRI) and World Business Council for Sustainable Development (WBCSD). Select the correct answer using the code given below:",
+      "ocrQuestionText": "With reference to ‘Global Climate Change Alliance, which of the following statements is/are correct? 1. It is an initiative of the European Union. 2. It provides technical and financial support to targeted developing countries to integrate climate change into their development policies and budgets. 3. It is coordinated by World Resources Institute (WRI) and World Business Council for Sustainable Development (WBCSD). Select the correct answer using the code given below:",
+      "goldOptions": [
+        "1 and 2 only",
+        "3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+      ],
+      "ocrOptions": [
+        "1 and 2 only",
+        "3 only",
+        "2 and 3 only",
+        "1, 2 and 3"
+      ]
+    },
+    {
+      "id": "UPSC_2017_GS1_Q55",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "goldQuestionText": "With reference to 'National Investment and Infrastructure Fund', which of the following statements is/are correct? 1. It is an organ of NITI Aayog. 2. It has a corpus of ₹4,00,000 crore at present. Select the correct answer using the code given below:",
+      "ocrQuestionText": "With reference to ‘National Investment and Infrastructure Fund, which of the following statements is/are correct? 1. It is an organ of NITI Aayog. 2. It has a corpus of ₹4,00,000 crore at present. Select the correct answer using the code given below:",
+      "goldOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ],
+      "ocrOptions": [
+        "1 only",
+        "2 only",
+        "Both 1 and 2",
+        "Neither 1 nor 2"
+      ]
+    },
+    {
+      "id": "UPSC_2017_GS1_Q62",
+      "questionTextMatches": false,
+      "optionMatches": [
+        true,
+        false,
+        true,
+        true
+      ],
+      "goldQuestionText": "In the context of Indian history, the principle of 'Dyarchy (diarchy)' refers to",
+      "ocrQuestionText": "In the context of Indian history, the principle of ‘Dyarchy (diarchy) refers to",
+      "goldOptions": [
+        "Division of the central legislature into two houses",
+        "Introduction of double government i.e., Central and State governments",
+        "Having two sets of rulers, one in London and another in Delhi",
+        "Division of subjects delegated to the provinces into two categories"
+      ],
+      "ocrOptions": [
+        "Division of the central legislature into two houses",
+        "Introduction of double government i. e., Central and State governments",
+        "Having two sets of rulers, one in London and another in Delhi",
+        "Division of subjects delegated to the provinces into two categories"
+      ]
+    }
+  ]
+}

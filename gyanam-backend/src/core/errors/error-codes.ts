@@ -1,0 +1,9 @@
+export const ErrorCodes = {
+  AUTH_INVALID_CREDENTIALS: "AUTH_INVALID_CREDENTIALS",
+  AUTH_TOKEN_EXPIRED: "AUTH_TOKEN_EXPIRED",
+  AUTH_REFRESH_REVOKED: "AUTH_REFRESH_REVOKED",
+  AUTH_UNAUTHORIZED: "AUTH_UNAUTHORIZED",
+  INTERNAL_ERROR: "INTERNAL_ERROR",
+} as const;
+
+export type CoreErrorCode = (typeof ErrorCodes)[keyof typeof ErrorCodes];

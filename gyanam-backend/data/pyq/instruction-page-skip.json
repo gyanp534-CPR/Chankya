@@ -1,0 +1,18 @@
+{
+  "default": {
+    "skipFirstPages": 0,
+    "skipPages": []
+  },
+  "GS1": {
+    "skipFirstPages": 0,
+    "skipPages": []
+  },
+  "CSAT": {
+    "skipFirstPages": 0,
+    "skipPages": []
+  },
+  "2016-GS1": {
+    "skipFirstPages": 2,
+    "skipPages": []
+  }
+}

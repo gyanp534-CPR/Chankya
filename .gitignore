@@ -1,0 +1,39 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Logs
+*.log
+
+# Env
+.env
+.env.*
+
+# Python
+.venv/
+.venv-ocr/
+__pycache__/
+*.pyc
+
+# OS/Editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Build artifacts
+dist/
+build/
+out/
+
+# Local archives
+archive/
+_tmp/
+experiments/
+
+# Large raw data
+gyanam-backend/data/pyq/papers/
+
+.vercel

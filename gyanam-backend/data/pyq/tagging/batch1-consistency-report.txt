@@ -1,0 +1,71 @@
+reasoning_type_ok=True
+question_nature_ok=True
+
+Primary Concepts:
+- Aerospace Technology
+- Agricultural Heritage Systems (GIAHS)
+- Ancient Indian Literature
+- Banking Technology
+- Bioenergy Sustainability
+- Capital Budget
+- Climate Change & Land Use
+- Crony Capitalism
+- Cryptocurrency
+- Ecosystem Valuation
+- Financial Inclusion
+- Global Governance Indices
+- Gold Monetization Policy
+- Governance Accountability
+- Indian Federalism
+- Indian National Movement
+- Oral Traditions in History
+- Power Sector Reforms
+
+Concepts:
+- Accountability Mechanisms
+- Agriculture Emissions
+- Agro-biodiversity
+- Banking Regulation
+- Biodiversity Economics
+- Biomass Energy
+- Biomass Supply Constraints
+- Blockchain Technology
+- Capital Receipts
+- Civil Services Reform
+- Core Banking Systems
+- Cultural Memory
+- Deforestation
+- Digital Payments
+- DISCOM Financial Health
+- Ease of Doing Business Index
+- Economic Growth Constraints
+- Electric Aircraft
+- Extremists vs Moderates
+- Financial Inclusion
+- Financial Regulation
+- Food vs Fuel Debate
+- Gold Imports
+- Governance Transparency
+- Greenhouse Gas Emissions
+- Internal vs External Accountability
+- Legislative Powers
+- Life-cycle Emissions
+- Loans & Advances
+- NASA Technology
+- Negative Emissions
+- Oligarchies
+- Oral Historiography
+- Payment Banks
+- Political Executive vs Bureaucracy
+- Public Expenditure
+- Rajya Sabha Special Powers
+- Sanskrit Drama
+- Savings Mobilization
+- Shunga Dynasty
+- Sovereign Gold Bonds
+- Surat Split (1907)
+- TEEB Initiative
+- Traditional Farming Systems
+- UDAY Scheme
+- World Bank
+

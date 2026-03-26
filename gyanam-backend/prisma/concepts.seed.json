@@ -1,0 +1,36 @@
+[
+  { "id": "POL-CF-001", "subject": "Polity", "topicGroup": "Constitutional Foundations", "name": "Constitution Making Process", "version": "v1.0" },
+  { "id": "POL-CF-002", "subject": "Polity", "topicGroup": "Constitutional Foundations", "name": "Preamble Philosophy", "version": "v1.0" },
+  { "id": "POL-CF-003", "subject": "Polity", "topicGroup": "Constitutional Foundations", "name": "Basic Structure Doctrine", "version": "v1.0" },
+  { "id": "POL-FR-003", "subject": "Polity", "topicGroup": "Fundamental Rights & Duties", "name": "Right to Equality", "version": "v1.0" },
+  { "id": "POL-FR-008", "subject": "Polity", "topicGroup": "Fundamental Rights & Duties", "name": "Right to Constitutional Remedies", "version": "v1.0" },
+  { "id": "POL-PAR-004", "subject": "Polity", "topicGroup": "Parliament", "name": "Money Bill vs Financial Bill", "version": "v1.0" },
+  { "id": "POL-FED-006", "subject": "Polity", "topicGroup": "Federal Structure", "name": "Fiscal Federalism", "version": "v1.0" },
+
+  { "id": "ECO-EF-001", "subject": "Economy", "topicGroup": "Economic Fundamentals", "name": "GDP vs GNP", "version": "v1.0" },
+  { "id": "ECO-EF-003", "subject": "Economy", "topicGroup": "Economic Fundamentals", "name": "Inflation Measurement", "version": "v1.0" },
+  { "id": "ECO-MON-001", "subject": "Economy", "topicGroup": "Monetary System", "name": "Functions of RBI", "version": "v1.0" },
+  { "id": "ECO-MON-003", "subject": "Economy", "topicGroup": "Monetary System", "name": "Repo vs Reverse Repo", "version": "v1.0" },
+  { "id": "ECO-FIS-005", "subject": "Economy", "topicGroup": "Fiscal Policy", "name": "Goods and Services Tax", "version": "v1.0" },
+
+  { "id": "ENV-CNV-001", "subject": "Environment", "topicGroup": "Environmental Conventions", "name": "Ramsar Convention", "version": "v1.0" },
+  { "id": "ENV-CNV-002", "subject": "Environment", "topicGroup": "Environmental Conventions", "name": "Convention on Biological Diversity", "version": "v1.0" },
+  { "id": "ENV-CNV-007", "subject": "Environment", "topicGroup": "Environmental Conventions", "name": "Paris Agreement", "version": "v1.0" },
+  { "id": "ENV-CC-001", "subject": "Environment", "topicGroup": "Climate Change", "name": "Greenhouse Effect", "version": "v1.0" },
+  { "id": "ENV-CC-002", "subject": "Environment", "topicGroup": "Climate Change", "name": "Carbon Sequestration", "version": "v1.0" },
+
+  { "id": "HIS-ANC-001", "subject": "History", "topicGroup": "Ancient India", "name": "Indus Valley Civilization", "version": "v1.0" },
+  { "id": "HIS-MOD-001", "subject": "History", "topicGroup": "Modern India", "name": "British Expansion in India", "version": "v1.0" },
+  { "id": "HIS-FRE-002", "subject": "History", "topicGroup": "Freedom Struggle", "name": "Swadeshi Movement", "version": "v1.0" },
+  { "id": "HIS-FRE-004", "subject": "History", "topicGroup": "Freedom Struggle", "name": "Non Cooperation Movement", "version": "v1.0" },
+
+  { "id": "GEO-CLI-002", "subject": "Geography", "topicGroup": "Climatology", "name": "Monsoon Mechanism", "version": "v1.0" },
+  { "id": "GEO-CLI-005", "subject": "Geography", "topicGroup": "Climatology", "name": "El Niño and La Niña", "version": "v1.0" },
+  { "id": "GEO-PHY-002", "subject": "Geography", "topicGroup": "Physical Geography", "name": "Plate Tectonics", "version": "v1.0" },
+  { "id": "GEO-IND-003", "subject": "Geography", "topicGroup": "Indian Geography", "name": "River Systems of India", "version": "v1.0" },
+
+  { "id": "SNT-SPC-001", "subject": "Science & Technology", "topicGroup": "Space Technology", "name": "Satellite Orbits", "version": "v1.0" },
+  { "id": "SNT-BIO-001", "subject": "Science & Technology", "topicGroup": "Biotechnology", "name": "DNA and Genetic Engineering", "version": "v1.0" },
+  { "id": "SNT-HLT-001", "subject": "Science & Technology", "topicGroup": "Health Science", "name": "Vaccines and Immunization", "version": "v1.0" },
+  { "id": "SNT-EMG-001", "subject": "Science & Technology", "topicGroup": "Emerging Technologies", "name": "Artificial Intelligence", "version": "v1.0" }
+]

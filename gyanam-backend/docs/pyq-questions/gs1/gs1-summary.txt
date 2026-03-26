@@ -1,0 +1,16 @@
+GS1 EXPORT SUMMARY
+
+2016: total=100, missingText=0, optionsNotFour=0, emptyOptions=0
+2017: total=100, missingText=2, optionsNotFour=0, emptyOptions=0
+2018: total=100, missingText=0, optionsNotFour=0, emptyOptions=0
+2019: total=100, missingText=0, optionsNotFour=0, emptyOptions=5
+2020: total=100, missingText=1, optionsNotFour=0, emptyOptions=0
+2021: total=100, missingText=0, optionsNotFour=0, emptyOptions=0
+2022: total=100, missingText=0, optionsNotFour=0, emptyOptions=1
+2023: total=100, missingText=0, optionsNotFour=0, emptyOptions=0
+2024: total=100, missingText=0, optionsNotFour=0, emptyOptions=0
+2025: total=100, missingText=0, optionsNotFour=0, emptyOptions=1
+
+Notes:
+- Review the per-year txt exports for manual verification.
+- Missing text/options counts indicate rows to inspect.

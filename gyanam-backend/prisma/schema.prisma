@@ -1,0 +1,338 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  student
+  admin
+}
+
+enum Difficulty {
+  easy
+  medium
+  hard
+}
+
+enum TestMode {
+  practice
+  exam
+}
+
+model Users {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  passwordHash String
+  role         UserRole      @default(student)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  deletedAt    DateTime?
+  sessions     AuthSessions[]
+  attempts     TestAttempt[]
+  mastery      MasteryIndexHistory[]
+  conceptPerformance UserConceptPerformance[]
+  weakAreas    WeakArea[]
+  revisionTasks RevisionTask[]
+  errorLogs    ErrorAttemptLog[]
+  errorState   UserErrorState?
+}
+
+model AuthSessions {
+  id               String   @id @default(cuid())
+  userId           String
+  refreshTokenHash String
+  deviceMeta       String?
+  expiresAt        DateTime
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model EntitlementPolicies {
+  id            String   @id @default(cuid())
+  featureKey    String   @unique
+  requiredPlan  String
+  isEnabled     Boolean  @default(true)
+  metadata      Json?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  deletedAt     DateTime?
+}
+
+model Subject {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  order     Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  topics    Topic[]
+  testSets  TestSet[]
+  concepts  Concept[]
+}
+
+model Concept {
+  id               String   @id
+  name             String
+  subjectId        String
+  topicGroup       String
+  version          String
+  frequencyScore   Int      @default(1)
+  frequencyVersion String   @default("pyq_v1")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  subject          Subject  @relation(fields: [subjectId], references: [id], onDelete: Restrict)
+  questions        QuestionConcept[]
+  performance      UserConceptPerformance[]
+
+  @@index([subjectId])
+  @@index([subjectId, topicGroup])
+  @@index([frequencyScore])
+}
+
+model Topic {
+  id        String    @id @default(cuid())
+  subjectId String
+  name      String
+  weight    Float
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  subject   Subject   @relation(fields: [subjectId], references: [id], onDelete: Restrict)
+  questions Question[]
+  mastery   MasteryIndexHistory[]
+  weakAreas WeakArea[]
+  revisionTasks RevisionTask[]
+
+  @@index([subjectId])
+  @@unique([subjectId, name])
+}
+
+model RevisionTask {
+  id        String   @id @default(uuid())
+  userId    String
+  topicId   String
+  dueAt     DateTime
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topic     Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@index([userId, dueAt])
+}
+
+model WeakArea {
+  id        String   @id @default(uuid())
+  userId    String
+  topicId   String
+  mastery   Float
+  updatedAt DateTime @updatedAt
+  user      Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topic     Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, topicId])
+  @@index([userId])
+  @@index([topicId])
+}
+
+model MasteryIndexHistory {
+  id             String   @id @default(cuid())
+  userId         String
+  topicId        String
+  knowledgeScore Float
+  riskScore      Float
+  finalMastery   Float
+  confidence     String
+  dataPointsUsed Int
+  modelVersion   String
+  recomputeReason String?
+  sourceAttemptId String?
+  computedAt     DateTime @default(now())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  user           Users    @relation(fields: [userId], references: [id], onDelete: Restrict)
+  topic          Topic    @relation(fields: [topicId], references: [id], onDelete: Restrict)
+
+  @@index([userId, topicId, computedAt])
+  @@index([userId, computedAt])
+  @@unique([userId, topicId, sourceAttemptId])
+}
+
+model Question {
+  id               String            @id @default(cuid())
+  topicId          String
+  year             Int?
+  examStage        String?
+  source           String?
+  stem             String
+  options          String[]
+  correctIndex     Int
+  difficulty       Difficulty
+  tags             String[]
+  exposureCount    Int               @default(0)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  deletedAt        DateTime?
+  topic            Topic             @relation(fields: [topicId], references: [id], onDelete: Restrict)
+  attemptResponses AttemptResponse[]
+  testSetQuestions TestSetQuestion[]
+  concepts         QuestionConcept[]
+  errorAttemptLogs ErrorAttemptLog[]
+
+  @@index([topicId, difficulty])
+  @@index([year, examStage])
+}
+
+model QuestionConcept {
+  questionId String
+  conceptId  String
+  confidence Float    @default(1.0)
+  source     String   @default("manual_tag_v1")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  concept    Concept  @relation(fields: [conceptId], references: [id], onDelete: Restrict)
+
+  @@id([questionId, conceptId])
+  @@index([conceptId])
+}
+
+model UserConceptPerformance {
+  userId    String
+  conceptId String
+  score     Int
+  attempts  Int
+  correctAttempts   Int      @default(0)
+  incorrectAttempts Int      @default(0)
+  averageTimeSeconds Float   @default(0)
+  lastAnsweredAt    DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user    Users   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  concept  Concept @relation(fields: [conceptId], references: [id], onDelete: Restrict)
+
+  @@id([userId, conceptId])
+  @@index([userId, score])
+  @@index([conceptId])
+}
+
+model TestSet {
+  id            String            @id @default(cuid())
+  subjectId     String
+  mode          TestMode
+  seed          Int
+  isPremium     Boolean           @default(false)
+  questionCount Int
+  createdBy     String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  deletedAt     DateTime?
+  subject       Subject           @relation(fields: [subjectId], references: [id], onDelete: Restrict)
+  attempts      TestAttempt[]
+  questions     TestSetQuestion[]
+
+  @@index([subjectId, mode])
+}
+
+model TestSetQuestion {
+  testSetId   String
+  questionId  String
+  sortOrder   Int
+  createdAt   DateTime @default(now())
+  testSet     TestSet  @relation(fields: [testSetId], references: [id], onDelete: Cascade)
+  question    Question @relation(fields: [questionId], references: [id], onDelete: Restrict)
+
+  @@id([testSetId, questionId])
+  @@index([questionId])
+}
+
+model TestAttempt {
+  id              String            @id @default(cuid())
+  userId          String
+  testId          String
+  startedAt       DateTime
+  completedAt     DateTime?
+  durationSeconds Int?
+  totalQuestions  Int?
+  attemptedCount  Int?
+  correctCount    Int?
+  incorrectCount  Int?
+  skippedCount    Int?
+  rawScore        Float?
+  pauseEvents     Json?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?
+  user            Users             @relation(fields: [userId], references: [id], onDelete: Restrict)
+  testSet         TestSet           @relation(fields: [testId], references: [id], onDelete: Restrict)
+  responses       AttemptResponse[]
+  errorAttemptLogs ErrorAttemptLog[]
+
+  @@index([userId, startedAt])
+  @@index([testId])
+}
+
+model AttemptResponse {
+  id               String      @id @default(cuid())
+  attemptId        String
+  questionId       String
+  selectedIndex    Int?
+  timeSpentSeconds Int
+  exposureCount    Int         @default(1)
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  attempt          TestAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question         Question    @relation(fields: [questionId], references: [id], onDelete: Restrict)
+
+  @@index([attemptId])
+  @@index([questionId])
+  @@unique([attemptId, questionId])
+}
+
+model EventLog {
+  id         String   @id @default(cuid())
+  eventName  String
+  occurredAt DateTime @default(now())
+  requestId  String?
+  userId     String?
+  payload    Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([eventName, occurredAt])
+  @@index([userId])
+}
+
+model ErrorAttemptLog {
+  id         String   @id @default(cuid())
+  userId     String
+  questionId String
+  attemptId  String?
+  isCorrect  Boolean
+  errorType  String?
+  createdAt  DateTime @default(now())
+  user       Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Restrict)
+  attempt    TestAttempt? @relation(fields: [attemptId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+  @@index([questionId])
+  @@index([attemptId])
+}
+
+model UserErrorState {
+  userId       String   @id
+  recentErrors Json
+  errorCounts  Json
+  lastUpdated  DateTime @updatedAt
+  createdAt    DateTime @default(now())
+  user         Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([lastUpdated])
+}

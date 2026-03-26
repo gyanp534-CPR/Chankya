@@ -1,0 +1,52 @@
+Line 5 | Q | Passage � 1 => Passage ? 1
+Line 32 | Q2 | Passage � 2 => Passage ? 2
+Line 34 | Q2 | The history of renewable energy suggests there is a steep learning curve, meaning that, as more is produced, costs fall rapidly because of economies of scale and learning by doing. The firms� green innovation is path-dependent: the more a firm does, the more it is likely to do in the future. The strongest evidence for this is the collapse in the price of solar energy, which became about 90% cheaper during the 2010s, repeatedly beating forecasts. Moving early and gradually gives economies more time to adjust, allowing them to reap the benefits of path-dependent green investment without much disruption. A late, more chaotic transition is costlier. => The history of renewable energy suggests there is a steep learning curve, meaning that, as more is produced, costs fall rapidly because of economies of scale and learning by doing. The firms? green innovation is path-dependent: the more a firm does, the more it is likely to do in the future. The strongest evidence for this is the collapse in the price of solar energy, which became about 90% cheaper during the 2010s, repeatedly beating forecasts. Moving early and gradually gives economies more time to adjust, allowing them to reap the benefits of path-dependent green investment without much disruption. A late, more chaotic transition is costlier.
+Line 110 | Q9 | Team Y tied the score in 10% less overs. Had Team Y�s average run rate (runs per over) been 50% higher, the scores would have been tied in 12 overs. => Team Y tied the score in 10% less overs. Had Team Y?s average run rate (runs per over) been 50% higher, the scores would have been tied in 12 overs.
+Line 125 | Q10 | (a) p(104 - k�)� = q � 108 => (a) p(104 - k?)? = q ? 108
+Line 126 | Q10 | (b) p(104 - k�)� = q � 104 => (b) p(104 - k?)? = q ? 104
+Line 127 | Q10 | (c) p(104 - k�) = q � 104 => (c) p(104 - k?) = q ? 104
+Line 128 | Q10 | (d) p(104 - k�) = q � 108 => (d) p(104 - k?) = q ? 108
+Line 130 | Q10 | Passage � 1 => Passage ? 1
+Line 157 | Q12 | Passage � 2 => Passage ? 2
+Line 165 | Q13 | (a) India�s political executive should be aware that poverty and social inequality and the consequent sense of insecurity is the main social problem. => (a) India?s political executive should be aware that poverty and social inequality and the consequent sense of insecurity is the main social problem.
+Line 249 | Q20 | 1 � 3 � 5 � 7 � 9 � � � 999 ? => 1 ? 3 ? 5 ? 7 ? 9 ? ? ? 999 ?
+Line 325 | Q27 | Let both p and k be prime numbers such that (p� + k) is also a prime number less than 30. => Let both p and k be prime numbers such that (p? + k) is also a prime number less than 30.
+Line 373 | Q30 | Passage � 1 => Passage ? 1
+Line 377 | Q30 | Higher education should not �either be a mere servant of the government policy or a passive respondent to public mood.� Higher learning is all about how to think rather than what to think. Teaching has to be re-invented. => Higher education should not ?either be a mere servant of the government policy or a passive respondent to public mood.? Higher learning is all about how to think rather than what to think. Teaching has to be re-invented.
+Line 403 | Q32 | Passage � 2 => Passage ? 2
+Line 440 | Q35 | 7 � 343 � 385 � 1000 � 2401 � 77777 => 7 ? 343 ? 385 ? 1000 ? 2401 ? 77777
+Line 473 | Q38 | If P = +, Q = -, R = �, S = �, then insert the proper notations between the successive numbers in the equation => If P = +, Q = -, R = ?, S = ?, then insert the proper notations between the successive numbers in the equation
+Line 495 | Q40 | If N� = 12345678987654321, then how many digits does the number N have? => If N? = 12345678987654321, then how many digits does the number N have?
+Line 502 | Q40 | Passage � 1 => Passage ? 1
+Line 537 | Q42 | Passage � 2 => Passage ? 2
+Line 539 | Q42 | In only 50 years, the world�s consumption of raw materials has nearly quadrupled, to more than 100 billion tons. Less than 9% of this is reused. => In only 50 years, the world?s consumption of raw materials has nearly quadrupled, to more than 100 billion tons. Less than 9% of this is reused.
+Line 543 | Q42 | Buyers� risks are being aggravated by their suppliers� poor environmental and labour standards. Reusing materials makes sense. Once batteries reach the ends of their lives, they should go back to a factory where their ingredients can be recovered and put into new batteries. => Buyers? risks are being aggravated by their suppliers? poor environmental and labour standards. Reusing materials makes sense. Once batteries reach the ends of their lives, they should go back to a factory where their ingredients can be recovered and put into new batteries.
+Line 611 | Q48 | 123456789101112� ? => 123456789101112? ?
+Line 647 | Q50 | I. The result of the match between P and Q is a draw with the score 0�0. => I. The result of the match between P and Q is a draw with the score 0?0.
+Line 656 | Q50 | Passage � 1 => Passage ? 1
+Line 658 | Q50 | It is hard to predict how changes in the climate and the atmosphere�s chemistry will affect the prevalence and virulence of agricultural diseases. => It is hard to predict how changes in the climate and the atmosphere?s chemistry will affect the prevalence and virulence of agricultural diseases.
+Line 664 | Q50 | They are spectacular at growing in today�s conditions but genetic variations that are not immediately useful to them have been bred out. => They are spectacular at growing in today?s conditions but genetic variations that are not immediately useful to them have been bred out.
+Line 697 | Q52 | Passage � 2 => Passage ? 2
+Line 699 | Q52 | �A good statesman, like any other sensible human being, learns more from his opponents than from his fervent supporters. => ?A good statesman, like any other sensible human being, learns more from his opponents than from his fervent supporters.
+Line 707 | Q52 | The national unity of free people depends upon a sufficiently even balance of political power to make it impracticable for the administration to be arbitrary and for opposition to be revolutionary and irreconcilable.� => The national unity of free people depends upon a sufficiently even balance of political power to make it impracticable for the administration to be arbitrary and for opposition to be revolutionary and irreconcilable.?
+Line 738 | Q55 | P is the brother of Q and R. S is R�s mother. T is P�s father. => P is the brother of Q and R. S is R?s mother. T is P?s father.
+Line 742 | Q55 | II. Q is T�s son. => II. Q is T?s son.
+Line 743 | Q55 | III. T is Q�s father. => III. T is Q?s father.
+Line 744 | Q55 | IV. S is P�s mother. => IV. S is P?s mother.
+Line 745 | Q55 | V. R is T�s daughter. => V. R is T?s daughter.
+Line 746 | Q55 | VI. P is S�s son. => VI. P is S?s son.
+Line 818 | Q60 | Passage � 1 => Passage ? 1
+Line 822 | Q60 | It generates jobs � and there is no other way to fix a country�s unemployment challenge without a further impetus to private business. => It generates jobs ? and there is no other way to fix a country?s unemployment challenge without a further impetus to private business.
+Line 826 | Q60 | A vibrant corporate capitalist base also leads to additional revenues for the State � which in turn, can be used for greater welfare for the marginalized and creating a more level playing field in terms of opportunities. => A vibrant corporate capitalist base also leads to additional revenues for the State ? which in turn, can be used for greater welfare for the marginalized and creating a more level playing field in terms of opportunities.
+Line 855 | Q62 | Passage � 2 => Passage ? 2
+Line 857 | Q62 | �A network of voluntary associations stands as a �buffer� between the relatively powerless individual and the potentially powerful State.� => ?A network of voluntary associations stands as a ?buffer? between the relatively powerless individual and the potentially powerful State.?
+Line 919 | Q67 | 9� + 94 + 95 + 96 + � + 9��� => 9? + 94 + 95 + 96 + ? + 9???
+Line 950 | Q69 | PP � PQ = RRSS => PP ? PQ = RRSS
+Line 972 | Q70 | Statement II: R�s father is the brother of Q. => Statement II: R?s father is the brother of Q.
+Line 985 | Q70 | Passage � 1 => Passage ? 1
+Line 987 | Q70 | A single number for inflation is an aggregate across different commodities and services � the price rise differs for different items of consumption. => A single number for inflation is an aggregate across different commodities and services ? the price rise differs for different items of consumption.
+Line 1011 | Q71 | Passage � 2 => Passage ? 2
+Line 1053 | Q74 | Is (p + q)� - 4pq positive, where p and q are natural numbers? => Is (p + q)? - 4pq positive, where p and q are natural numbers?
+Line 1086 | Q76 | Value-I = Maximum value of p � q when p, q are positive integers. => Value-I = Maximum value of p ? q when p, q are positive integers.
+Line 1088 | Q76 | Value-II = Maximum value of p � q when p = -6, q = -4. => Value-II = Maximum value of p ? q when p = -6, q = -4.
+Line 1131 | Q79 | I. x� > x� => I. x? > x?

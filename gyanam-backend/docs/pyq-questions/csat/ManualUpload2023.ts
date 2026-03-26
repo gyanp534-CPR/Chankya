@@ -1,0 +1,1146 @@
+Below is the clean text conversion of the pages you uploaded (questions 1–30 with passages). I preserved wording and options exactly so you can directly paste it into your editor or document.
+
+Directions for the following 3 (three) items
+
+Read the following three passages and answer the items that follow the passages. Your answers to these items should be based on the passages only.
+
+Passage – 1
+
+We often hear about conflicts among different States in India over river waters. Of the 20 major river systems, 14 are already water-stressed; 75% of the population lives in water-stressed regions, a third of whom live in water-scarce areas. Climate change, the demands of rising population and the need for agriculture to keep pace, and increased rate of urbanization and industrialization will exacerbate water stress.
+
+According to the Constitution of India, water is a State subject and not that of the Union, except for regulation of inter-State rivers. Key to ensuring balance between competing demands of various stakeholders is a basin-based approach to allocate water amongst constituent regions and States.
+
+Allocating fair share of water to them requires assessments based on objective criteria, such as specificities of the river basin, size of dependent population, existing water use and demand, efficiency of use, projected future use, etc., while ensuring the environmental needs of the river and aquifers.
+
+1.
+
+Which of the following statements best reflects the most rational, practical and immediate action required to ensure fair and equitable allocation of water to different stakeholders?
+
+(a) A national, pragmatic, legal and policy framework for water allocation should be made.
+(b) All river systems of the country should be linked and huge aquifers created.
+(c) Water channels between regions of water surplus and regions of water deficit should be created.
+(d) To mitigate water crisis, water demand of sectors such as agriculture and industry should be reduced.
+
+Passage – 2
+
+More than half of Indian women and almost a quarter of Indian men of working age suffer from anaemia. According to studies, they are anywhere from 5–15% less productive than they could be, as a result thereof.
+
+India also has the largest tuberculosis burden in the world, costing 170 million workdays to the country annually. But what is just as important as lost productivity now is lost potential in the future.
+
+It is becoming increasingly clear that on many measures of cognitive ability, malnourished Indian children perform two or three times worse than their adequately nourished peers.
+
+For an economy that will be more dependent on highly skilled workers, this poses a significant challenge. And it is one that really should be addressed given India’s demographic outlook.
+
+2.
+
+Which one of the following statements best reflects what is implied by the passage?
+
+(a) Education system must be strengthened in rural areas.
+(b) Large scale and effective implementation of skill development programme is the need of the hour.
+(c) For economic development, health and nutrition of only skilled workers needs special attention.
+(d) For rapid economic growth as envisaged by us, attention should be paid to health and nutrition of the people.
+
+Passage – 3
+
+In India, a majority of farmers are marginal and small, less educated and possess low adaptive capabilities to climate change, perhaps because of credit and other constraints.
+
+So, one cannot expect autonomous adaptation to climate change. Even if it was possible, it would not be sufficient to offset losses from climate change.
+
+To deal with this, adaptation to climate change is paramount, alongside a fast mitigation response. Another solution is to have a planned or policy-driven adaptation, which would require the government to come up with policy recommendations.
+
+Perception is a necessary pre-requisite for adaptation. Whether farmers are adapting agricultural practices to climate change depends on whether they perceive it or not. However, this is not always enough for adaptation. It is important how a farmer perceives the risks associated with climate change.
+
+3.
+
+Which one of the following statements best reflects the most logical and rational message conveyed by the author of the passage?
+
+(a) Adaptation to climate change and mitigation response are basically the responsibilities of the government.
+(b) Climate change causes a change in government policies regarding land use patterns in the country.
+(c) Risk perceptions of farmers are important for motivating them for taking adaptation decisions.
+(d) Since mitigation is not possible, governments should come up with policies for quick response to climate change.
+
+4.
+
+Raj has ten pairs of red, nine pairs of white and eight pairs of black shoes in a box. If he randomly picks shoes one by one (without replacement) from the box to get a red pair of shoes to wear, what is the maximum number of attempts he has to make?
+
+(a) 27
+(b) 36
+(c) 44
+(d) 45
+
+5.
+
+In how many ways can a batsman score exactly 25 runs by scoring single runs, fours and sixes only, irrespective of the sequence of scoring shots?
+
+(a) 18
+(b) 19
+(c) 20
+(d) 21
+
+6.
+
+There are four letters and four envelopes and exactly one letter is to be put in exactly one envelope with the correct address.
+
+If the letters are randomly inserted into the envelopes, then consider the following statements:
+
+It is possible that exactly one letter goes into an incorrect envelope.
+
+There are only six ways in which only two letters can go into the correct envelopes.
+
+Which of the statements given above is/are correct?
+
+(a) 1 only
+(b) 2 only
+(c) Both 1 and 2
+(d) Neither 1 nor 2
+
+7.
+
+What is the remainder when
+
+85 × 87 × 89 × 91 × 95 × 96
+
+is divided by 100?
+
+(a) 0
+(b) 1
+(c) 2
+(d) 4
+
+8.
+
+What is the unit digit in the expansion of
+
+(57242)^9 × 7 × 5 × 3 × 1 ?
+
+(a) 2
+(b) 4
+(c) 6
+(d) 8
+
+9.
+
+If ABC and DEF are both 3-digit numbers such that A, B, C, D, E and F are distinct non-zero digits such that
+
+ABC + DEF = 1111
+
+then what is the value of
+
+A + B + C + D + E + F ?
+
+(a) 28
+(b) 29
+(c) 30
+(d) 31
+
+10.
+
+D is a 3-digit number such that the ratio of the number to the sum of its digits is least.
+
+What is the difference between the digit at the hundred’s place and the digit at the unit’s place of D?
+
+(a) 0
+(b) 7
+(c) 8
+(d) 9
+
+Directions for the following 3 (three) items
+
+Read the following three passages and answer the items that follow the passages.
+
+Passage – 1
+
+The emissions humans put into the atmosphere now will affect the climate in the middle of the century and onwards.
+
+Technological change, meanwhile, could make a future transition away from fossil fuels cheap or it might not, leaving the world with a terrible choice between sharply reducing emissions at huge cost or suffering through the effects of unabated warming.
+
+Businesses that do not hedge against the threat of uncertain outcomes fail. The world cannot afford such recklessness on climate change.
+
+11.
+
+Which one of the following statements best reflects the crucial message conveyed by the author of the passage?
+
+(a) Businesses that cause emissions may need to close down or pay for pollution in future.
+(b) The only solution is technological development related to the issues of climate change.
+(c) Waiting to deal with carbon emissions until technology improves is not a wise strategy.
+(d) Since future technological change is uncertain, new industries should be based on renewable energy sources.
+
+Passage – 2
+
+Environmental problems cause health problems. Substantial changes in lifestyle can reduce environmental or health problems, but this idea appears almost impossible to adopt.
+
+With environmental problems, individual efforts can be perceived as having a negligible effect and therefore lead to inertia.
+
+With health, on the other hand, individual choices can make the difference between life and death, literally.
+
+And yet, barring a few, there seems to be the same collective lethargy towards making their choices.
+
+12.
+
+Which one of the following statements best implies the most rational assumption that can be made from the passage?
+
+(a) We are likely to spend more money on cure than prevention.
+(b) It is the job of the government to solve our environmental and public health problems.
+(c) Health can be protected even if environmental problems go unattended.
+(d) Loss of traditional lifestyle and the influence of western values led to some unhealthy ways of living.
+
+Passage – 3
+
+Many people are not eating the right food. For some, it is simply a decision to stick with food they enjoy but which is not too healthy. This is leading to an increase in non-communicable diseases.
+
+This in turn leads to major burden on our health-care systems that have the potential to derail the economic progress which is essential for the poor to improve their lives.
+
+For others, it is about limited access to nutritious food or a lack of affordability, leading to monotonous diets that do not provide the daily nutrients for them to develop fully.
+
+Part of the reason nutrition is under threat worldwide is that our food systems are not properly responding to nutritional needs. Somewhere along that long road from farm to fork, there are serious detours taking place.
+
+13.
+
+Which one of the following statements best reflects the crux of the passage?
+
+(a) The scheme of Universal Basic Income should be implemented worldwide as a way of poverty alleviation.
+(b) We must place food-based nutrition at the centre of our policy debate.
+(c) Nutritional status of food should be improved by creating appropriate genetically modified crops.
+(d) Using modern food processing technologies, we must fortify food items with required nutrient elements.
+
+14.
+
+Three of the five positive integers p, q, r, s, t are even and two of them are odd.
+
+Consider the following:
+
+p + q + r − s − t is definitely even.
+
+2p + q + 2r − 2s + t is definitely odd.
+
+Which of the above statements is/are correct?
+
+(a) 1 only
+(b) 2 only
+(c) Both 1 and 2
+(d) Neither 1 nor 2
+
+15.
+
+Consider the following in respect of prime number p and composite number c.
+
+(p + c) / (p − c) can be even.
+
+2p + c can be odd.
+
+pc can be odd.
+
+Which of the statements given above are correct?
+
+(a) 1 and 2 only
+(b) 2 and 3 only
+(c) 1 and 3 only
+(d) 1, 2 and 3
+
+16.
+
+A 3-digit number ABC, on multiplication with D gives 37DD where A, B, C and D are different non-zero digits.
+
+What is the value of A + B + C?
+
+(a) 18
+(b) 16
+(c) 15
+(d) Cannot be determined due to insufficient data
+
+17.
+
+For any choices of values of X, Y and Z, the 6-digit number of the form XYZXYZ is divisible by:
+
+(a) 7 and 11 only
+(b) 11 and 13 only
+(c) 7 and 13 only
+(d) 7, 11 and 13
+
+18.
+
+125 identical cubes are arranged in the form of a cubical block.
+
+How many cubes are surrounded by other cubes from each side?
+
+(a) 27
+(b) 25
+(c) 21
+(d) 18
+
+19.
+
+How many distinct 8-digit numbers can be formed by rearranging the digits of the number 11223344 such that odd digits occupy odd positions and even digits occupy even positions?
+
+(a) 12
+(b) 18
+(c) 36
+(d) 72
+
+20.
+
+A, B, C working independently can do a piece of work in 8, 16 and 12 days respectively.
+
+A alone works on Monday, B alone works on Tuesday, C alone works on Wednesday, A again works on Thursday and so on.
+
+Consider the following statements:
+
+The work will be finished on Thursday.
+
+The work will be finished in 10 days.
+
+Which of the above statements is/are correct?
+
+(a) 1 only
+(b) 2 only
+(c) Both 1 and 2
+(d) Neither 1 nor 2
+
+Passage – 1
+
+To tackle the problem of pollution in cities, policy makers think that drastic actions like temporary use of odd-even number scheme for vehicles, closing schools, factories, construction activities, and banning the use of certain type of vehicles are a way forward. Even then the air is not clean.
+
+Vehicles more than 15 years old comprise one percent of the total; and taking them off the road will not make any difference. Banning certain fuels and car types arbitrarily is not proper.
+
+Diesel engines produce more PM 2.5 and less CO₂ than petrol or CNG engines. On the other hand, diesel and CNG engines produce more NOx than petrol engines. No one has measured the amount of NOx that CNG engines are emitting.
+
+Arbitrary bans on vehicles that have passed mandated fitness tests and periodic pollution tests are unfair. What is needed is the scientific and reliable information about the source of pollutants on a continuing basis and the technologies that will work to reduce pollution from them.
+
+21.
+
+Which one of the following statements best reflects the most logical and rational implication conveyed by the passage?
+
+(a) Arbitrary curbs on vehicles to reduce pollution are difficult to implement.
+
+(b) Knee-jerk reactions cannot solve the problem of pollution but an evidence-based approach will be more effective.
+
+(c) A heavy penalty should be enforced on those driving without periodic pollution tests.
+
+(d) In the absence of laws to deal with the problems of pollution, the administration tends to make arbitrary decisions.
+
+Passage – 2
+
+Good corporate governance structures encourage companies to provide accountability and control.
+
+A fundamental reason why corporate governance has moved onto the economic and political agenda worldwide has been the rapid growth in international capital markets.
+
+Effective corporate governance enhances access to external financing by firms, leading to greater investment, higher growth and employment.
+
+Investors look to place their funds where the standards of disclosure, timely and accurate financial reporting, and of equal treatment to all stakeholders are met.
+
+22.
+
+Which of the following statements best reflects the logical inference from the passage given above?
+
+(a) It is an important agenda of the countries around the world to ensure access to good external financing.
+
+(b) Good corporate governance improves the credibility of the firms.
+
+(c) International capital markets ensure that the firms maintain good corporate governance.
+
+(d) Good corporate governance paves the way for robust supply chains.
+
+Passage – 3
+
+Elephants are landscape architects, creating clearings in the forest, preventing overgrowth of certain plant species and allowing space for the regeneration of others, which in turn provide sustenance to other herbivorous animals.
+
+Elephants eat plants, fruits and seeds, propagating the seeds when they defecate in other places as they travel.
+
+Elephant dung provides nourishment to plants and animals and acts as a breeding ground for insects.
+
+In times of drought, they access water by digging holes which benefits other wildlife.
+
+23.
+
+Which one of the following statements best reflects the most logical and rational inference that can be drawn from the passage?
+
+(a) The home range of elephants needs to be a vast area of rich biodiversity.
+
+(b) Elephants are the keystone species and they benefit the biodiversity.
+
+(c) Rich biodiversity cannot be maintained in the forests without the presence of elephants.
+
+(d) Elephants are capable of regenerating forests with species as per their requirement.
+
+24.
+
+If
+
+7 ⊕ 9 ⊕ 10 = 8
+9 ⊕ 11 ⊕ 30 = 5
+11 ⊕ 17 ⊕ 21 = 13
+
+what is the value of
+
+23 ⊕ 4 ⊕ 15 ?
+
+(a) 6
+(b) 8
+(c) 13
+(d) 15
+
+25.
+
+Let x be a positive integer such that 7x + 96 is divisible by x.
+
+How many values of x are possible?
+
+(a) 10
+(b) 11
+(c) 12
+(d) Infinitely many
+
+26.
+
+If p, q, r and s are distinct single digit positive numbers, then what is the greatest value of
+
+(
+𝑝
++
+𝑞
+)
+(
+𝑟
++
+𝑠
+)
+(p+q)(r+s)
+
+(a) 230
+(b) 225
+(c) 224
+(d) 221
+
+27.
+
+A number N is formed by writing 9 for 99 times.
+
+What is the remainder if N is divided by 13?
+
+(a) 11
+(b) 9
+(c) 7
+(d) 1
+
+28.
+
+Each digit of a 9-digit number is 1.
+It is multiplied by itself.
+
+What is the sum of the digits of the resulting number?
+
+(a) 64
+(b) 80
+(c) 81
+(d) 100
+
+29.
+
+What is the sum of all digits which appear in all the integers from 10 to 100?
+
+(a) 855
+(b) 856
+(c) 910
+(d) 911
+
+30.
+
+ABCD is a square. One point on each of AB and CD, and two distinct points on each of BC and DA are chosen.
+
+How many distinct triangles can be drawn using any three points as vertices out of these six points?
+
+(a) 16
+(b) 18
+(c) 20
+(d) 24
+
+47.
+
+What is the sum of all 4-digit numbers less than 2000 formed by the digits 1, 2, 3 and 4, where none of the digits is repeated?
+(a) 7998
+(b) 8028
+(c) 8878
+(d) 9238
+
+48.
+
+What is the number of selections of 10 consecutive things out of 12 things in a circle taken in the clockwise direction?
+(a) 3
+(b) 11
+(c) 12
+(d) 66
+
+49.
+
+If today is Sunday, then which day is it exactly on 10¹⁰th day?
+(a) Wednesday
+(b) Thursday
+(c) Friday
+(d) Saturday
+
+50.
+
+There are three traffic signals. Each signal changes colour from green to red and then from red to green.
+
+First signal: 25 seconds
+
+Second signal: 39 seconds
+
+Third signal: 60 seconds
+
+Duration of green and red colours are same.
+
+At 2:00 p.m., they together turn green. At what time will they change to green next, simultaneously?
+(a) 4:00 p.m.
+(b) 4:10 p.m.
+(c) 4:20 p.m.
+(d) 4:30 p.m.
+
+Directions for the following 3 (three) items
+
+Read the following three passages and answer the items that follow the passages. Your answers should be based on the passages only.
+
+Passage – 1
+
+Sourcing food from non-agricultural lands (uncultivated systems such as forests, wetlands, pastures, etc.) in addition to agricultural lands enables a systemic approach to food consumption. It allows rural and tribal communities to sustain themselves for the whole year and steer clear of natural disasters and season-induced shortfalls of agricultural food. Since the productivity of trees is often more resilient to adverse weather conditions than annual crops, forest foods often provide a safety net during periods of food shortages caused by crop failure; forest foods also make important contributions during seasonal crop production gaps.
+
+51.
+
+Which one of the following statements best reflects the most logical and rational message conveyed by the author of the passage?
+
+(a) Food yielding trees should replace other trees in rural and tribal areas and community owned lands.
+(b) Food security cannot be ensured in India with the present practice of conventional agriculture.
+(c) Wastelands and degraded areas in India should be converted into agroforestry systems to help the poor.
+(d) Agroecosystems should be developed in addition to or along with conventional agriculture.
+
+Directions for the following 5 (five) items
+
+(Read passages…)
+
+Passage – 1
+
+In India, the segregation of municipal waste at source is rare. Recycling is mostly with the informal sector. More than three-fourths of the municipal budget goes into collection and transportation, which leaves very little for processing/resource recovery and disposal.
+
+Where does waste-to-energy fit into all this? Ideally it fits in the chain after segregation (between wet waste and the rest), collection, recycling, and before getting to the landfill.
+
+Which technology is most appropriate in converting waste to energy depends on what is in the waste (biodegradable vs non-biodegradable component) and its calorific value. The biodegradable component of India’s municipal solid waste is a little over 50 per cent, and biomethanation offers a major solution for processing this.
+
+31.
+
+Based on the above passage, the following assumptions have been made:
+
+Collection, processing and segregation of municipal waste should be with government agencies.
+
+Resource recovery and recycling require technological inputs that can be best handled by private sector enterprises.
+
+Which of the assumptions given above is/are correct?
+(a) 1 only
+(b) 2 only
+(c) Both 1 and 2
+(d) Neither 1 nor 2
+
+32.
+
+Which one of the following statements best reflects the crux of the passage?
+
+(a) Generation of energy from municipal solid waste is inexpensive.
+(b) Biomethanation is the most ideal way of generating energy from municipal solid waste.
+(c) Segregation of municipal solid waste is the first step in ensuring the success of waste-to-energy plants.
+(d) The biodegradable component of India’s municipal solid waste is not adequate to provide energy efficiently/effectively.
+
+Passage – 2
+
+There is a claim that organic farming is inherently safer and healthier. The reality is that because the organic farming industry is still young and not well-regulated in India, farmers and consumers alike are not only confused about what products are best for them, but sometimes use products in ways that could harm them as well.
+
+For example, since organic fertilizers are difficult to obtain on a large scale in India, farmers often use farmyard manure, which may contain toxic chemicals and heavy metals. Certain plant sprays, such as Datura flower and leaf spray, have an element called atropine. If it is not applied in the right dose, it can act on the nervous system of the consumer. Unfortunately, how much and when to use it are not well-researched or regulated issues.
+
+33.
+
+Assumptions:
+
+Organic farming is inherently unsafe for both farmers and consumers.
+
+Farmers and consumers need to be educated about eco-friendly food.
+
+(a) 1 only
+(b) 2 only
+(c) Both 1 and 2
+(d) Neither 1 nor 2
+
+34.
+
+Which statement best reflects the message?
+
+(a) Organic farming should not be promoted as a substitute.
+(b) No safe organic alternatives exist.
+(c) Farmers need guidance to make organic farming sustainable.
+(d) Organic farming should not aim for profits.
+
+Passage – 3
+
+Food consumption patterns have changed substantially in India over the past few decades. This has resulted in the disappearance of many nutritious foods such as millets. While food grain production has increased over five times since independence, it has not sufficiently addressed malnutrition.
+
+Agriculture focused on staples led to lower production and consumption of indigenous crops. Intensive monoculture practices degrade land, water and food quality, worsening nutrition security.
+
+35.
+
+Assumptions:
+
+Monoculture is inevitable even if it doesn’t address malnutrition.
+
+Dependence on few crops harms health and ecosystem.
+
+Food policies must include nutrition security.
+
+Subsidies and pricing discourage crop diversity.
+
+(a) 1, 2 and 4 only
+(b) 2 and 3 only
+(c) 3 and 4 only
+(d) 1, 2, 3 and 4
+
+36.
+
+Box contains:
+14 black, 20 blue, 26 green, 28 yellow, 38 red, 54 white balls
+
+Minimum n such that any selection guarantees 175 of same colour
+
+Minimum m such that selection guarantees at least one ball of each colour is 167
+
+(a) 1 only
+(b) 2 only
+(c) Both
+(d) Neither
+
+37.
+
+If “ZERO” → “CHUR”, how is “PLAYER” written?
+(a) SOCAGT
+(b) SODBGT
+(c) SODBHT
+(d) SODBHU
+
+38.
+
+Statements:
+
+A older than B
+
+C and D same age
+
+E youngest
+
+F younger than D
+
+F older than A
+
+How many needed to determine oldest?
+(a) Only two
+(b) Only three
+(c) Only four
+(d) All five
+
+39.
+
+Family of A, B, C, D, E
+
+Q: Relation of E to B
+
+Statements:
+
+A and B married
+
+D father of C
+
+E is D’s son
+
+A and C are sisters
+
+Options:
+(a) 1,2,3 sufficient
+(b) 1,3,4 sufficient
+(c) All sufficient
+(d) Not sufficient
+
+40.
+
+Find odd group:
+(a) 17, 37, 47, 97
+(b) 31, 41, 53, 67
+(c) 71, 73, 79, 83
+(d) 83, 89, 91, 97
+
+Passage – 1
+
+Scientists studied the vernal window (winter → growing season transition). Warmer winters extend spring timing, affecting ecosystems, birds, agriculture, fisheries, tourism.
+
+41.
+
+Assumptions:
+
+Global warming causes earlier, longer spring
+
+Longer spring harms birds
+
+(a) 1 only
+(b) 2 only
+(c) Both
+(d) Neither
+
+Passage – 2
+
+Nitrogen use efficiency ≈ 0.4 globally.
+40% absorbed, 60% lost → pollution, greenhouse gases, eutrophication.
+
+42.
+
+Main message:
+(a) Improve nitrogen efficiency is essential
+(b) Cannot stop fertilizers
+(c) Find alternative crops
+(d) Replace conventional agriculture
+
+Passage – 3
+
+Climate justice + sustainability are key principles.
+Focus: supporting victims, adaptation, compensation.
+
+43.
+
+Best message:
+(a) Climate justice must be detailed in agreements
+(b) Resources unevenly used
+(c) Climate refugees issue
+(d) Developed countries responsible
+
+44.
+
+P → Q in 1 year, compounded half-yearly at R%
+Same P → Q annually at S%
+
+Relation?
+(a) R = S
+(b) R > S
+(c) R < S
+(d) R ≤ S
+
+45.
+
+Find natural numbers giving remainder 31 when 1186 divided
+
+(a) 6
+(b) 7
+(c) 8
+(d) 9
+
+46.
+
+pp, qq, rr are 2-digit numbers, p < q < r
+pp + qq + rr = tt0
+
+Statements:
+
+Possible p values = 5
+
+Possible q values = 6
+
+(a) 1 only
+(b) 2 only
+(c) Both
+(d) Neither
+
+76.
+
+AB and CD are 2-digit numbers. Multiplying AB with CD results in a 3-digit number DEF. Adding DEF to another 3-digit number GHI results in 975. Further A, B, C, D, E, F, G, H, I are distinct digits. If E = 0, F = 8, then what is A + B + C equal to?
+
+(a) 6
+(b) 7
+(c) 8
+(d) 9
+
+77.
+
+Consider the following statements in respect of five candidates P, Q, R, S and T. Two statements are true and one statement is false.
+
+True Statement: One of P and Q was selected for the job.
+
+False Statement: At least one of R and S was selected for the job.
+
+True Statement: At most two of R, S and T were selected for the job.
+
+Which of the following conclusions can be drawn?
+
+At least four were selected for the job.
+
+S was selected for the job.
+
+(a) 1 only
+(b) 2 only
+(c) Both 1 and 2
+(d) Neither 1 nor 2
+
+78.
+
+Let P, Q, R, S and T be five statements such that:
+
+I. If P is true, then both Q and S are true.
+II. If R and S are true, then T is false.
+
+Which of the following can be concluded?
+
+If T is true, then at least one of P and R must be false.
+
+If Q is true, then P is true.
+
+(a) 1 only
+(b) 2 only
+(c) Both 1 and 2
+(d) Neither 1 nor 2
+
+79.
+
+A cuboid of dimensions 7 cm × 5 cm × 3 cm is painted red, green and blue colour on each pair of opposite faces respectively. Then the cuboid is cut into cubes each of side length 1 cm.
+
+Statements:
+
+There are exactly 15 small cubes with no paint on any face.
+
+There are exactly 6 small cubes with exactly two faces, one painted with blue and the other with green.
+
+(a) 1 only
+(b) 2 only
+(c) Both 1 and 2
+(d) Neither 1 nor 2
+
+80.
+
+The letters of the word “INCOMPREHENSIBILITIES” are arranged alphabetically in reverse order. How many positions of the letter/letters will remain unchanged?
+
+(a) None
+(b) One
+(c) Two
+(d) Three
+
+Passage – 2
+
+While awareness on use/misuse and abuse of antibiotics is common knowledge, the environmental impact of dosing poultry with antibiotics and of antibiotics-manufacturing companies not treating their waste has scarcely been discussed seriously. Pollution from antibiotics factories is fuelling drug-resistant infections. Drug-resistant bacteria around pharma plants is well known.
+
+52.
+
+Which statement best reflects the most logical and practical message?
+
+(a) Proper effluent treatment protocols must be implemented.
+(b) Promote environmental awareness among people.
+(c) Drug resistance cannot be avoided.
+(d) Pharma units should be shifted to rural areas.
+
+Passage – 3
+
+Benefits of good quality school education accrue when students complete schooling with foundational skills. Without a strong base at primary level, higher education and skill development cannot improve.
+
+53.
+
+Crux of the passage:
+
+(a) India must invest in universal quality education
+(b) India cannot become global power
+(c) Focus more on higher education skills
+(d) Parents are unaware
+
+54.
+
+40 children in a circle. Passing pattern:
+
+1 → 2 → 4 → 7 → ...
+
+After how many passes will it return to child-1?
+
+(a) 14
+(b) 15
+(c) 16
+(d) 17
+
+55.
+
+Sequence:
+Z, Z, Y, Y, Y, X, X, X, X, W, W, W, W, W, …, A
+
+Find the middle term.
+
+(a) H
+(b) I
+(c) J
+(d) M
+
+56.
+
+Is p > q?
+
+p × q > 0
+
+p² > q²
+
+(a) One statement sufficient
+(b) Either sufficient
+(c) Both needed
+(d) Not sufficient
+
+57.
+
+Is (p + q – r) > (p – q + r)?
+
+(p – q) positive
+
+(p – r) negative
+
+Options: standard DS
+
+58.
+
+Party problem:
+
+75 tea, 60 coffee, 15 both, none milk-tea overlap.
+
+Each drinks ≥1
+
+Statements:
+
+50 took milk
+
+Total attendees = 5 × milk-only
+
+Options: DS
+
+59.
+
+3-digit number:
+
+Sum of digits = product
+
+Divisible by sum of digits
+
+Options: DS
+
+60.
+
+5 children: a < b < c < d < e (gap = 2)
+
+Find youngest:
+
+Eldest = 3× youngest
+
+Average = 8
+
+Passage – 1
+
+Paradox of choice (Buridan’s ass): too many choices → paralysis, anxiety.
+
+61.
+
+Message:
+
+(a) Technology makes life difficult
+(b) Life has too many choices
+(c) People follow others
+(d) Too few OR too many choices both problematic
+
+Passage – 2
+
+India prefers physical assets (gold/property). Financialization needs awareness, simpler systems, less bureaucracy.
+
+62.
+
+Solutions implied:
+
+Flexible environment
+
+Custom solutions
+
+Fintech innovation
+
+(a) 1 & 2
+(b) 2 & 3
+(c) 1 & 3
+(d) 1, 2 & 3
+
+Passage – 3
+
+Patents → innovation but higher prices → need balance.
+
+63.
+
+Assumptions:
+
+Patent burden on public
+
+Import dependence burden
+
+Affordable pricing is key policy goal
+
+Balance needed
+
+(a) 1 & 2
+(b) 1 & 4
+(c) 3 & 4
+(d) 2 & 3
+
+Passage – 4
+
+Digital economy needs privacy protection → innovation depends on trust.
+
+64.
+
+Assumptions:
+
+Privacy has economic value
+
+Privacy linked to innovation
+
+(a) 1 only
+(b) 2 only
+(c) Both
+(d) Neither
+
+65.
+
+4 subjects (100 each), integer marks → total 99
+
+Find number of ways
+
+(a) 16
+(b) 17
+(c) 23
+(d) 35
+
+66.
+
+4 stripes, colors R, G, Y, no adjacent same
+
+(a) 12
+(b) 18
+(c) 24
+(d) 36
+
+67.
+
+Floor 4 m × 2.2 m
+Tile: 140 cm × 60 cm
+
+Max tiles?
+
+(a) 6
+(b) 7
+(c) 8
+(d) 9
+
+68.
+
+5 persons P, Q, R, S, T
+
+P & Q cannot do Task-1
+
+Task-2 → R or S
+
+Ways?
+
+(a) 6
+(b) 12
+(c) 18
+(d) 24
+
+69.
+
+Coins: 2, 5, 10, 25, 50
+
+Need ≥7 coins for 78
+
+Can make 78 with <7 coins
+
+(a) 1 only
+(b) 2 only
+(c) Both
+(d) Neither
+
+70.
+
+Symbol logic:
+
+I. A + B → A ≥ B
+II. A – B → A ≤ B
+III. A × B → A ≥ B
+IV. A ÷ B → A ≤ B
+V. A ± B → A = B
+
+Statement: P × Q, P – T, T ÷ R, R ± S
+
+Conclusions:
+
+Q ≠ T
+
+S + Q
+
+Passage – 1
+
+Unemployment in India tied to rising education + aspirations.
+
+71.
+
+Message:
+
+(a) Education poor
+(b) Unemployment linked to aspirations
+(c) No industries
+(d) Promote self-employment
+
+Passage – 2
+
+Science needs philosophy → direction + purpose.
+
+72.
+
+Message:
+
+(a) Statesmen need science + philosophy
+(b) Empirical governance not ideal
+(c) Education must include both
+(d) Scientists must be philosophers
+
+Passage – 3
+
+State exists to ensure freedom, not control.
+
+73.
+
+Ultimate goal:
+
+(a) Safety
+(b) Health
+(c) Harmony
+(d) Liberty
+
+74.
+
+Find remainder of
+2
+192
+2
+192
+ ÷ 6
+
+(a) 0
+(b) 1
+(c) 2
+(d) 4
+
+75.
+
+Sequence:
+ABC __ ABC _ DABBCD _ ABCD
+
+Find missing term
+
+(a) DACB
+(b) CDAB
+(c) DCCA
+(d) DDCA

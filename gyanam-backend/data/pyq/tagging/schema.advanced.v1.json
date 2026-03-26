@@ -1,0 +1,10 @@
+{
+  "advanced_fields": [
+    "trap_type",
+    "secondary_subject",
+    "reasoning_type",
+    "trend_tag",
+    "error_prone_area",
+    "confidence_level"
+  ]
+}

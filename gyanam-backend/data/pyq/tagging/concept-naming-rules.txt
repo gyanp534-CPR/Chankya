@@ -1,0 +1,7 @@
+Concept Naming Rules (Seed v1)
+- Use noun phrases (e.g., “Fiscal Federalism”, not “Finance Commission question”).
+- Keep concepts reusable across years; avoid overly narrow labels.
+- Prefer one canonical term; avoid synonyms (pick one and stick with it).
+- Keep 2–4 concepts per question (max 5 if truly needed).
+- Add a primary_concept when one is clearly dominant.
+- For RC questions: primary_concept should be the knowledge domain; use reasoning_type for skill.

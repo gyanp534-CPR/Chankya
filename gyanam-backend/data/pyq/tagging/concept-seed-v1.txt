@@ -1,0 +1,86 @@
+# Concept Seed v1 (Starter List)
+# Keep concepts specific and reusable. Expand as we tag.
+
+Polity
+- Federalism
+- Fiscal Federalism
+- Constitutional Bodies
+- Judicial Review
+- Parliamentary Procedures
+- Election Commission
+- Fundamental Rights
+- Directive Principles
+- Local Self-Government
+- Emergency Provisions
+
+Economy
+- Inflation Targeting
+- Monetary Policy
+- Fiscal Policy
+- Banking Regulation
+- Financial Inclusion
+- Capital Markets
+- External Sector
+- Agriculture Economics
+- MSP & Procurement
+- Employment & Poverty
+
+Environment
+- Biodiversity Conservation
+- Protected Areas
+- Climate Change
+- Carbon Sequestration
+- Pollution Control
+- Environmental Governance
+- Wildlife Protection
+- Wetlands & Ramsar
+- Invasive Species
+- Sustainable Agriculture
+
+History
+- Freedom Struggle
+- Colonial Administration
+- Ancient Polities
+- Medieval Kingdoms
+- Art & Culture
+- Religious Movements
+- Economic History
+- Social Reform
+- Modern India Timeline
+- Archaeological Sites
+
+Geography
+- Indian Monsoon
+- River Systems
+- Climatic Zones
+- Natural Vegetation
+- Soil Types
+- Plate Tectonics
+- Ocean Currents
+- Urban Geography
+- Population Distribution
+- Disaster Geography
+
+Science & Technology
+- Space Missions
+- Biotechnology
+- DNA & Genetics
+- Medical Innovations
+- Energy Technologies
+- Cybersecurity
+- AI & Computing
+- Nanotechnology
+- Nuclear Technology
+- Communications Tech
+
+Current Affairs
+- International Organizations
+- Global Summits
+- Government Schemes
+- Awards & Honours
+- Sports & Events
+- Reports & Indices
+- Security & Defence
+- Science in News
+- Environment in News
+- Economy in News

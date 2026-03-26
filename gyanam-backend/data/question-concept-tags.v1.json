@@ -1,0 +1,17 @@
+[
+  {
+    "questionId": "UPSC_2017_Q45",
+    "conceptIds": ["POL-PAR-004", "POL-PAR-006"],
+    "source": "manual_tag_v1"
+  },
+  {
+    "questionId": "UPSC_2018_Q62",
+    "conceptIds": ["ECO-MON-003", "ECO-MON-001"],
+    "source": "manual_tag_v1"
+  },
+  {
+    "questionId": "UPSC_2019_Q11",
+    "conceptIds": ["ENV-CNV-001", "ENV-CNV-002"],
+    "source": "manual_tag_v1"
+  }
+]

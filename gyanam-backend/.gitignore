@@ -1,0 +1,8 @@
+node_modules
+# Keep environment variables out of version control
+.env
+
+/generated/prisma
+
+# Raw PDFs/OCR artifacts should live in archive storage, not git
+data/pyq/papers/**/raw/

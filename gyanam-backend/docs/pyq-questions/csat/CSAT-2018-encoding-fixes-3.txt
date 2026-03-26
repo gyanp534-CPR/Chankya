@@ -1,0 +1,6 @@
+CSAT-2018 encoding fixes (pass 3)
+Format: Line | Q# | Before => After
+
+218 | Q23 | Q23. If X is between -3 and -1, and Y is between -1 and 1, then XÂ² - YÂ² is in between which of the following? => Q23. If X is between -3 and -1, and Y is between -1 and 1, then X² - Y² is in between which of the following?
+376 | Q38 | (d) xÂ³aÂ³ => (d) x³a³
+384 | Q40 | Q40. Two persons, A and B are running on a circular track. At the start, B is ahead of A and their positions make an angle of 30Â° at the centre of the circle. When A reaches the point diametrically opposite to his starting point, he meets B. What is the ratio of speeds of A and B, if they are running with uniform speeds? => Q40. Two persons, A and B are running on a circular track. At the start, B is ahead of A and their positions make an angle of 30° at the centre of the circle. When A reaches the point diametrically opposite to his starting point, he meets B. What is the ratio of speeds of A and B, if they are running with uniform speeds?
