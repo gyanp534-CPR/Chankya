@@ -37,10 +37,8 @@ const databaseUrl = process.env.DATABASE_URL;
 if (!databaseUrl) {
   throw new Error("DATABASE_URL is not set. Cannot run seed.");
 }
-
-const prisma = new PrismaClient({
-  datasources: { db: { url: databaseUrl } },
-});
+process.env.DATABASE_URL = databaseUrl;
+const prisma = new PrismaClient();
 
 async function main() {
   const conceptsList = concepts as SeedConcept[];
