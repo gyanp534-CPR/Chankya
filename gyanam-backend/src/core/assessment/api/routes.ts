@@ -134,7 +134,7 @@ function getUserIdOrGuest(request: {
 }
 
 async function ensureGuestUser(
-  fastify: { prisma?: { users: { upsert: (args: unknown) => Promise<unknown> } } },
+  fastify: { prisma?: { users: { upsert: (args: any) => Promise<any> } } },
   userId: string,
 ): Promise<void> {
   if (!userId.startsWith("guest:") || !fastify.prisma) {
