@@ -122,6 +122,34 @@ async function main() {
       },
     });
   }
+
+  const questionCount = await prisma.question.count({
+    where: { deletedAt: null },
+  });
+  if (questionCount === 0) {
+    const topic = await prisma.topic.findFirst({
+      where: { deletedAt: null, subject: { deletedAt: null } },
+      orderBy: { id: "asc" },
+      select: { id: true },
+    });
+
+    if (!topic) {
+      throw new Error("No topics available to seed demo questions.");
+    }
+
+    const demoQuestions = Array.from({ length: 25 }).map((_, index) => ({
+      topicId: topic.id,
+      stem: `Demo Question ${index + 1}: Choose the correct option.`,
+      options: ["Option A", "Option B", "Option C", "Option D"],
+      correctIndex: 0,
+      difficulty: "easy" as const,
+      tags: ["demo"],
+    }));
+
+    await prisma.question.createMany({
+      data: demoQuestions,
+    });
+  }
 }
 
 main()
