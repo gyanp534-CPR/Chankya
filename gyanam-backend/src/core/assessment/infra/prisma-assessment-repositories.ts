@@ -27,6 +27,7 @@ function toQuestion(row: {
   conceptIds?: string[];
   explanation?: unknown;
   subjectId?: string;
+  trapType?: string | null;
 } {
   const conceptNames = row.concepts?.map((item) => item.concept.name) ?? [];
   const conceptIds = row.concepts?.map((item) => item.concept.id) ?? [];

@@ -157,7 +157,7 @@ function mapErrorToTrap(errorType: ErrorType): TrapType | null {
   }
 }
 
-export function trapReadable(trap: TrapType): string {
+export function trapReadable(trap?: TrapType | null): string {
   switch (trap) {
     case "hidden_constraint":
       return "hidden constraint";
@@ -328,7 +328,7 @@ function classifyStrength(strength: number): MemoryPriority {
 
 function buildReason(item: { errorType: ErrorType; topic: string; trapType?: TrapType | null }): string {
   if (item.trapType) {
-    return `You repeatedly made ${trapReadable(item.trapType as TrapType)} errors in ${item.topic}`;
+    return `You repeatedly made ${trapReadable(item.trapType)} errors in ${item.topic}`;
   }
   return `You repeatedly struggled with ${item.errorType} errors in ${item.topic}`;
 }
