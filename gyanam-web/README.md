@@ -57,6 +57,14 @@ builds from the frontend workspace by default.
 
 Ensure the backend has `CORS_ORIGIN` set to include the Vercel domain(s) used for production and previews.
 
+## Branch Workflow (Contributors)
+
+We do not push directly to `main`. Use a branch-only workflow:
+
+- Create a feature branch from `main`.
+- Open a PR for review.
+- Merge to `main` only after validation.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

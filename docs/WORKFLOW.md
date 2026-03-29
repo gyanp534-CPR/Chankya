@@ -4,9 +4,8 @@ This document captures the lightweight branching and commit discipline for ongoi
 
 ## Branching Strategy
 - `main` is always stable and production-ready.
-- `dev` is the active integration branch; all work lands here first.
+- Use short-lived `feature/*` branches for focused tasks; merge into `main` when ready.
 - `phase/*` branches are historical or long-running streams (usually merged and then kept as stale references).
-- Use short-lived `feature/*` branches for focused tasks; merge into `dev` when ready.
 
 Examples:
 - `feature/csat-fix-docs`
@@ -30,8 +29,7 @@ Examples:
 3. OCR outputs (generated files)
 
 ## Merge Strategy
-- Merge or squash `feature/*` branches into `dev` after review.
-- Periodically promote `dev` to `main` once stable.
+- Merge or squash `feature/*` branches into `main` after review.
 - Do not work directly on `main`.
 
 Last updated: 2026-03-22
