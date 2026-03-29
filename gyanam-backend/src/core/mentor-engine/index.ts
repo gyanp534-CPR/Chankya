@@ -291,7 +291,7 @@ function parseMemoryKey(key: string): ParsedMemoryKey | null {
     return { errorType: match, topic: remainder };
   }
 
-  const last = parts[parts.length - 1];
+  const last = parts[parts.length - 1] ?? "";
   const looksLikeId = /^c[a-z0-9]{10,}$/i.test(last) || last === "none";
   if (looksLikeId) {
     const topic = parts.slice(0, -1).join("-");
