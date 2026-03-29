@@ -54,11 +54,35 @@ export async function createApp(options: CreateAppOptions = {}) {
     disableRequestLogging: env.NODE_ENV === "test",
   });
 
+  const corsOrigins = env.CORS_ORIGIN
+    .split(",")
+    .map((value) => value.trim())
+    .filter((value) => value.length > 0);
+
+  const corsMatchers = corsOrigins
+    .filter((value) => value.includes("*"))
+    .map((value) => new RegExp(`^${value.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, ".*")}$`));
+
   await app.register(cors, {
-    origin: env.CORS_ORIGIN
-      .split(",")
-      .map((value) => value.trim())
-      .filter((value) => value.length > 0),
+    origin: (origin, callback) => {
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+      if (corsOrigins.includes("*")) {
+        callback(null, true);
+        return;
+      }
+      if (corsOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+      if (corsMatchers.some((regex) => regex.test(origin))) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error("CORS origin not allowed"), false);
+    },
     credentials: true,
   });
   await app.register(cookie);
