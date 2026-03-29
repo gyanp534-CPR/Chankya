@@ -21,7 +21,13 @@ function toQuestion(row: {
   trapType?: string | null;
   explanation?: unknown;
   concepts?: Array<{ concept: { id: string; name: string } }>;
-}): Question & { correctIndex: number; conceptNames?: string[]; conceptIds?: string[]; explanation?: unknown } {
+}): Question & {
+  correctIndex: number;
+  conceptNames?: string[];
+  conceptIds?: string[];
+  explanation?: unknown;
+  subjectId?: string;
+} {
   const conceptNames = row.concepts?.map((item) => item.concept.name) ?? [];
   const conceptIds = row.concepts?.map((item) => item.concept.id) ?? [];
   return {
@@ -227,11 +233,12 @@ export class PrismaTestSetRepository implements TestSetRepository {
       },
     });
 
+    const normalizedMode = created.mode === "practicexz" ? "practice" : created.mode;
     return {
       id: created.id,
       subjectId: created.subjectId,
       questionIds: created.questions.sort((a, b) => a.sortOrder - b.sortOrder).map((item) => item.questionId),
-      mode: created.mode,
+      mode: normalizedMode,
       createdAt: created.createdAt.toISOString(),
       seed: created.seed,
       questionCount: created.questionCount,
@@ -255,11 +262,12 @@ export class PrismaTestSetRepository implements TestSetRepository {
       return null;
     }
 
+    const normalizedMode = row.mode === "practicexz" ? "practice" : row.mode;
     return {
       id: row.id,
       subjectId: row.subjectId,
       questionIds: row.questions.map((q) => q.questionId),
-      mode: row.mode,
+      mode: normalizedMode,
       createdAt: row.createdAt.toISOString(),
       seed: row.seed,
       questionCount: row.questionCount,

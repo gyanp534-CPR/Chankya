@@ -328,7 +328,7 @@ function classifyStrength(strength: number): MemoryPriority {
 
 function buildReason(item: { errorType: ErrorType; topic: string; trapType?: TrapType | null }): string {
   if (item.trapType) {
-    return `You repeatedly made ${trapReadable(item.trapType)} errors in ${item.topic}`;
+    return `You repeatedly made ${trapReadable(item.trapType as TrapType)} errors in ${item.topic}`;
   }
   return `You repeatedly struggled with ${item.errorType} errors in ${item.topic}`;
 }
@@ -398,8 +398,9 @@ export async function getDailyFocus(params: {
   }
 
   const urgentItems = items.filter((item) => item.priority === "urgent");
-  if (urgentItems.length > 0) {
-    return [urgentItems[0]];
+  const topUrgent = urgentItems[0];
+  if (topUrgent) {
+    return [topUrgent];
   }
 
   return items.slice(0, 3);

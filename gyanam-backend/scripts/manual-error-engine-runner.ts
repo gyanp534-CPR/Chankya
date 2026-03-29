@@ -1,10 +1,16 @@
 import { ErrorEngineService } from "../src/core/error-engine/error-engine-service.js";
 import { loadErrorGraph } from "../src/core/error-engine/error-graph.js";
-import type { ErrorAttemptInput, ErrorEngineRepository, UserErrorState } from "../src/core/error-engine/types.js";
+import type {
+  ErrorAttemptInput,
+  ErrorEngineRepository,
+  UserErrorMemory,
+  UserErrorState,
+} from "../src/core/error-engine/types.js";
 
 class InMemoryErrorRepo implements ErrorEngineRepository {
   public attempts: Array<{ userId: string; isCorrect: boolean; errorType: string | null; createdAt: Date }> = [];
   public state: Map<string, UserErrorState> = new Map();
+  public memory: Map<string, UserErrorMemory[]> = new Map();
   private now: Date = new Date();
 
   public setNow(now: Date) {
@@ -21,6 +27,14 @@ class InMemoryErrorRepo implements ErrorEngineRepository {
 
   public async upsertUserErrorState(state: UserErrorState): Promise<void> {
     this.state.set(state.userId, state);
+  }
+
+  public async getUserErrorMemory(userId: string): Promise<UserErrorMemory[]> {
+    return this.memory.get(userId) ?? [];
+  }
+
+  public async upsertUserErrorMemory(userId: string, state: UserErrorMemory[]): Promise<void> {
+    this.memory.set(userId, state);
   }
 
   public async logAttempt(input: ErrorAttemptInput): Promise<void> {
