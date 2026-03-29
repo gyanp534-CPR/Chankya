@@ -19,4 +19,6 @@ export type AdaptiveStrategy = {
   questionType?: "pyq + traps";
   skillFocus?: Array<"concept clarity" | "elimination">;
   topics?: WeakArea[];
+  conceptIds?: string[];
+  trapType?: string;
 };

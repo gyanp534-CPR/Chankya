@@ -1,5 +1,5 @@
 import type { PrismaClient } from "@prisma/client";
-import type { ErrorAttemptInput, ErrorEngineRepository, UserErrorState } from "./types.js";
+import type { ErrorAttemptInput, ErrorEngineRepository, UserErrorMemory, UserErrorState } from "./types.js";
 
 export class PrismaErrorEngineRepository implements ErrorEngineRepository {
   public constructor(private readonly db: PrismaClient) {}
@@ -32,6 +32,45 @@ export class PrismaErrorEngineRepository implements ErrorEngineRepository {
         errorCounts: state.errorCounts,
         lastUpdated: state.lastUpdated,
       },
+    });
+  }
+
+  public async getUserErrorMemory(userId: string): Promise<UserErrorMemory[]> {
+    const rows = await this.db.userErrorMemory.findMany({
+      where: { userId },
+      orderBy: { strength: "desc" },
+    });
+    return rows.map((row) => ({
+      key: row.key,
+      strength: row.strength,
+      lastSeenAt: row.lastSeenAt,
+    }));
+  }
+
+  public async upsertUserErrorMemory(userId: string, state: UserErrorMemory[]): Promise<void> {
+    const keys = state.map((entry) => entry.key);
+    await this.db.$transaction(async (tx) => {
+      await tx.userErrorMemory.deleteMany({
+        where: {
+          userId,
+          key: { notIn: keys.length > 0 ? keys : ["__none__"] },
+        },
+      });
+      for (const entry of state) {
+        await tx.userErrorMemory.upsert({
+          where: { userId_key: { userId, key: entry.key } },
+          update: {
+            strength: entry.strength,
+            lastSeenAt: entry.lastSeenAt,
+          },
+          create: {
+            userId,
+            key: entry.key,
+            strength: entry.strength,
+            lastSeenAt: entry.lastSeenAt,
+          },
+        });
+      }
     });
   }
 

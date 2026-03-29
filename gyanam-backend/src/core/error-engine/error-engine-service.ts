@@ -45,6 +45,14 @@ export type ErrorEngineServiceDeps = {
 export class ErrorEngineService {
   public constructor(private readonly deps: ErrorEngineServiceDeps) {}
 
+  public async getUserErrorMemory(userId: string) {
+    return this.deps.repository.getUserErrorMemory(userId);
+  }
+
+  public async upsertUserErrorMemory(userId: string, state: Array<{ key: string; strength: number; lastSeenAt: Date }>) {
+    await this.deps.repository.upsertUserErrorMemory(userId, state);
+  }
+
   public async getLatestUserState(userId: string): Promise<ErrorEngineUserState | null> {
     const { repository } = this.deps;
     const recentAttempts = await repository.getRecentAttempts(userId, CONFIDENCE_RECENT_WINDOW);

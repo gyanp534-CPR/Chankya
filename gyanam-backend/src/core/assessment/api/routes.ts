@@ -29,6 +29,7 @@ const startAttemptSchema = z.object({
 const submitAttemptSchema = z.object({
   attemptId: z.string().min(1),
   pauseEvents: z.unknown().optional(),
+  focusKey: z.string().min(1).optional(),
   responses: z.array(
     z.object({
       questionId: z.string().min(1),
@@ -40,6 +41,7 @@ const submitAttemptSchema = z.object({
 
 const testSubmitSchema = z.object({
   attemptId: z.string().min(1),
+  focusKey: z.string().min(1).optional(),
   answers: z.array(
     z.object({
       questionId: z.string().min(1),
@@ -57,6 +59,11 @@ const evaluateAnswerSchema = z.object({
   attemptId: z.string().min(1),
   questionId: z.string().min(1),
   selectedIndex: z.number().int().nullable(),
+});
+
+const learningPathStartSchema = z.object({
+  focusKey: z.string().min(1).optional(),
+  questionCount: z.number().int().min(5).max(200).optional(),
 });
 
 function getBearerToken(authorization: string | undefined): string {
@@ -212,6 +219,31 @@ export const assessmentRoutes = (assessmentService: AssessmentService): FastifyP
       );
     });
 
+    fastify.get("/learning-path", async (request) => {
+      const userId = getUserIdOrGuest(request);
+      await ensureGuestUser(fastify, userId);
+      const items = await assessmentService.getLearningPath(userId);
+      return ok({ items }, { requestId: request.requestId });
+    });
+
+    fastify.post("/learning-path/start", async (request) => {
+      const parsed = learningPathStartSchema.safeParse(request.body ?? {});
+      if (!parsed.success) {
+        throw new AppError(ERROR_CODES.authInvalidPayload, "Invalid learning path start payload.", 400, parsed.error.flatten());
+      }
+
+      const userId = getUserIdOrGuest(request);
+      await ensureGuestUser(fastify, userId);
+      const result = await assessmentService.startLearningPathAttempt({
+        userId,
+        focusKey: parsed.data.focusKey,
+        questionCount: parsed.data.questionCount,
+        requestId: request.requestId,
+      });
+
+      return ok(result, { requestId: request.requestId });
+    });
+
     fastify.get("/tests/session/:attemptId", async (request) => {
       const paramsParsed = sessionParamsSchema.safeParse(request.params);
       if (!paramsParsed.success) {
@@ -263,6 +295,7 @@ export const assessmentRoutes = (assessmentService: AssessmentService): FastifyP
       const result = await assessmentService.submitAttempt({
         attemptId: parsed.data.attemptId,
         userId,
+        focusKey: parsed.data.focusKey,
         responses: parsed.data.answers.map((answer) => ({
           questionId: answer.questionId,
           selectedIndex: answer.selectedIndex,
@@ -300,6 +333,7 @@ export const assessmentRoutes = (assessmentService: AssessmentService): FastifyP
         attemptId: parsed.data.attemptId,
         responses: parsed.data.responses,
         pauseEvents: parsed.data.pauseEvents,
+        focusKey: parsed.data.focusKey,
         requestId: request.requestId,
       });
 

@@ -3,6 +3,8 @@ import type { AdaptiveStrategy, SystemAction, WeakArea } from "./adaptive-types.
 export function resolveAdaptiveStrategy(input: {
   systemAction?: SystemAction | null;
   weakAreas?: WeakArea[];
+  conceptIds?: string[];
+  trapType?: string;
 }): AdaptiveStrategy {
   switch (input.systemAction) {
     case "increase_difficulty":
@@ -15,6 +17,8 @@ export function resolveAdaptiveStrategy(input: {
         difficultyMix: { easy: 0.4, medium: 0.4, hard: 0.2 },
         questionType: "pyq + traps",
         topics: input.weakAreas?.slice(0, 2),
+        conceptIds: input.conceptIds,
+        trapType: input.trapType,
       };
     case "trigger_recovery":
       return {

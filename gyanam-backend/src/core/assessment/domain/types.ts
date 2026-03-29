@@ -1,7 +1,14 @@
 import type { AttemptResponse, Difficulty, Question, TestAttempt, TestSet } from "@gyanam/shared";
 import type { ErrorEngineUserState } from "../../error-engine/index.js";
 
-export type ScoreableQuestion = Question & { correctIndex: number };
+export type ScoreableQuestion = Question & {
+  correctIndex: number;
+  subjectId?: string;
+  conceptNames?: string[];
+  conceptIds?: string[];
+  trapType?: string | null;
+  explanation?: unknown;
+};
 
 export type AssessmentMode = "practice" | "exam";
 
@@ -27,6 +34,7 @@ export type SubmitAttemptInput = {
   responses: AttemptResponse[];
   userId?: string;
   pauseEvents?: unknown;
+  focusKey?: string;
   requestId?: string;
 };
 
@@ -55,14 +63,30 @@ export type TestSetRecord = TestSet & {
   questionCount: number;
 };
 
-type EventName = "test_created" | "attempt_started" | "attempt_submitted" | "override_used";
+type EventName =
+  | "test_created"
+  | "attempt_started"
+  | "attempt_submitted"
+  | "override_used"
+  | "mentor_feedback_generated"
+  | "learning_path_generated"
+  | "learning_path_clicked"
+  | "question_attempted_from_focus"
+  | "improvement_after_focus";
 
 export interface QuestionRepository {
   findBySubject(subjectId: string): Promise<ScoreableQuestion[]>;
+  findByFocus(input: {
+    conceptId?: string;
+    trapType?: string | null;
+    limit: number;
+  }): Promise<ScoreableQuestion[]>;
   findDiagnosticSubjectId(): Promise<string | null>;
   findDiagnosticSubjectIds(limit: number): Promise<string[]>;
   incrementExposure(questionIds: string[]): Promise<void>;
   getTopicLabels(topicIds: string[]): Promise<Record<string, string>>;
+  getConceptIdsByName(names: string[]): Promise<Record<string, { id: string; name: string }>>;
+  getConceptNamesById(ids: string[]): Promise<Record<string, { id: string; name: string }>>;
 }
 
 export interface TestSetRepository {
@@ -108,4 +132,9 @@ export interface ErrorEngineStateProvider {
     frequency: number;
     lastSeen: string;
   }>>;
+  getUserErrorMemory(userId: string): Promise<Array<{ key: string; strength: number; lastSeenAt: Date }>>;
+  upsertUserErrorMemory(
+    userId: string,
+    state: Array<{ key: string; strength: number; lastSeenAt: Date }>,
+  ): Promise<void>;
 }

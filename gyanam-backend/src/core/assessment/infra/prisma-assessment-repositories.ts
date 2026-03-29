@@ -12,20 +12,31 @@ import type {
 function toQuestion(row: {
   id: string;
   topicId: string;
+  topic?: { subjectId: string };
   stem: string;
   options: string[];
   difficulty: "easy" | "medium" | "hard";
   tags: string[];
   correctIndex: number;
-}): Question & { correctIndex: number } {
+  trapType?: string | null;
+  explanation?: unknown;
+  concepts?: Array<{ concept: { id: string; name: string } }>;
+}): Question & { correctIndex: number; conceptNames?: string[]; conceptIds?: string[]; explanation?: unknown } {
+  const conceptNames = row.concepts?.map((item) => item.concept.name) ?? [];
+  const conceptIds = row.concepts?.map((item) => item.concept.id) ?? [];
   return {
     id: row.id,
     topicId: row.topicId,
+    subjectId: row.topic?.subjectId,
     stem: row.stem,
     options: row.options,
     difficulty: row.difficulty,
     tags: row.tags,
     correctIndex: row.correctIndex,
+    conceptNames,
+    conceptIds,
+    trapType: row.trapType ?? null,
+    explanation: row.explanation ?? null,
   };
 }
 
@@ -73,6 +84,53 @@ export class PrismaQuestionRepository implements QuestionRepository {
         },
       },
       orderBy: [{ difficulty: "asc" }, { id: "asc" }],
+      include: {
+        concepts: {
+          select: {
+            concept: { select: { id: true, name: true } },
+          },
+        },
+        topic: {
+          select: { subjectId: true },
+        },
+      },
+    });
+
+    return rows.map(toQuestion);
+  }
+
+  public async findByFocus(input: {
+    conceptId?: string;
+    trapType?: string | null;
+    limit: number;
+  }): Promise<(Question & { correctIndex: number })[]> {
+    const where: Prisma.QuestionWhereInput = {
+      deletedAt: null,
+    };
+
+    if (input.trapType) {
+      where.trapType = input.trapType;
+    }
+    if (input.conceptId) {
+      where.concepts = {
+        some: { conceptId: input.conceptId },
+      };
+    }
+
+    const rows = await this.db.question.findMany({
+      where,
+      orderBy: [{ difficulty: "asc" }, { id: "asc" }],
+      take: Math.max(1, input.limit),
+      include: {
+        concepts: {
+          select: {
+            concept: { select: { id: true, name: true } },
+          },
+        },
+        topic: {
+          select: { subjectId: true },
+        },
+      },
     });
 
     return rows.map(toQuestion);
@@ -106,6 +164,34 @@ export class PrismaQuestionRepository implements QuestionRepository {
     return Object.fromEntries(
       rows.map((row) => [row.id, `${row.subject.name} - ${row.name}`]),
     );
+  }
+
+  public async getConceptIdsByName(
+    names: string[],
+  ): Promise<Record<string, { id: string; name: string }>> {
+    const trimmed = names.map((name) => name.trim()).filter((name) => name.length > 0);
+    if (trimmed.length === 0) {
+      return {};
+    }
+    const rows = await this.db.concept.findMany({
+      where: { name: { in: trimmed } },
+      select: { id: true, name: true },
+    });
+    return Object.fromEntries(rows.map((row) => [row.name, { id: row.id, name: row.name }]));
+  }
+
+  public async getConceptNamesById(
+    ids: string[],
+  ): Promise<Record<string, { id: string; name: string }>> {
+    const unique = [...new Set(ids.filter((id) => id.trim().length > 0))];
+    if (unique.length === 0) {
+      return {};
+    }
+    const rows = await this.db.concept.findMany({
+      where: { id: { in: unique } },
+      select: { id: true, name: true },
+    });
+    return Object.fromEntries(rows.map((row) => [row.id, { id: row.id, name: row.name }]));
   }
 }
 
@@ -308,7 +394,16 @@ export class PrismaEventRepository implements EventRepository {
   public constructor(private readonly db: PrismaClient) {}
 
   public async log(
-    eventName: "test_created" | "attempt_started" | "attempt_submitted" | "override_used",
+    eventName:
+      | "test_created"
+      | "attempt_started"
+      | "attempt_submitted"
+      | "override_used"
+      | "mentor_feedback_generated"
+      | "learning_path_generated"
+      | "learning_path_clicked"
+      | "question_attempted_from_focus"
+      | "improvement_after_focus",
     payload: Record<string, unknown>,
   ): Promise<void> {
     await this.db.eventLog.create({

@@ -119,6 +119,25 @@ function filterQuestionsByTopics(questions: Question[], strategy?: AdaptiveStrat
   return questions.filter((question) => question.topicId && topicIds.has(question.topicId));
 }
 
+function filterQuestionsByConcepts(questions: Question[], strategy?: AdaptiveStrategy): Question[] | null {
+  const conceptIds = new Set(strategy?.conceptIds ?? []);
+  if (conceptIds.size === 0) {
+    return null;
+  }
+  return questions.filter((question) => {
+    const ids = (question as Question & { conceptIds?: string[] }).conceptIds ?? [];
+    return ids.some((id) => conceptIds.has(id));
+  });
+}
+
+function filterQuestionsByTrapType(questions: Question[], strategy?: AdaptiveStrategy): Question[] | null {
+  const trapType = strategy?.trapType;
+  if (!trapType) {
+    return null;
+  }
+  return questions.filter((question) => (question as Question & { trapType?: string | null }).trapType === trapType);
+}
+
 export function assembleDeterministicTest(
   questions: Question[],
   mode: AssemblyMode,
@@ -126,21 +145,30 @@ export function assembleDeterministicTest(
   questionCount: number,
   strategy?: AdaptiveStrategy,
 ): Question[] {
+  const trapPool = filterQuestionsByTrapType(questions, strategy);
+  const conceptPool = filterQuestionsByConcepts(questions, strategy);
   const topicPool = filterQuestionsByTopics(questions, strategy);
-  if (topicPool && topicPool.length > 0) {
-    if (topicPool.length >= questionCount) {
-      return assembleFromPool(topicPool, mode, seed, questionCount, strategy);
+  const preferredPool =
+    trapPool && trapPool.length > 0
+      ? trapPool
+      : conceptPool && conceptPool.length > 0
+        ? conceptPool
+        : topicPool;
+
+  if (preferredPool && preferredPool.length > 0) {
+    if (preferredPool.length >= questionCount) {
+      return assembleFromPool(preferredPool, mode, seed, questionCount, strategy);
     }
 
-    const topicSelected = assembleFromPool(topicPool, mode, seed, topicPool.length, strategy);
-    const selectedIds = new Set(topicSelected.map((question) => question.id));
+    const preferredSelected = assembleFromPool(preferredPool, mode, seed, preferredPool.length, strategy);
+    const selectedIds = new Set(preferredSelected.map((question) => question.id));
     const remainingPool = questions.filter((question) => !selectedIds.has(question.id));
-    const remainingCount = questionCount - topicSelected.length;
+    const remainingCount = questionCount - preferredSelected.length;
     const remainderSelected = remainingCount > 0
       ? assembleFromPool(remainingPool, mode, seed + 59, remainingCount, strategy)
       : [];
 
-    return seededShuffle([...topicSelected, ...remainderSelected], seed + 71).slice(0, questionCount);
+    return seededShuffle([...preferredSelected, ...remainderSelected], seed + 71).slice(0, questionCount);
   }
 
   return assembleFromPool(questions, mode, seed, questionCount, strategy);

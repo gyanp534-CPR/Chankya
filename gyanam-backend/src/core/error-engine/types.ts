@@ -33,6 +33,12 @@ export type UserErrorState = {
   lastUpdated: Date;
 };
 
+export type UserErrorMemory = {
+  key: string;
+  strength: number;
+  lastSeenAt: Date;
+};
+
 export type UserState = "stable" | "learning" | "unstable" | "recovering";
 export type TransitionType = "improving" | "declining" | "stable";
 
@@ -72,6 +78,8 @@ export type WeakArea = {
 export interface ErrorEngineRepository {
   getUserErrorState(userId: string): Promise<UserErrorState | null>;
   upsertUserErrorState(state: UserErrorState): Promise<void>;
+  getUserErrorMemory(userId: string): Promise<UserErrorMemory[]>;
+  upsertUserErrorMemory(userId: string, state: UserErrorMemory[]): Promise<void>;
   logAttempt(input: ErrorAttemptInput): Promise<void>;
   getRecentAttempts(userId: string, limit: number): Promise<Array<{ isCorrect: boolean; errorType: string | null; createdAt: Date }>>;
   getRecentErrorAttemptsWithTopic(

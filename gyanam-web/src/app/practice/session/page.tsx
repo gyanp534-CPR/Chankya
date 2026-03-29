@@ -2,8 +2,26 @@
 
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import PostAttemptScreen from "./post-attempt/PostAttemptScreen";
+import type { PostAttemptResponse } from "./post-attempt/types";
 
 const API = process.env.NEXT_PUBLIC_API_BASE_URL!;
+const mockModes = ["challenge", "revision", "recovery", "stabilize"] as const;
+type ModeKey = (typeof mockModes)[number];
+
+function getGuestId(): string {
+  const key = "guest-id";
+  if (typeof window === "undefined") {
+    return "server";
+  }
+  const existing = sessionStorage.getItem(key);
+  if (existing) {
+    return existing;
+  }
+  const created = crypto.randomUUID();
+  sessionStorage.setItem(key, created);
+  return created;
+}
 
 type SessionQuestion = {
   id: string;
@@ -26,6 +44,7 @@ type SubmitResult = {
   correctCount: number;
   incorrectCount: number;
   skippedCount: number;
+  postAttempt?: PostAttemptResponse;
   mentorFeedback?: {
     headline: string;
     message: string;
@@ -40,10 +59,52 @@ type AnswerState = {
   timeSpentSeconds: number;
 };
 
+type AttemptFeedback = {
+  isCorrect: boolean;
+  chosen: string | null;
+  correct: string | null;
+  trapType?: string | null;
+  trapInsight?: string | null;
+  whyWrong?: string | null;
+  whyCorrect?: string | null;
+  strategy?: string | null;
+  correctThinking?: string | null;
+};
+
 function PracticeSessionContent() {
   const router = useRouter();
   const params = useSearchParams();
   const attemptId = params.get("attemptId");
+  const debugPostAttempt = params.get("debug") === "1";
+  const debugMode = params.get("mode");
+  const resolvedMode = (mockModes.includes(debugMode as ModeKey)
+    ? (debugMode as ModeKey)
+    : "recovery") as PostAttemptResponse["mode"];
+  const mockPostAttempt: PostAttemptResponse = {
+    headline: "Strong attempt, but conceptual gaps detected",
+    message: "You’re doing well, but a few reasoning errors are pulling you down.",
+    focus: ["Time & Work", "Logical Reasoning"],
+    nextAction: {
+      label: "Fix misreading errors in Time & Work",
+      actionType: "practice",
+      topic: "Time & Work",
+      errorType: "misreading",
+      severity: "high",
+    },
+    mode: resolvedMode,
+    explanation: {
+      reason: "Multiple weak topics identified",
+      pattern: "You are repeatedly making the same mistake",
+      signals: {
+        accuracy: 52,
+        weakTopics: 2,
+        trend: "flat",
+      },
+    },
+    mentorFeedback: {
+      focus: ["Time & Work", "Logical Reasoning"],
+    },
+  };
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -52,6 +113,9 @@ function PracticeSessionContent() {
   const [answers, setAnswers] = useState<Record<string, AnswerState>>({});
   const [topicWrongCounts, setTopicWrongCounts] = useState<Record<string, number>>({});
   const [questionStartedAt, setQuestionStartedAt] = useState<number>(Date.now());
+  const [postAttempt, setPostAttempt] = useState<PostAttemptResponse | null>(null);
+  const [lastFeedback, setLastFeedback] = useState<AttemptFeedback | null>(null);
+  const [focusLabel, setFocusLabel] = useState<string | null>(null);
 
   const questionById = useMemo(() => {
     if (!session) {
@@ -64,6 +128,13 @@ function PracticeSessionContent() {
   const question = currentQuestionId ? questionById.get(currentQuestionId) ?? null : null;
 
   useEffect(() => {
+    if (debugPostAttempt) {
+      setLoading(false);
+      return;
+    }
+    if (typeof window !== "undefined") {
+      setFocusLabel(sessionStorage.getItem("practice:focusLabel"));
+    }
     async function loadSession() {
       if (!attemptId) {
         setError("Missing attempt id.");
@@ -75,12 +146,10 @@ function PracticeSessionContent() {
         const res = await fetch(`${API}/v1/tests/session/${encodeURIComponent(attemptId)}`, {
           credentials: "include",
           cache: "no-store",
+          headers: {
+            "x-guest-id": getGuestId(),
+          },
         });
-
-        if (res.status === 401) {
-          router.push("/login");
-          return;
-        }
 
         if (!res.ok) {
           throw new Error(`Failed to load session (${res.status})`);
@@ -99,7 +168,7 @@ function PracticeSessionContent() {
     }
 
     void loadSession();
-  }, [attemptId, router]);
+  }, [attemptId, debugPostAttempt, router]);
 
   function selectOption(questionId: string, selectedIndex: number) {
     setAnswers((previous) => {
@@ -147,7 +216,7 @@ function PracticeSessionContent() {
     if (selectedIndex !== null) {
       const evalRes = await fetch(`${API}/v1/tests/session/evaluate`, {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", "x-guest-id": getGuestId() },
         credentials: "include",
         body: JSON.stringify({
           attemptId: session.attemptId,
@@ -155,22 +224,20 @@ function PracticeSessionContent() {
           selectedIndex,
         }),
       });
-
-      if (evalRes.status === 401) {
-        router.push("/login");
-        return;
-      }
       if (!evalRes.ok) {
         throw new Error(`Failed to evaluate answer (${evalRes.status})`);
       }
 
-      const evalBody = (await evalRes.json()) as { data: { isCorrect: boolean; topicId: string } };
+      const evalBody = (await evalRes.json()) as { data: { isCorrect: boolean; topicId: string; feedback?: AttemptFeedback } };
       if (!evalBody.data.isCorrect) {
         nextWrongCounts = {
           ...topicWrongCounts,
           [evalBody.data.topicId]: (topicWrongCounts[evalBody.data.topicId] ?? 0) + 1,
         };
         setTopicWrongCounts(nextWrongCounts);
+        setLastFeedback(evalBody.data.feedback ?? null);
+      } else {
+        setLastFeedback(null);
       }
     }
 
@@ -179,7 +246,7 @@ function PracticeSessionContent() {
     setQuestionStartedAt(Date.now());
   }
 
-  async function submit() {
+  async function submitAttempt() {
     if (!session) {
       return;
     }
@@ -187,12 +254,14 @@ function PracticeSessionContent() {
     setSubmitting(true);
     setError(null);
     try {
+      const focusKey = typeof window !== "undefined" ? sessionStorage.getItem("practice:focusKey") : null;
       const res = await fetch(`${API}/v1/tests/submit`, {
         method: "POST",
-        headers: { "content-type": "application/json" },
+        headers: { "content-type": "application/json", "x-guest-id": getGuestId() },
         credentials: "include",
         body: JSON.stringify({
           attemptId: session.attemptId,
+          focusKey: focusKey ?? undefined,
           answers: session.questions.map((item) => ({
             questionId: item.id,
             selectedIndex: answers[item.id]?.selectedIndex ?? null,
@@ -201,18 +270,23 @@ function PracticeSessionContent() {
         }),
       });
 
-      if (res.status === 401) {
-        router.push("/login");
-        return;
-      }
-
       if (!res.ok) {
         throw new Error(`Failed to submit test (${res.status})`);
       }
 
       const body = (await res.json()) as { data: SubmitResult };
+      if (body.data.postAttempt) {
+        setPostAttempt(body.data.postAttempt);
+        if (typeof window !== "undefined") {
+          sessionStorage.removeItem("practice:focusKey");
+          sessionStorage.removeItem("practice:focusLabel");
+        }
+        return;
+      }
       if (typeof window !== "undefined") {
         sessionStorage.setItem("practice:result", JSON.stringify(body.data));
+        sessionStorage.removeItem("practice:focusKey");
+        sessionStorage.removeItem("practice:focusLabel");
       }
       const query = new URLSearchParams({
         rawScore: String(body.data.rawScore),
@@ -240,6 +314,14 @@ function PracticeSessionContent() {
     }
   }
 
+  if (debugPostAttempt) {
+    return (
+      <main className="mx-auto max-w-3xl p-8">
+        <PostAttemptScreen data={mockPostAttempt} />
+      </main>
+    );
+  }
+
   if (loading) {
     return <main className="p-8">Loading session...</main>;
   }
@@ -248,6 +330,14 @@ function PracticeSessionContent() {
     return (
       <main className="p-8">
         <p className="text-red-600">{error}</p>
+      </main>
+    );
+  }
+
+  if (postAttempt && !debugPostAttempt) {
+    return (
+      <main className="mx-auto max-w-3xl p-8">
+        <PostAttemptScreen data={postAttempt} />
       </main>
     );
   }
@@ -270,9 +360,37 @@ function PracticeSessionContent() {
           Question {currentIndex} / {session.questions.length}
         </p>
       </div>
+      {focusLabel ? (
+        <p className="mb-4 text-xs text-gray-500">You are currently working on: {focusLabel}</p>
+      ) : null}
+
+      {lastFeedback && !lastFeedback.isCorrect ? (
+        <section className="mb-6 rounded border border-red-200 bg-red-50 p-4 text-sm">
+          <p>
+            <span className="font-medium">You chose:</span> {lastFeedback.chosen ?? "-"}
+          </p>
+          <p>
+            <span className="font-medium">Correct:</span> {lastFeedback.correct ?? "-"}
+          </p>
+          {lastFeedback.trapInsight ? (
+            <p className="mt-2 text-red-500">{lastFeedback.trapInsight}</p>
+          ) : null}
+          {lastFeedback.whyWrong ? (
+            <p className="mt-2">Why your answer is wrong: {lastFeedback.whyWrong}</p>
+          ) : null}
+          {lastFeedback.strategy ? (
+            <p className="mt-2">How to fix: {lastFeedback.strategy}</p>
+          ) : null}
+          {(lastFeedback.correctThinking || lastFeedback.strategy) ? (
+            <p className="mt-2 text-gray-600">
+              Correct thinking: {lastFeedback.correctThinking ?? lastFeedback.strategy}
+            </p>
+          ) : null}
+        </section>
+      ) : null}
 
       <section className="rounded border bg-white p-5 shadow-sm">
-        <p className="mb-4 font-medium">{question.stem}</p>
+        <p className="mb-4 whitespace-pre-line font-medium">{question.stem}</p>
         <ul className="space-y-2">
           {question.options.map((option, idx) => (
             <li key={`${question.id}-opt-${idx}`}>
@@ -283,7 +401,7 @@ function PracticeSessionContent() {
                   checked={answers[question.id]?.selectedIndex === idx}
                   onChange={() => selectOption(question.id, idx)}
                 />
-                <span>{option}</span>
+                <span className="whitespace-pre-line">{option}</span>
               </label>
             </li>
           ))}
@@ -300,7 +418,11 @@ function PracticeSessionContent() {
             type="button"
             className="rounded bg-green-600 px-4 py-2 text-white disabled:opacity-60"
             disabled={submitting}
-            onClick={submit}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              void submitAttempt();
+            }}
           >
             {submitting ? "Submitting..." : "Submit Test"}
           </button>

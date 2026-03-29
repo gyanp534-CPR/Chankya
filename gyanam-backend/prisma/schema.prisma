@@ -19,6 +19,7 @@ enum Difficulty {
 
 enum TestMode {
   practice
+  practicexz
   exam
 }
 
@@ -38,6 +39,7 @@ model Users {
   revisionTasks RevisionTask[]
   errorLogs    ErrorAttemptLog[]
   errorState   UserErrorState?
+  errorMemory  UserErrorMemory[]
 }
 
 model AuthSessions {
@@ -174,6 +176,8 @@ model Question {
   options          String[]
   correctIndex     Int
   difficulty       Difficulty
+  trapType         String?
+  explanation      Json?
   tags             String[]
   exposureCount    Int               @default(0)
   createdAt        DateTime          @default(now())
@@ -335,4 +339,19 @@ model UserErrorState {
   user         Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([lastUpdated])
+}
+
+model UserErrorMemory {
+  id         String   @id @default(cuid())
+  userId     String
+  key        String
+  strength   Int
+  lastSeenAt DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, key])
+  @@index([userId])
+  @@index([lastSeenAt])
 }
