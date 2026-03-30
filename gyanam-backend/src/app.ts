@@ -69,6 +69,10 @@ export async function createApp(options: CreateAppOptions = {}) {
         callback(null, true);
         return;
       }
+      if (origin.endsWith(".vercel.app")) {
+        callback(null, true);
+        return;
+      }
       if (corsOrigins.includes("*")) {
         callback(null, true);
         return;
