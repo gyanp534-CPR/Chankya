@@ -11,27 +11,108 @@ import type {
 
 function normalizeInlineLists(text: string): string {
   let next = text.replace(/(\d+\.)([A-Za-z])/g, "$1 $2");
-  next = next.replace(/\s(?=\d+\.\s+[A-Z])/g, "\n");
-  next = next.replace(/\s(?=[IVX]+\.\s+[A-Z])/g, "\n");
+  next = next.replace(/(?<!\d)(\d+\.\s*[A-Za-z])/g, "\n$1");
+  next = next.replace(/(?<![A-Za-z])([IVX]+\.\s*[A-Za-z])/g, "\n$1");
+  next = next.replace(/\s([IVX]+\.\s)/g, "\n$1");
   next = next.replace(/\n{2,}/g, "\n");
   return next.trim();
 }
 
-function cleanStemText(stem: string): string {
-  const text = stem
+function hasCodeStyleOptions(options: string[]): boolean {
+  return options.some((option) =>
+    /^(?:\d+(?:\s*,\s*\d+)*(?:\s+and\s+\d+)?(?:\s+only)?|both|neither)/i.test(
+      option.trim(),
+    ),
+  );
+}
+
+function numberSentenceList(text: string): string | null {
+  const parts = text
+    .split(/(?<=[.?!])\s+/)
+    .map((part) => part.trim())
+    .filter((part) => part.length > 0)
+    .map((part) => part.replace(/[.?!]$/, "").trim());
+
+  if (parts.length < 3 || parts.length > 6) {
+    return null;
+  }
+
+  if (parts.some((part) => part.length < 8)) {
+    return null;
+  }
+
+  return parts.map((part, index) => `${index + 1}. ${part}`).join("\n");
+}
+
+function numberCapitalizedClauses(text: string): string | null {
+  const parts = text
+    .split(/\s(?=[A-Z][a-z]+(?:\s+[a-z]+){0,5}\s(?:of|on|in|to|for|by|with)\b)/g)
+    .map((part) => part.trim())
+    .filter((part) => part.length > 0)
+    .map((part) => part.replace(/^[,;:-]\s*/, "").replace(/[.?!]$/, "").trim());
+
+  if (parts.length < 3 || parts.length > 6) {
+    return null;
+  }
+
+  if (parts.some((part) => part.length < 6)) {
+    return null;
+  }
+
+  return parts.map((part, index) => `${index + 1}. ${part}`).join("\n");
+}
+
+function cleanStemText(stem: string, options: string[]): string {
+  let text = stem
     .replace(/\s+/g, " ")
     .replace(/[\uFFFD]/g, "")
     .trim();
 
-  if (/Consider the following|Which of the above|Select the correct answer using the code/i.test(text)) {
+  const codeStyle = hasCodeStyleOptions(options);
+  const hasNumbering = /\b1[\.\)]\s*[A-Za-z]/.test(text);
+
+  if (codeStyle && !hasNumbering) {
+    const withPrefixList = text.match(/^(.*?:)\s*(.+)$/);
+    if (withPrefixList?.[1] && withPrefixList[2]) {
+      const [, prefix, body] = withPrefixList;
+      const numbered = numberSentenceList(body);
+      if (numbered) {
+        text = `${prefix}\n${numbered}`;
+      }
+    }
+
+    const selectMatch = text.match(
+      /^(.*?\?)\s*(.*?)\s*(Select the correct answer using the code given below\.?)$/i,
+    );
+    if (selectMatch?.[1] && selectMatch[2] && selectMatch[3]) {
+      const [, prompt, clauseBlob, instruction] = selectMatch;
+      const numbered =
+        numberSentenceList(clauseBlob) ?? numberCapitalizedClauses(clauseBlob);
+      if (numbered) {
+        text = `${prompt}\n${numbered}\n${instruction}`;
+      }
+    }
+  }
+
+  if (
+    /Consider the following|Which of the above|Select the correct answer using the code/i.test(
+      text,
+    )
+  ) {
     return normalizeInlineLists(text);
   }
 
   const hasInlineList = /\d+\.\s*\w+.*\d+\./.test(text);
-  return hasInlineList ? normalizeInlineLists(text) : text;
+  const normalized = hasInlineList ? normalizeInlineLists(text) : text;
+  return normalized.length > 0 ? normalized : "Question text unavailable.";
 }
 
 function cleanOptionText(option: string): string {
+  const original = option
+    .replace(/\s+/g, " ")
+    .replace(/[\uFFFD]/g, "")
+    .trim();
+
   let text = option
     .replace(/\s+/g, " ")
     .replace(/[\uFFFD]/g, "")
@@ -40,14 +121,16 @@ function cleanOptionText(option: string): string {
   text = text.replace(/This passage relates to[\s\S]*$/i, "").trim();
   text = text.replace(/Read the following\s+.*?passages[\s\S]*$/i, "").trim();
   text = text.replace(/Your answers\s+.*?passages only[\s\S]*$/i, "").trim();
+  text = text.replace(/Directions?\s+for\s+the\s+following[\s\S]*$/i, "").trim();
+  text = text.replace(/Directions:\s*Read the following[\s\S]*$/i, "").trim();
   text = text.replace(/\bPage\s+\d+\b[\s\S]*$/i, "").trim();
 
   const passageMarkerIndex = text.search(/\bPassage\s*[-–—]?\d+\b/i);
-  if (passageMarkerIndex > 0) {
+  if (passageMarkerIndex > 20) {
     text = text.slice(0, passageMarkerIndex).trim();
   }
 
-  return text;
+  return text.length > 0 ? text : (original.length > 0 ? original : "Option unavailable");
 }
 
 function toQuestion(row: {
@@ -72,7 +155,7 @@ function toQuestion(row: {
 } {
   const conceptNames = row.concepts?.map((item) => item.concept.name) ?? [];
   const conceptIds = row.concepts?.map((item) => item.concept.id) ?? [];
-  const cleanedStem = cleanStemText(row.stem);
+  const cleanedStem = cleanStemText(row.stem, row.options);
   const cleanedOptions = row.options.map(cleanOptionText);
   return {
     id: row.id,
@@ -125,7 +208,7 @@ export class PrismaQuestionRepository implements QuestionRepository {
     const rows = await this.db.question.findMany({
       where: {
         deletedAt: null,
-        NOT: { tags: { has: "demo" } },
+        NOT: [{ tags: { has: "demo" } }, { stem: { startsWith: "Demo Question" } }],
         topic: {
           subjectId,
           deletedAt: null,
@@ -157,7 +240,7 @@ export class PrismaQuestionRepository implements QuestionRepository {
   }): Promise<(Question & { correctIndex: number })[]> {
     const where: Prisma.QuestionWhereInput = {
       deletedAt: null,
-      NOT: { tags: { has: "demo" } },
+      NOT: [{ tags: { has: "demo" } }, { stem: { startsWith: "Demo Question" } }],
     };
 
     if (input.trapType) {
@@ -322,7 +405,13 @@ export class PrismaTestSetRepository implements TestSetRepository {
 
   public async findQuestionsForTest(testId: string): Promise<(Question & { correctIndex: number })[]> {
     const rows = await this.db.testSetQuestion.findMany({
-      where: { testSetId: testId },
+      where: {
+        testSetId: testId,
+        question: {
+          deletedAt: null,
+          NOT: [{ tags: { has: "demo" } }, { stem: { startsWith: "Demo Question" } }],
+        },
+      },
       include: { question: true },
       orderBy: { sortOrder: "asc" },
     });

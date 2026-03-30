@@ -41,6 +41,7 @@ type LearningPathItem = {
 export default function PracticePage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [startingFocusKey, setStartingFocusKey] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [focusItems, setFocusItems] = useState<LearningPathItem[]>([]);
   const [focusLoading, setFocusLoading] = useState(true);
@@ -76,6 +77,7 @@ export default function PracticePage() {
 
   async function startFocus(item: LearningPathItem) {
     setLoading(true);
+    setStartingFocusKey(item.key);
     setError(null);
     try {
       const res = await fetch(`${API}/v1/learning-path/start`, {
@@ -111,6 +113,7 @@ export default function PracticePage() {
       setError(message);
     } finally {
       setLoading(false);
+      setStartingFocusKey(null);
     }
   }
 
@@ -174,7 +177,19 @@ export default function PracticePage() {
         ) : (
           <div className="mt-3 space-y-3">
             {focusItems.slice(0, 3).map((item) => (
-              <div key={item.key} className="rounded border border-gray-100 bg-gray-50 p-3">
+              <div
+                key={item.key}
+                role="button"
+                tabIndex={0}
+                onClick={() => startFocus(item)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    startFocus(item);
+                  }
+                }}
+                className="cursor-pointer rounded border border-gray-100 bg-gray-50 p-3 focus:outline-none focus:ring-2 focus:ring-black/20"
+              >
                 <p className="text-sm font-medium">{item.nextAction?.label ?? item.reason ?? item.topic}</p>
                 {item.reason ? (
                   <p className="mt-1 text-xs text-gray-600">{item.reason}</p>
@@ -185,10 +200,10 @@ export default function PracticePage() {
                 <button
                   type="button"
                   onClick={() => startFocus(item)}
-                  disabled={loading}
+                  disabled={loading || startingFocusKey === item.key}
                   className="mt-3 rounded bg-black px-3 py-1.5 text-xs text-white disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {loading ? "Starting..." : "Start Focused Set"}
+                  {loading && startingFocusKey === item.key ? "Starting..." : "Start Focused Set"}
                 </button>
               </div>
             ))}
