@@ -9,6 +9,47 @@ import type {
   TestSetRecord,
 } from "../domain/types.js";
 
+function normalizeInlineLists(text: string): string {
+  let next = text.replace(/(\d+\.)([A-Za-z])/g, "$1 $2");
+  next = next.replace(/\s(?=\d+\.\s+[A-Z])/g, "\n");
+  next = next.replace(/\s(?=[IVX]+\.\s+[A-Z])/g, "\n");
+  next = next.replace(/\n{2,}/g, "\n");
+  return next.trim();
+}
+
+function cleanStemText(stem: string): string {
+  const text = stem
+    .replace(/\s+/g, " ")
+    .replace(/[\uFFFD]/g, "")
+    .trim();
+
+  if (/Consider the following|Which of the above|Select the correct answer using the code/i.test(text)) {
+    return normalizeInlineLists(text);
+  }
+
+  const hasInlineList = /\d+\.\s*\w+.*\d+\./.test(text);
+  return hasInlineList ? normalizeInlineLists(text) : text;
+}
+
+function cleanOptionText(option: string): string {
+  let text = option
+    .replace(/\s+/g, " ")
+    .replace(/[\uFFFD]/g, "")
+    .trim();
+
+  text = text.replace(/This passage relates to[\s\S]*$/i, "").trim();
+  text = text.replace(/Read the following\s+.*?passages[\s\S]*$/i, "").trim();
+  text = text.replace(/Your answers\s+.*?passages only[\s\S]*$/i, "").trim();
+  text = text.replace(/\bPage\s+\d+\b[\s\S]*$/i, "").trim();
+
+  const passageMarkerIndex = text.search(/\bPassage\s*[-–—]?\d+\b/i);
+  if (passageMarkerIndex > 0) {
+    text = text.slice(0, passageMarkerIndex).trim();
+  }
+
+  return text;
+}
+
 function toQuestion(row: {
   id: string;
   topicId: string;
@@ -31,12 +72,14 @@ function toQuestion(row: {
 } {
   const conceptNames = row.concepts?.map((item) => item.concept.name) ?? [];
   const conceptIds = row.concepts?.map((item) => item.concept.id) ?? [];
+  const cleanedStem = cleanStemText(row.stem);
+  const cleanedOptions = row.options.map(cleanOptionText);
   return {
     id: row.id,
     topicId: row.topicId,
     subjectId: row.topic?.subjectId,
-    stem: row.stem,
-    options: row.options,
+    stem: cleanedStem,
+    options: cleanedOptions,
     difficulty: row.difficulty,
     tags: row.tags,
     correctIndex: row.correctIndex,
@@ -82,6 +125,7 @@ export class PrismaQuestionRepository implements QuestionRepository {
     const rows = await this.db.question.findMany({
       where: {
         deletedAt: null,
+        NOT: { tags: { has: "demo" } },
         topic: {
           subjectId,
           deletedAt: null,
@@ -113,6 +157,7 @@ export class PrismaQuestionRepository implements QuestionRepository {
   }): Promise<(Question & { correctIndex: number })[]> {
     const where: Prisma.QuestionWhereInput = {
       deletedAt: null,
+      NOT: { tags: { has: "demo" } },
     };
 
     if (input.trapType) {
