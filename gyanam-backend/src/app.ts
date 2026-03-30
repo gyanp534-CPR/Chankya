@@ -84,6 +84,8 @@ export async function createApp(options: CreateAppOptions = {}) {
       callback(new Error("CORS origin not allowed"), false);
     },
     credentials: true,
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["content-type", "authorization", "x-guest-id"],
   });
   await app.register(cookie);
   await app.register(helmet);
