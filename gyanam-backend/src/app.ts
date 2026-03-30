@@ -56,7 +56,7 @@ export async function createApp(options: CreateAppOptions = {}) {
 
   const corsOrigins = env.CORS_ORIGIN
     .split(",")
-    .map((value) => value.trim())
+    .map((value) => value.trim().replace(/^['"]|['"]$/g, ""))
     .filter((value) => value.length > 0);
 
   const corsMatchers = corsOrigins
