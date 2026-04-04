@@ -73,6 +73,10 @@ export async function createApp(options: CreateAppOptions = {}) {
         callback(null, true);
         return;
       }
+      if (origin === "https://gyanam.shop" || origin.endsWith(".gyanam.shop")) {
+        callback(null, true);
+        return;
+      }
       if (corsOrigins.includes("*")) {
         callback(null, true);
         return;
