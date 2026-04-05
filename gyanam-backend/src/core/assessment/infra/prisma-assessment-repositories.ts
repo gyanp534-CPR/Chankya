@@ -9,6 +9,8 @@ import type {
   TestSetRecord,
 } from "../domain/types.js";
 
+const REQUIRED_PAPER_TAG = "paper:GS1";
+
 function normalizeInlineLists(text: string): string {
   let next = text.replace(/(\d+\.)([A-Za-z])/g, "$1 $2");
   next = next.replace(/(?<!\d)(\d+\.\s*[A-Za-z])/g, "\n$1");
@@ -191,6 +193,7 @@ export class PrismaQuestionRepository implements QuestionRepository {
             questions: {
               some: {
                 deletedAt: null,
+                tags: { has: REQUIRED_PAPER_TAG },
               },
             },
           },
@@ -208,6 +211,7 @@ export class PrismaQuestionRepository implements QuestionRepository {
     const rows = await this.db.question.findMany({
       where: {
         deletedAt: null,
+        tags: { has: REQUIRED_PAPER_TAG },
         NOT: [{ tags: { has: "demo" } }, { stem: { startsWith: "Demo Question" } }],
         topic: {
           subjectId,
@@ -240,6 +244,7 @@ export class PrismaQuestionRepository implements QuestionRepository {
   }): Promise<(Question & { correctIndex: number })[]> {
     const where: Prisma.QuestionWhereInput = {
       deletedAt: null,
+      tags: { has: REQUIRED_PAPER_TAG },
       NOT: [{ tags: { has: "demo" } }, { stem: { startsWith: "Demo Question" } }],
     };
 
@@ -409,6 +414,7 @@ export class PrismaTestSetRepository implements TestSetRepository {
         testSetId: testId,
         question: {
           deletedAt: null,
+          tags: { has: REQUIRED_PAPER_TAG },
           NOT: [{ tags: { has: "demo" } }, { stem: { startsWith: "Demo Question" } }],
         },
       },
