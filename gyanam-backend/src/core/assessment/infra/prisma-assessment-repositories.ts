@@ -14,11 +14,35 @@ const GS1_ID_MARKER = "_GS1_";
 
 function normalizeInlineLists(text: string): string {
   let next = text.replace(/(\d+\.)([A-Za-z])/g, "$1 $2");
+  next = next.replace(/((?:I{1,3}|IV|V|VI{0,3}|IX|X)\.)([A-Za-z])/g, "$1 $2");
+  next = next.replace(/\s(?=((?:I{1,3}|IV|V|VI{0,3}|IX|X)\.))/g, "\n");
   next = next.replace(/(?<!\d)(\d+\.\s*[A-Za-z])/g, "\n$1");
   next = next.replace(/(?<![A-Za-z])([IVX]+\.\s*[A-Za-z])/g, "\n$1");
   next = next.replace(/\s([IVX]+\.\s)/g, "\n$1");
   next = next.replace(/\n{2,}/g, "\n");
   return next.trim();
+}
+
+function numberActionClauses(text: string): string {
+  const actionMatch = text.match(/^(Consider the following actions:)\s*(.+?)\s*(In how many[\s\S]+)$/i);
+  if (!actionMatch) {
+    return text;
+  }
+
+  const [, prefix, bodyRaw, suffixRaw] = actionMatch;
+  const body = bodyRaw ?? "";
+  const suffix = suffixRaw ?? "";
+  const parts = body
+    .split(/\s+(?=Detection of\b)/g)
+    .map((part) => part.trim())
+    .filter((part) => part.length > 0);
+
+  if (parts.length < 3) {
+    return text;
+  }
+
+  const numbered = parts.map((part, index) => `${index + 1}. ${part}`).join("\n");
+  return `${prefix}\n${numbered}\n${suffix}`.trim();
 }
 
 function hasCodeStyleOptions(options: string[]): boolean {
@@ -70,6 +94,8 @@ function cleanStemText(stem: string, options: string[]): string {
     .replace(/\s+/g, " ")
     .replace(/[\uFFFD]/g, "")
     .trim();
+
+  text = numberActionClauses(text);
 
   const codeStyle = hasCodeStyleOptions(options);
   const hasNumbering = /\b1[\.\)]\s*[A-Za-z]/.test(text);
