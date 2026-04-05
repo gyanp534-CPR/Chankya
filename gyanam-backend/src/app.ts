@@ -4,7 +4,14 @@ import cookie from "@fastify/cookie";
 import helmet from "@fastify/helmet";
 import sensible from "@fastify/sensible";
 import rateLimit from "@fastify/rate-limit";
-import { authRoutes, AuthService, PrismaAuthStore, type AuthStore } from "./core/auth/index.js";
+import {
+  authRoutes,
+  AuthService,
+  DevConsoleOtpMailer,
+  PrismaAuthStore,
+  SmtpOtpMailer,
+  type AuthStore,
+} from "./core/auth/index.js";
 import {
   assessmentRoutes,
   AssessmentService,
@@ -170,6 +177,17 @@ export async function createApp(options: CreateAppOptions = {}) {
     },
     accessTtl: env.ACCESS_TOKEN_TTL,
     refreshTtl: env.REFRESH_TOKEN_TTL,
+    otpMailer:
+      env.SMTP_HOST && env.SMTP_USER && env.SMTP_PASS && env.SMTP_FROM
+        ? new SmtpOtpMailer({
+            host: env.SMTP_HOST,
+            port: env.SMTP_PORT ?? 587,
+            secure: env.SMTP_SECURE ?? false,
+            user: env.SMTP_USER,
+            pass: env.SMTP_PASS,
+            from: env.SMTP_FROM,
+          })
+        : new DevConsoleOtpMailer(),
   });
 
   app.setErrorHandler((error, request, reply) => {

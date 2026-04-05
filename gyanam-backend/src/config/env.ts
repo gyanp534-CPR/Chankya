@@ -9,6 +9,16 @@ const envSchema = z.object({
   ACCESS_TOKEN_TTL: z.string().default(APP_CONSTANTS.defaultAccessTokenTtl),
   REFRESH_TOKEN_TTL: z.string().default(APP_CONSTANTS.defaultRefreshTokenTtl),
   CORS_ORIGIN: z.string().default("http://localhost:3000"),
+  SMTP_HOST: z.string().optional(),
+  SMTP_PORT: z.coerce.number().int().positive().optional(),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
+  SMTP_FROM: z.string().optional(),
+  SMTP_SECURE: z
+    .enum(["true", "false"])
+    .optional()
+    .transform((value) => value === "true"),
+  ADMIN_METRICS_KEY: z.string().optional(),
 });
 
 export type Env = z.infer<typeof envSchema>;
@@ -25,6 +35,13 @@ export function loadEnv(overrides: Partial<Record<keyof Env, string | number>> =
     ACCESS_TOKEN_TTL: process.env.ACCESS_TOKEN_TTL,
     REFRESH_TOKEN_TTL: process.env.REFRESH_TOKEN_TTL,
     CORS_ORIGIN: process.env.CORS_ORIGIN,
+    SMTP_HOST: process.env.SMTP_HOST,
+    SMTP_PORT: process.env.SMTP_PORT,
+    SMTP_USER: process.env.SMTP_USER,
+    SMTP_PASS: process.env.SMTP_PASS,
+    SMTP_FROM: process.env.SMTP_FROM,
+    SMTP_SECURE: process.env.SMTP_SECURE,
+    ADMIN_METRICS_KEY: process.env.ADMIN_METRICS_KEY,
     ...overrides,
   };
 

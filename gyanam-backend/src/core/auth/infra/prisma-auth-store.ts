@@ -103,4 +103,57 @@ export class PrismaAuthStore implements AuthStore {
   public async deleteSession(sessionId: string): Promise<void> {
     await this.db.authSessions.delete({ where: { id: sessionId } });
   }
+
+  public async createSignupOtpChallenge(input: { email: string; otpHash: string; expiresAt: Date }): Promise<void> {
+    await this.db.emailOtpChallenge.create({
+      data: {
+        email: input.email,
+        otpHash: input.otpHash,
+        expiresAt: input.expiresAt,
+      },
+    });
+  }
+
+  public async findLatestActiveSignupOtpChallenge(
+    email: string,
+    now: Date,
+  ): Promise<{
+    id: string;
+    otpHash: string;
+    expiresAt: Date;
+    attempts: number;
+    createdAt: Date;
+  } | null> {
+    const challenge = await this.db.emailOtpChallenge.findFirst({
+      where: {
+        email,
+        consumedAt: null,
+        expiresAt: { gt: now },
+      },
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        otpHash: true,
+        expiresAt: true,
+        attempts: true,
+        createdAt: true,
+      },
+    });
+
+    return challenge;
+  }
+
+  public async incrementSignupOtpAttempts(challengeId: string): Promise<void> {
+    await this.db.emailOtpChallenge.update({
+      where: { id: challengeId },
+      data: { attempts: { increment: 1 } },
+    });
+  }
+
+  public async consumeSignupOtpChallenge(challengeId: string): Promise<void> {
+    await this.db.emailOtpChallenge.update({
+      where: { id: challengeId },
+      data: { consumedAt: new Date() },
+    });
+  }
 }

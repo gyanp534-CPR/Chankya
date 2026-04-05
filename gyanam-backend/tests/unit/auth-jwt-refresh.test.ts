@@ -28,6 +28,9 @@ describe("auth jwt and refresh rotation", () => {
       jwt,
       accessTtl: "15m",
       refreshTtl: "7d",
+      otpMailer: {
+        sendSignupOtp: async () => undefined,
+      },
     });
 
     const register = await service.register("test@example.com", "Password123");

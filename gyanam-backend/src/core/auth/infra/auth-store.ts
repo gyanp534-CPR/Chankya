@@ -23,4 +23,14 @@ export type AuthStore = {
   findSessionById(id: string): Promise<Session | null>;
   updateSessionHash(sessionId: string, refreshTokenHash: string, expiresAt: Date): Promise<void>;
   deleteSession(sessionId: string): Promise<void>;
+  createSignupOtpChallenge(input: { email: string; otpHash: string; expiresAt: Date }): Promise<void>;
+  findLatestActiveSignupOtpChallenge(email: string, now: Date): Promise<{
+    id: string;
+    otpHash: string;
+    expiresAt: Date;
+    attempts: number;
+    createdAt: Date;
+  } | null>;
+  incrementSignupOtpAttempts(challengeId: string): Promise<void>;
+  consumeSignupOtpChallenge(challengeId: string): Promise<void>;
 };
