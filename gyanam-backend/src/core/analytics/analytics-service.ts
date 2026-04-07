@@ -23,24 +23,42 @@ function average(values: number[]): number {
   return values.reduce((acc, value) => acc + value, 0) / values.length;
 }
 
+function resolveConfidenceByDataPoints(dataPointsUsed: number): "low" | "medium" | "high" {
+  if (dataPointsUsed >= 30) {
+    return "high";
+  }
+  if (dataPointsUsed >= 10) {
+    return "medium";
+  }
+  return "low";
+}
+
 export class AnalyticsService {
   public constructor(private readonly deps: AnalyticsServiceDeps) {}
 
   public async getSummary(userId: string): Promise<AnalyticsSummary> {
     const rows = await this.deps.repository.getLatestTopicMastery(userId);
-    const subjectsMap = new Map<string, number[]>();
+    const subjectsMap = new Map<string, { subjectName: string; masteries: number[] }>();
     for (const row of rows) {
-      const bucket = subjectsMap.get(row.subjectId) ?? [];
-      bucket.push(row.mastery);
-      subjectsMap.set(row.subjectId, bucket);
+      const existing = subjectsMap.get(row.subjectId);
+      if (existing) {
+        existing.masteries.push(row.mastery);
+        continue;
+      }
+
+      subjectsMap.set(row.subjectId, {
+        subjectName: row.subjectName,
+        masteries: [row.mastery],
+      });
     }
 
     const subjects = Array.from(subjectsMap.entries())
       .sort((a, b) => a[0].localeCompare(b[0]))
-      .map(([subjectId, masteries]) => {
-        const mastery = round2(average(masteries));
+      .map(([subjectId, payload]) => {
+        const mastery = round2(average(payload.masteries));
         return {
           subjectId,
+          subjectName: payload.subjectName,
           mastery,
           skillBand: resolveSkillBand(mastery),
         };
@@ -64,12 +82,15 @@ export class AnalyticsService {
     return rows
       .map((row) => ({
         topicId: row.topicId,
+        topicName: row.topicName,
+        subjectName: row.subjectName,
         mastery: round2(row.mastery),
         skillBand: resolveSkillBand(row.mastery),
-        confidence: row.confidence,
+        confidence: resolveConfidenceByDataPoints(row.dataPointsUsed),
         isWeak: weakSet.has(row.topicId),
         frequencyScore: 1,
         priorityScore: computePriorityScore(row.mastery, 1),
+        dataPointsUsed: row.dataPointsUsed,
       }))
       .sort((a, b) => a.topicId.localeCompare(b.topicId));
   }

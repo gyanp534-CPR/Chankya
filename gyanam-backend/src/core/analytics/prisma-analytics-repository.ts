@@ -3,9 +3,11 @@ import type { AnalyticsRepository, LatestTopicMastery, RevisionDueItem } from ".
 
 type TopicMasteryRow = {
   topicId: string;
+  topicName: string;
   subjectId: string;
+  subjectName: string;
   mastery: number;
-  confidence: string;
+  dataPointsUsed: number;
 };
 
 export class PrismaAnalyticsRepository implements AnalyticsRepository {
@@ -29,21 +31,25 @@ export class PrismaAnalyticsRepository implements AnalyticsRepository {
       )
       SELECT
         latest."topicId",
+        t."name" AS "topicName",
         t."subjectId",
+        s."name" AS "subjectName",
         latest."mastery",
-        latest."confidence"
+        latest."dataPointsUsed"
       FROM latest
       JOIN "Topic" t ON t."id" = latest."topicId"
+      JOIN "Subject" s ON s."id" = t."subjectId"
       WHERE latest.rn = 1
       ORDER BY latest."topicId" ASC
     `;
 
     return rows.map((row) => ({
       topicId: row.topicId,
+      topicName: row.topicName,
       subjectId: row.subjectId,
+      subjectName: row.subjectName,
       mastery: row.mastery,
-      confidence:
-        row.confidence === "high" ? "high" : row.confidence === "medium" ? "medium" : "low",
+      dataPointsUsed: row.dataPointsUsed,
     }));
   }
 
@@ -58,19 +64,25 @@ export class PrismaAnalyticsRepository implements AnalyticsRepository {
   }
 
   public async getOpenRevisionTasks(userId: string): Promise<RevisionDueItem[]> {
-    const rows = await this.db.$queryRaw<Array<{ taskId: string; topicId: string; dueAt: Date }>>`
+    const rows = await this.db.$queryRaw<Array<{ taskId: string; topicId: string; topicName: string; subjectName: string; dueAt: Date }>>`
       SELECT
-        "id" AS "taskId",
-        "topicId",
-        "dueAt"
-      FROM "RevisionTask"
-      WHERE "userId" = ${userId} AND "completed" = false
-      ORDER BY "dueAt" ASC
+        rt."id" AS "taskId",
+        rt."topicId",
+        t."name" AS "topicName",
+        s."name" AS "subjectName",
+        rt."dueAt"
+      FROM "RevisionTask" rt
+      JOIN "Topic" t ON t."id" = rt."topicId"
+      JOIN "Subject" s ON s."id" = t."subjectId"
+      WHERE rt."userId" = ${userId} AND rt."completed" = false
+      ORDER BY rt."dueAt" ASC
     `;
 
     return rows.map((row) => ({
       taskId: row.taskId,
       topicId: row.topicId,
+      topicName: row.topicName,
+      subjectName: row.subjectName,
       dueAt: row.dueAt.toISOString(),
     }));
   }

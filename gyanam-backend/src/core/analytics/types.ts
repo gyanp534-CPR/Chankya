@@ -2,19 +2,24 @@ import type { SkillBand } from "../mastery/skill-band.js";
 
 export type LatestTopicMastery = {
   topicId: string;
+  topicName: string;
   subjectId: string;
+  subjectName: string;
   mastery: number;
-  confidence: "low" | "medium" | "high";
+  dataPointsUsed: number;
 };
 
 export type RevisionDueItem = {
   taskId: string;
   topicId: string;
+  topicName: string;
+  subjectName: string;
   dueAt: string;
 };
 
 export type AnalyticsSummarySubject = {
   subjectId: string;
+  subjectName: string;
   mastery: number;
   skillBand: SkillBand;
 };
@@ -27,12 +32,15 @@ export type AnalyticsSummary = {
 
 export type AnalyticsTopicView = {
   topicId: string;
+  topicName: string;
+  subjectName: string;
   mastery: number;
   skillBand: SkillBand;
   confidence: "low" | "medium" | "high";
   isWeak: boolean;
   frequencyScore: number;
   priorityScore: number;
+  dataPointsUsed: number;
 };
 
 export interface AnalyticsRepository {
