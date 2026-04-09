@@ -19,7 +19,7 @@ export class PrismaAnalyticsRepository implements AnalyticsRepository {
         SELECT
           mih."topicId",
           mih."finalMastery" AS "mastery",
-          mih."confidence",
+          mih."dataPointsUsed",
           mih."computedAt",
           mih."createdAt",
           ROW_NUMBER() OVER (
