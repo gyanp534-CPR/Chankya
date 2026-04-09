@@ -6,6 +6,7 @@ import { ERROR_CODES } from "../../../shared/errors/error-codes.js";
 import { APP_CONSTANTS } from "../../../config/constants.js";
 import { compareSecret, hashSecret } from "./hash.js";
 import type { AuthStore } from "../infra/auth-store.js";
+import type { OtpMailer } from "./otp-mailer.js";
 
 type TokenPayload = {
   sub: string;
@@ -25,6 +26,7 @@ export type AuthServiceDeps = {
   jwt: JwtSigner;
   accessTtl: string;
   refreshTtl: string;
+  otpMailer: OtpMailer;
 };
 
 export type AuthTokens = {
@@ -33,6 +35,11 @@ export type AuthTokens = {
 };
 
 export class AuthService {
+  private static readonly SIGNUP_OTP_LENGTH = 6;
+  private static readonly SIGNUP_OTP_TTL_MS = 10 * 60 * 1000;
+  private static readonly SIGNUP_OTP_RESEND_COOLDOWN_MS = 60 * 1000;
+  private static readonly SIGNUP_OTP_MAX_ATTEMPTS = 5;
+
   public constructor(private readonly deps: AuthServiceDeps) {}
 
   public async register(email: string, password: string): Promise<{ user: AuthUser; tokens: AuthTokens }> {
@@ -175,8 +182,80 @@ export class AuthService {
     return new Date(Date.now() + sevenDaysMs);
   }
 
+  public async requestSignupOtp(email: string): Promise<{ expiresInSeconds: number }> {
+    const existingUser = await this.deps.store.findUserByEmail(email);
+    if (existingUser) {
+      throw new AppError(ERROR_CODES.authEmailInUse, "Email already in use.", 409);
+    }
+
+    const now = new Date();
+    const latest = await this.deps.store.findLatestActiveSignupOtpChallenge(email, now);
+    if (latest && now.getTime() - latest.createdAt.getTime() < AuthService.SIGNUP_OTP_RESEND_COOLDOWN_MS) {
+      throw new AppError(ERROR_CODES.authRateLimited, "Please wait before requesting another OTP.", 429);
+    }
+
+    const otp = this.generateNumericOtp(AuthService.SIGNUP_OTP_LENGTH);
+    const otpHash = this.hashRefreshToken(otp);
+    const expiresAt = new Date(now.getTime() + AuthService.SIGNUP_OTP_TTL_MS);
+
+    await this.deps.store.createSignupOtpChallenge({
+      email,
+      otpHash,
+      expiresAt,
+    });
+
+    await this.deps.otpMailer.sendSignupOtp({
+      email,
+      otp,
+      expiresInMinutes: Math.floor(AuthService.SIGNUP_OTP_TTL_MS / (60 * 1000)),
+    });
+
+    return { expiresInSeconds: Math.floor(AuthService.SIGNUP_OTP_TTL_MS / 1000) };
+  }
+
+  public async verifySignupOtpAndRegister(input: {
+    email: string;
+    otp: string;
+    password: string;
+  }): Promise<{ user: AuthUser; tokens: AuthTokens }> {
+    const existingUser = await this.deps.store.findUserByEmail(input.email);
+    if (existingUser) {
+      throw new AppError(ERROR_CODES.authEmailInUse, "Email already in use.", 409);
+    }
+
+    const now = new Date();
+    const challenge = await this.deps.store.findLatestActiveSignupOtpChallenge(input.email, now);
+    if (!challenge) {
+      throw new AppError(ERROR_CODES.authInvalidCredentials, "OTP expired or invalid.", 401);
+    }
+
+    if (challenge.attempts >= AuthService.SIGNUP_OTP_MAX_ATTEMPTS) {
+      await this.deps.store.consumeSignupOtpChallenge(challenge.id);
+      throw new AppError(ERROR_CODES.authInvalidCredentials, "OTP expired or invalid.", 401);
+    }
+
+    const providedOtpHash = this.hashRefreshToken(input.otp);
+    const validOtp = this.refreshHashMatches(providedOtpHash, challenge.otpHash);
+
+    if (!validOtp) {
+      await this.deps.store.incrementSignupOtpAttempts(challenge.id);
+      throw new AppError(ERROR_CODES.authInvalidCredentials, "OTP expired or invalid.", 401);
+    }
+
+    await this.deps.store.consumeSignupOtpChallenge(challenge.id);
+    return this.register(input.email, input.password);
+  }
+
   private hashRefreshToken(token: string): string {
     return createHash("sha256").update(token).digest("hex");
+  }
+
+  private generateNumericOtp(length: number): string {
+    let otp = "";
+    for (let i = 0; i < length; i += 1) {
+      otp += Math.floor(Math.random() * 10).toString();
+    }
+    return otp;
   }
 
   private refreshHashMatches(expectedHash: string, actualHash: string): boolean {

@@ -61,10 +61,35 @@ const evaluateAnswerSchema = z.object({
   selectedIndex: z.number().int().nullable(),
 });
 
+const quickAttemptSchema = z.object({
+  questionId: z.string().min(1),
+  selectedOption: z
+    .string()
+    .trim()
+    .toUpperCase()
+    .regex(/^[ABCD]$/),
+});
+
 const learningPathStartSchema = z.object({
   focusKey: z.string().min(1).optional(),
   questionCount: z.number().int().min(5).max(200).optional(),
 });
+
+function optionIndexToLabel(index: number): "A" | "B" | "C" | "D" {
+  if (index === 0) return "A";
+  if (index === 1) return "B";
+  if (index === 2) return "C";
+  if (index === 3) return "D";
+  throw new AppError(ERROR_CODES.authInvalidPayload, "Question has invalid correct option index.", 500);
+}
+
+function optionLabelToIndex(label: string): number {
+  if (label === "A") return 0;
+  if (label === "B") return 1;
+  if (label === "C") return 2;
+  if (label === "D") return 3;
+  throw new AppError(ERROR_CODES.authInvalidPayload, "Invalid selected option.", 400);
+}
 
 function getBearerToken(authorization: string | undefined): string {
   if (!authorization?.startsWith("Bearer ")) {
@@ -282,6 +307,73 @@ export const assessmentRoutes = (assessmentService: AssessmentService): FastifyP
       });
 
       return ok(result, { requestId: request.requestId });
+    });
+
+    fastify.post("/attempt", async (request) => {
+      const parsed = quickAttemptSchema.safeParse(request.body);
+      if (!parsed.success) {
+        throw new AppError(ERROR_CODES.authInvalidPayload, "Invalid attempt payload.", 400, parsed.error.flatten());
+      }
+
+      const userId = getUserIdOrGuest(request);
+      await ensureGuestUser(fastify, userId);
+
+      const question = await fastify.prisma.question.findUnique({
+        where: { id: parsed.data.questionId },
+        select: { id: true, correctIndex: true },
+      });
+      if (!question) {
+        throw new AppError(ERROR_CODES.authInvalidPayload, "Question not found.", 404);
+      }
+
+      const selectedIndex = optionLabelToIndex(parsed.data.selectedOption);
+      const correctOption = optionIndexToLabel(question.correctIndex);
+      const isCorrect = selectedIndex === question.correctIndex;
+      const scoreDelta = isCorrect ? 2 : -0.66;
+
+      await (fastify.prisma as any).quickAttemptResponse.create({
+        data: {
+          userId,
+          questionId: question.id,
+          selectedOption: parsed.data.selectedOption,
+          correctOption,
+          isCorrect,
+          scoreDelta,
+        },
+      });
+
+      return ok(
+        {
+          isCorrect,
+          correctOption,
+          scoreDelta,
+        },
+        { requestId: request.requestId },
+      );
+    });
+
+    fastify.get("/mastery", async (request) => {
+      const userId = getAuthenticatedUserId(request);
+
+      const [total, correct] = await Promise.all([
+        (fastify.prisma as any).quickAttemptResponse.count({
+          where: { userId },
+        }),
+        (fastify.prisma as any).quickAttemptResponse.count({
+          where: { userId, isCorrect: true },
+        }),
+      ]);
+
+      const accuracy = total === 0 ? 0 : Math.round((correct / total) * 100);
+
+      return ok(
+        {
+          total,
+          correct,
+          accuracy,
+        },
+        { requestId: request.requestId },
+      );
     });
 
     fastify.post("/tests/submit", async (request) => {

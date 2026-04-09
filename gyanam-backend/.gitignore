@@ -6,3 +6,8 @@ node_modules
 
 # Raw PDFs/OCR artifacts should live in archive storage, not git
 data/pyq/papers/**/raw/
+
+# temp / review outputs
+data/pyq/reports/
+data/pyq/*passage*.json
+scripts/report-pyq-statuses.mjs

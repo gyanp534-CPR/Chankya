@@ -18,6 +18,16 @@ const refreshSchema = z.object({
   refreshToken: z.string().min(1),
 });
 
+const requestOtpSchema = z.object({
+  email: emailSchema,
+});
+
+const verifyOtpSignupSchema = z.object({
+  email: emailSchema,
+  otp: z.string().trim().regex(/^\d{6}$/),
+  password: passwordSchema,
+});
+
 const authRateLimit = {
   max: APP_CONSTANTS.authRateLimitMax,
   timeWindow: APP_CONSTANTS.authRateLimitWindow,
@@ -32,16 +42,18 @@ function setAuthCookies(
     setCookie: (
       name: string,
       value: string,
-      options: { httpOnly: boolean; secure: boolean; sameSite: "lax"; path: string; maxAge: number },
+      options: { httpOnly: boolean; secure: boolean; sameSite: "lax" | "none"; path: string; maxAge: number },
     ) => unknown;
   },
   tokens: { accessToken: string; refreshToken: string },
   secureCookies: boolean,
 ): void {
+  // Cross-origin frontend/backend deployments require SameSite=None + Secure.
+  const sameSite: "lax" | "none" = secureCookies ? "none" : "lax";
   reply.setCookie("accessToken", tokens.accessToken, {
     httpOnly: true,
     secure: secureCookies,
-    sameSite: "lax",
+    sameSite,
     path: "/",
     maxAge: 60 * 15,
   });
@@ -49,7 +61,7 @@ function setAuthCookies(
   reply.setCookie("refreshToken", tokens.refreshToken, {
     httpOnly: true,
     secure: secureCookies,
-    sameSite: "lax",
+    sameSite,
     path: "/",
     maxAge: 60 * 60 * 24 * 7,
   });
@@ -98,6 +110,32 @@ export const authRoutes = (authService: AuthService, options: AuthRouteOptions =
       );
     });
 
+    fastify.post("/signup/request-otp", { config: { rateLimit: authRateLimit } }, async (request) => {
+      const parsed = requestOtpSchema.safeParse(request.body);
+      if (!parsed.success) {
+        throw new AppError(ERROR_CODES.authInvalidPayload, "Invalid signup OTP request payload.", 400, parsed.error.flatten());
+      }
+
+      const result = await authService.requestSignupOtp(parsed.data.email);
+      return ok(result);
+    });
+
+    fastify.post("/signup/verify-otp", { config: { rateLimit: authRateLimit } }, async (request, reply) => {
+      const parsed = verifyOtpSignupSchema.safeParse(request.body);
+      if (!parsed.success) {
+        throw new AppError(ERROR_CODES.authInvalidPayload, "Invalid signup OTP verification payload.", 400, parsed.error.flatten());
+      }
+
+      const result = await authService.verifySignupOtpAndRegister(parsed.data);
+      setAuthCookies(reply, result.tokens, secureCookies);
+      return reply.code(201).send(
+        ok({
+          user: result.user,
+          tokens: result.tokens,
+        }),
+      );
+    });
+
     fastify.post("/refresh", async (request) => {
       const parsed = refreshSchema.safeParse(request.body);
       if (!parsed.success) {
@@ -132,6 +170,40 @@ export const authRoutes = (authService: AuthService, options: AuthRouteOptions =
       const token = getBearerToken(request.headers.authorization);
       const payload = authService.verifyAccessToken(token);
       return ok({ userId: payload.sub, role: payload.role });
+    });
+
+    fastify.get("/admin/signups", async (request) => {
+      const adminKey = process.env.ADMIN_METRICS_KEY;
+      if (!adminKey) {
+        throw new AppError(ERROR_CODES.internalServerError, "Admin metrics key is not configured.", 503);
+      }
+
+      const providedHeader = request.headers["x-admin-key"];
+      const provided = Array.isArray(providedHeader) ? providedHeader[0] : providedHeader;
+      if (provided !== adminKey) {
+        throw new AppError(ERROR_CODES.authInvalidAccess, "Invalid admin key.", 403);
+      }
+
+      const totalUsers = await fastify.prisma.users.count({
+        where: { deletedAt: null },
+      });
+
+      const dailyRows = await fastify.prisma.$queryRaw<Array<{ day: Date; count: bigint }>>`
+        SELECT DATE("createdAt") AS day, COUNT(*)::bigint AS count
+        FROM "Users"
+        WHERE "deletedAt" IS NULL
+        GROUP BY DATE("createdAt")
+        ORDER BY day DESC
+        LIMIT 30
+      `;
+
+      return ok({
+        totalUsers,
+        dailySignups: dailyRows.map((row) => ({
+          day: row.day.toISOString().slice(0, 10),
+          count: Number(row.count),
+        })),
+      });
     });
   };
 

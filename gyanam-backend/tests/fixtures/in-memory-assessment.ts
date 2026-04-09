@@ -35,6 +35,21 @@ export class InMemoryQuestionRepository implements QuestionRepository {
     return this.questions.filter((question) => question.subjectId === subjectId);
   }
 
+  public async findByFocus(input: {
+    conceptId?: string;
+    trapType?: string | null;
+    limit: number;
+  }): Promise<InMemoryQuestion[]> {
+    let filtered = [...this.questions];
+    if (input.trapType) {
+      filtered = filtered.filter((question) => (question as { trapType?: string | null }).trapType === input.trapType);
+    }
+    if (input.conceptId) {
+      filtered = filtered.filter((question) => (question as { conceptIds?: string[] }).conceptIds?.includes(input.conceptId ?? "") ?? false);
+    }
+    return filtered.slice(0, Math.max(1, input.limit));
+  }
+
   public async incrementExposure(questionIds: string[]): Promise<void> {
     for (const question of this.questions) {
       if (questionIds.includes(question.id)) {
@@ -51,6 +66,16 @@ export class InMemoryQuestionRepository implements QuestionRepository {
       }
     }
     return labels;
+  }
+
+  public async getConceptIdsByName(names: string[]): Promise<Record<string, { id: string; name: string }>> {
+    const trimmed = names.map((name) => name.trim()).filter((name) => name.length > 0);
+    return Object.fromEntries(trimmed.map((name) => [name, { id: `concept-${name}`, name }]));
+  }
+
+  public async getConceptNamesById(ids: string[]): Promise<Record<string, { id: string; name: string }>> {
+    const trimmed = ids.map((id) => id.trim()).filter((id) => id.length > 0);
+    return Object.fromEntries(trimmed.map((id) => [id, { id, name: id.replace(/^concept-/, "") }]));
   }
 }
 
@@ -160,7 +185,7 @@ export class InMemoryAttemptRepository implements AttemptRepository {
 export class InMemoryEventRepository implements EventRepository {
   public readonly events: Array<{ eventName: string; payload: Record<string, unknown> }> = [];
 
-  public async log(eventName: "test_created" | "attempt_started" | "attempt_submitted" | "override_used", payload: Record<string, unknown>): Promise<void> {
+  public async log(eventName: Parameters<EventRepository["log"]>[0], payload: Record<string, unknown>): Promise<void> {
     this.events.push({ eventName, payload });
   }
 }

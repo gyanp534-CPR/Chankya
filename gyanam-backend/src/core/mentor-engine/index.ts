@@ -157,7 +157,7 @@ function mapErrorToTrap(errorType: ErrorType): TrapType | null {
   }
 }
 
-export function trapReadable(trap: TrapType): string {
+export function trapReadable(trap?: TrapType | null): string {
   switch (trap) {
     case "hidden_constraint":
       return "hidden constraint";
@@ -291,7 +291,7 @@ function parseMemoryKey(key: string): ParsedMemoryKey | null {
     return { errorType: match, topic: remainder };
   }
 
-  const last = parts[parts.length - 1];
+  const last = parts[parts.length - 1] ?? "";
   const looksLikeId = /^c[a-z0-9]{10,}$/i.test(last) || last === "none";
   if (looksLikeId) {
     const topic = parts.slice(0, -1).join("-");
@@ -398,8 +398,9 @@ export async function getDailyFocus(params: {
   }
 
   const urgentItems = items.filter((item) => item.priority === "urgent");
-  if (urgentItems.length > 0) {
-    return [urgentItems[0]];
+  const topUrgent = urgentItems[0];
+  if (topUrgent) {
+    return [topUrgent];
   }
 
   return items.slice(0, 3);

@@ -67,7 +67,8 @@ function resolveUserId(request: {
 
 export const errorEngineRoutes = (errorEngineService: ErrorEngineService): FastifyPluginAsync => {
   const plugin: FastifyPluginAsync = async (fastify) => {
-    fastify.post("/attempt", async (request) => {
+    // Keep error-engine ingestion endpoint namespaced to avoid clashing with assessment quick-attempt route.
+    fastify.post("/error-engine/attempt", async (request) => {
       const parsed = attemptSchema.safeParse(request.body);
       if (!parsed.success) {
         throw new AppError(ERROR_CODES.authInvalidPayload, "Invalid attempt payload.", 400, parsed.error.flatten());

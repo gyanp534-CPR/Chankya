@@ -4,7 +4,14 @@ import cookie from "@fastify/cookie";
 import helmet from "@fastify/helmet";
 import sensible from "@fastify/sensible";
 import rateLimit from "@fastify/rate-limit";
-import { authRoutes, AuthService, PrismaAuthStore, type AuthStore } from "./core/auth/index.js";
+import {
+  authRoutes,
+  AuthService,
+  DevConsoleOtpMailer,
+  PrismaAuthStore,
+  SmtpOtpMailer,
+  type AuthStore,
+} from "./core/auth/index.js";
 import {
   assessmentRoutes,
   AssessmentService,
@@ -54,12 +61,46 @@ export async function createApp(options: CreateAppOptions = {}) {
     disableRequestLogging: env.NODE_ENV === "test",
   });
 
+  const corsOrigins = env.CORS_ORIGIN
+    .split(",")
+    .map((value) => value.trim().replace(/^['"]|['"]$/g, ""))
+    .filter((value) => value.length > 0);
+
+  const corsMatchers = corsOrigins
+    .filter((value) => value.includes("*"))
+    .map((value) => new RegExp(`^${value.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, ".*")}$`));
+
   await app.register(cors, {
-    origin: env.CORS_ORIGIN
-      .split(",")
-      .map((value) => value.trim())
-      .filter((value) => value.length > 0),
+    origin: (origin, callback) => {
+      if (!origin) {
+        callback(null, true);
+        return;
+      }
+      if (origin.endsWith(".vercel.app")) {
+        callback(null, true);
+        return;
+      }
+      if (origin === "https://gyanam.shop" || origin.endsWith(".gyanam.shop")) {
+        callback(null, true);
+        return;
+      }
+      if (corsOrigins.includes("*")) {
+        callback(null, true);
+        return;
+      }
+      if (corsOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+      if (corsMatchers.some((regex) => regex.test(origin))) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error("CORS origin not allowed"), false);
+    },
     credentials: true,
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["content-type", "authorization", "x-guest-id"],
   });
   await app.register(cookie);
   await app.register(helmet);
@@ -136,6 +177,17 @@ export async function createApp(options: CreateAppOptions = {}) {
     },
     accessTtl: env.ACCESS_TOKEN_TTL,
     refreshTtl: env.REFRESH_TOKEN_TTL,
+    otpMailer:
+      env.SMTP_HOST && env.SMTP_USER && env.SMTP_PASS && env.SMTP_FROM
+        ? new SmtpOtpMailer({
+            host: env.SMTP_HOST,
+            port: env.SMTP_PORT ?? 587,
+            secure: env.SMTP_SECURE ?? false,
+            user: env.SMTP_USER,
+            pass: env.SMTP_PASS,
+            from: env.SMTP_FROM,
+          })
+        : new DevConsoleOtpMailer(),
   });
 
   app.setErrorHandler((error, request, reply) => {

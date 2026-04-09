@@ -114,6 +114,10 @@ function PracticeSessionContent() {
   const [topicWrongCounts, setTopicWrongCounts] = useState<Record<string, number>>({});
   const [questionStartedAt, setQuestionStartedAt] = useState<number>(Date.now());
   const [postAttempt, setPostAttempt] = useState<PostAttemptResponse | null>(null);
+  const [submitSummary, setSubmitSummary] = useState<Pick<
+    SubmitResult,
+    "rawScore" | "maxScore" | "correctCount" | "incorrectCount" | "skippedCount" | "totalQuestions"
+  > | null>(null);
   const [lastFeedback, setLastFeedback] = useState<AttemptFeedback | null>(null);
   const [focusLabel, setFocusLabel] = useState<string | null>(null);
 
@@ -275,6 +279,14 @@ function PracticeSessionContent() {
       }
 
       const body = (await res.json()) as { data: SubmitResult };
+      setSubmitSummary({
+        rawScore: body.data.rawScore,
+        maxScore: body.data.maxScore,
+        correctCount: body.data.correctCount,
+        incorrectCount: body.data.incorrectCount,
+        skippedCount: body.data.skippedCount,
+        totalQuestions: body.data.totalQuestions,
+      });
       if (body.data.postAttempt) {
         setPostAttempt(body.data.postAttempt);
         if (typeof window !== "undefined") {
@@ -337,6 +349,17 @@ function PracticeSessionContent() {
   if (postAttempt && !debugPostAttempt) {
     return (
       <main className="mx-auto max-w-3xl p-8">
+        {submitSummary ? (
+          <section className="mb-4 rounded border border-gray-200 bg-white p-4 text-sm">
+            <p className="font-semibold">
+              Score: {submitSummary.rawScore} / {submitSummary.maxScore}
+            </p>
+            <p className="mt-1 text-gray-600">
+              Correct: {submitSummary.correctCount} | Incorrect: {submitSummary.incorrectCount} | Skipped:{" "}
+              {submitSummary.skippedCount} | Total: {submitSummary.totalQuestions}
+            </p>
+          </section>
+        ) : null}
         <PostAttemptScreen data={postAttempt} />
       </main>
     );

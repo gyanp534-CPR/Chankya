@@ -38,6 +38,7 @@ model Users {
   weakAreas    WeakArea[]
   revisionTasks RevisionTask[]
   errorLogs    ErrorAttemptLog[]
+  quickAttempts QuickAttemptResponse[]
   errorState   UserErrorState?
   errorMemory  UserErrorMemory[]
 }
@@ -53,6 +54,20 @@ model AuthSessions {
   user             Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+  @@index([expiresAt])
+}
+
+model EmailOtpChallenge {
+  id         String    @id @default(cuid())
+  email      String
+  otpHash    String
+  expiresAt  DateTime
+  attempts   Int       @default(0)
+  consumedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@index([email, createdAt(sort: Desc)])
   @@index([expiresAt])
 }
 
@@ -188,9 +203,26 @@ model Question {
   testSetQuestions TestSetQuestion[]
   concepts         QuestionConcept[]
   errorAttemptLogs ErrorAttemptLog[]
+  quickAttempts   QuickAttemptResponse[]
 
   @@index([topicId, difficulty])
   @@index([year, examStage])
+}
+
+model QuickAttemptResponse {
+  id             String   @id @default(cuid())
+  userId         String
+  questionId     String
+  selectedOption String
+  correctOption  String
+  isCorrect      Boolean
+  scoreDelta     Float
+  createdAt      DateTime @default(now())
+  user           Users    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question       Question @relation(fields: [questionId], references: [id], onDelete: Restrict)
+
+  @@index([userId, createdAt])
+  @@index([questionId])
 }
 
 model QuestionConcept {

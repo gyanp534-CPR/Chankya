@@ -18,8 +18,22 @@ const questionPool = [
 class StubAnalyticsRepository implements AnalyticsRepository {
   public async getLatestTopicMastery(_userId: string) {
     return [
-      { topicId: "t1", subjectId: "s1", mastery: 38.83, confidence: "medium" as const },
-      { topicId: "t2", subjectId: "s1", mastery: 72.2, confidence: "high" as const },
+      {
+        topicId: "t1",
+        topicName: "Polity",
+        subjectId: "s1",
+        subjectName: "General Studies",
+        mastery: 38.83,
+        dataPointsUsed: 12,
+      },
+      {
+        topicId: "t2",
+        topicName: "History",
+        subjectId: "s1",
+        subjectName: "General Studies",
+        mastery: 72.2,
+        dataPointsUsed: 42,
+      },
     ];
   }
 
@@ -29,8 +43,20 @@ class StubAnalyticsRepository implements AnalyticsRepository {
 
   public async getOpenRevisionTasks(_userId: string) {
     return [
-      { taskId: "rt-past", topicId: "t1", dueAt: "2026-03-01T00:00:00.000Z" },
-      { taskId: "rt-future", topicId: "t2", dueAt: "2099-01-01T00:00:00.000Z" },
+      {
+        taskId: "rt-past",
+        topicId: "t1",
+        topicName: "Polity",
+        subjectName: "General Studies",
+        dueAt: "2026-03-01T00:00:00.000Z",
+      },
+      {
+        taskId: "rt-future",
+        topicId: "t2",
+        topicName: "History",
+        subjectName: "General Studies",
+        dueAt: "2099-01-01T00:00:00.000Z",
+      },
     ];
   }
 }
@@ -69,7 +95,7 @@ describe("analytics api", () => {
     expect(summary.json().data.globalMastery).toBe(55.52);
     expect(summary.json().data.globalSkillBand).toBe("Developing");
     expect(summary.json().data.subjects).toEqual([
-      { subjectId: "s1", mastery: 55.52, skillBand: "Developing" },
+      { subjectId: "s1", subjectName: "General Studies", mastery: 55.52, skillBand: "Developing" },
     ]);
 
     const topics = await app.inject({
@@ -81,21 +107,27 @@ describe("analytics api", () => {
     expect(topics.json().data).toEqual([
       {
         topicId: "t1",
+        topicName: "Polity",
+        subjectName: "General Studies",
         mastery: 38.83,
         skillBand: "Emerging",
         confidence: "medium",
         isWeak: true,
         frequencyScore: 1,
         priorityScore: 61,
+        dataPointsUsed: 12,
       },
       {
         topicId: "t2",
+        topicName: "History",
+        subjectName: "General Studies",
         mastery: 72.2,
         skillBand: "Proficient",
         confidence: "high",
         isWeak: false,
         frequencyScore: 1,
         priorityScore: 28,
+        dataPointsUsed: 42,
       },
     ]);
 
@@ -109,6 +141,8 @@ describe("analytics api", () => {
       {
         taskId: "rt-past",
         topicId: "t1",
+        topicName: "Polity",
+        subjectName: "General Studies",
         dueAt: "2026-03-01T00:00:00.000Z",
       },
     ]);

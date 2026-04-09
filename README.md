@@ -21,6 +21,18 @@ for release notes formatting.
 The frontend is deployed from `gyanam-web` on Vercel. Environment requirements and routes
 are documented in `gyanam-web/README.md`.
 
+## Branch Workflow (Contributors)
+
+We do not push directly to `main`. Use a branch-only workflow:
+
+- Create a feature branch from `main`.
+- Open a PR for review.
+- Merge to `main` only after validation.
+
+Deploy flow:
+- Vercel production tracks `main`.
+- Preview deployments are created for PR branches.
+
 ## Current Focus
 
 The active backend focus is the **PYQ Intelligence Engine** inside `gyanam-backend`.

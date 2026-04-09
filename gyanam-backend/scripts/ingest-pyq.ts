@@ -2,7 +2,11 @@ import dotenv from "dotenv";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 import fs from "node:fs";
-import { parsePyqCliArgs, resolveNormalizedPath } from "./pyq-paths.js";
+import {
+  parsePyqCliArgs,
+  resolveAnswerReferencesPath,
+  resolveNormalizedPath,
+} from "./pyq-paths.js";
 
 // Must run before PrismaClient is constructed
 const __filename = fileURLToPath(import.meta.url);
@@ -41,6 +45,7 @@ type ApprovedIngestRow = {
   id           : string;
   year         : number;
   examStage    : string;
+  paperType    : string;
   subject      : string;
   questionText : string;
   options      : string[];
@@ -98,6 +103,51 @@ function inferSubject(questionText: string): string | null {
 // ─────────────────────────────────────────────────────────────
 
 type SkipReason = "missing_year" | "missing_subject" | "missing_answer" | "unresolved_answer" | "dropped";
+type IngestMode = "strict_approved" | "gs1_relaxed";
+
+type AnswerRef = {
+  referenceAnswer?: string | null;
+  source?: string;
+  sourceType?: string;
+};
+
+type AnswerReferenceLookup = Map<string, AnswerRef>;
+
+function parseAnswerReferencePayload(raw: unknown): AnswerReferenceLookup {
+  const lookup: AnswerReferenceLookup = new Map();
+  if (!raw || typeof raw !== "object") {
+    return lookup;
+  }
+
+  for (const [id, value] of Object.entries(raw as Record<string, unknown>)) {
+    if (typeof value === "string") {
+      lookup.set(id, { referenceAnswer: value });
+      continue;
+    }
+
+    if (value && typeof value === "object") {
+      const maybeObject = value as Record<string, unknown>;
+      const referenceAnswer = typeof maybeObject.referenceAnswer === "string"
+        ? maybeObject.referenceAnswer
+        : null;
+      const source = typeof maybeObject.source === "string" ? maybeObject.source : undefined;
+      const sourceType = typeof maybeObject.sourceType === "string" ? maybeObject.sourceType : undefined;
+      lookup.set(id, { referenceAnswer, source, sourceType });
+    }
+  }
+
+  return lookup;
+}
+
+function loadAnswerReferences(filePath: string): AnswerReferenceLookup {
+  if (!fs.existsSync(filePath)) {
+    return new Map();
+  }
+
+  const raw = fs.readFileSync(filePath, "utf-8");
+  const parsed = JSON.parse(raw.replace(/^\uFEFF/, ""));
+  return parseAnswerReferencePayload(parsed);
+}
 
 const EXPECTED_GS1_COUNT = 100;
 const GS1_ALLOWED_COUNTS_BY_YEAR: Record<number, number> = {
@@ -137,15 +187,24 @@ function validateGs1Counts(rows: StagedNormalizedRow[]) {
   }
 }
 
-function getApprovedRows(rows: StagedNormalizedRow[]): {
+function getIngestableRows(
+  rows: StagedNormalizedRow[],
+  options: {
+    mode: IngestMode;
+    answerReferences: AnswerReferenceLookup;
+  },
+): {
   ingestable : ApprovedIngestRow[];
   skipped    : Array<{ id: string; reason: SkipReason; detail: string }>;
 } {
-  const approved = rows.filter((r) => r.status === "approved");
+  const eligible =
+    options.mode === "gs1_relaxed"
+      ? rows.filter((r) => r.status !== "rejected")
+      : rows.filter((r) => r.status === "approved");
   const ingestable: ApprovedIngestRow[] = [];
   const skipped: Array<{ id: string; reason: SkipReason; detail: string }> = [];
 
-  for (const row of approved) {
+  for (const row of eligible) {
     // Skip dropped questions
     if (row.answerStatus === "dropped") {
       skipped.push({ id: row.id, reason: "dropped", detail: "answerStatus=dropped" });
@@ -165,20 +224,36 @@ function getApprovedRows(rows: StagedNormalizedRow[]): {
       if (inferred) {
         subject = inferred;
         console.warn(`  ⚠ Subject inferred for ${row.id}: "${inferred}"`);
+      } else if (row.paperType?.toUpperCase() === "GS1") {
+        subject = "General Studies";
+        console.warn(`  ⚠ Subject fallback for ${row.id}: "General Studies"`);
       } else {
         skipped.push({ id: row.id, reason: "missing_subject", detail: "subject missing and could not be inferred" });
         continue;
       }
     }
 
+    let correctAnswer = row.correctAnswer?.trim().toUpperCase();
+    let answerStatus = row.answerStatus;
+    let answerSource = row.answerSource;
+
+    if (!correctAnswer) {
+      const ref = options.answerReferences.get(row.id);
+      if (ref?.referenceAnswer) {
+        correctAnswer = ref.referenceAnswer.trim().toUpperCase();
+        answerStatus = answerStatus ?? "official_confirmed";
+        answerSource = answerSource ?? ref.source ?? "answer_reference";
+      }
+    }
+
     // BUG FIX 2 & 3 — missing or unresolved answer: skip, don't throw
-    if (!row.correctAnswer) {
+    if (!correctAnswer) {
       skipped.push({ id: row.id, reason: "missing_answer", detail: `answerStatus=${row.answerStatus ?? "none"}` });
       continue;
     }
 
-    if (row.answerStatus === "pending" || row.answerStatus === "conflict") {
-      skipped.push({ id: row.id, reason: "unresolved_answer", detail: `answerStatus=${row.answerStatus}` });
+    if (answerStatus === "pending" || answerStatus === "conflict") {
+      skipped.push({ id: row.id, reason: "unresolved_answer", detail: `answerStatus=${answerStatus}` });
       continue;
     }
 
@@ -186,12 +261,13 @@ function getApprovedRows(rows: StagedNormalizedRow[]): {
       id           : row.id,
       year         : row.year,
       examStage    : row.examStage,
+      paperType    : row.paperType,
       subject,
       questionText : row.questionText,
       options      : row.options,
-      correctAnswer: row.correctAnswer,
-      answerStatus : row.answerStatus,
-      answerSource : row.answerSource,
+      correctAnswer,
+      answerStatus,
+      answerSource,
     });
   }
 
@@ -261,9 +337,19 @@ async function main() {
     ? resolveNormalizedPath(args)
     : resolve(__dirname, "../data/pyq/pyq.prelims.v1.json");
   const raw = fs.readFileSync(inputFile, "utf-8");
-  const pyqRows = JSON.parse(raw.replace(/^\uFEFF/, "")) as StagedNormalizedRow[];
+  let pyqRows = JSON.parse(raw.replace(/^\uFEFF/, "")) as StagedNormalizedRow[];
+
+  // User-requested safeguard: keep CSAT out of this ingestion path.
+  if (args.paperType === "GS1") {
+    pyqRows = pyqRows.filter((row) => row.paperType?.toUpperCase() === "GS1");
+  }
+
   validateGs1Counts(pyqRows);
-  const { ingestable, skipped } = getApprovedRows(pyqRows);
+
+  const answerReferencesFile = resolveAnswerReferencesPath(args);
+  const answerReferences = loadAnswerReferences(answerReferencesFile);
+  const mode: IngestMode = args.paperType === "GS1" ? "gs1_relaxed" : "strict_approved";
+  const { ingestable, skipped } = getIngestableRows(pyqRows, { mode, answerReferences });
 
   if (ingestable.length === 0) {
     console.error("❌ No rows ready for ingestion.");
@@ -274,13 +360,13 @@ async function main() {
   const subjectCache = new Map<string, string>();
   const topicCache   = new Map<string, string>();
 
-  // BUG FIX 4 — correct inserted/updated tracking
-  let inserted = 0;
-  let updated  = 0;
+  let upserted = 0;
   let errors   = 0;
 
   console.log(`\n🚀 PYQ Ingestion Starting`);
   console.log(`   Source          : ${inputFile}`);
+  console.log(`   Answer refs     : ${answerReferencesFile}`);
+  console.log(`   Mode            : ${mode}`);
   console.log(`   Ready to ingest : ${ingestable.length}`);
   console.log(`   Skipped         : ${skipped.length}`);
   console.log("");
@@ -296,9 +382,6 @@ async function main() {
       const subjectId = await getOrCreateSubject(row.subject, subjectCache);
       const topicId   = await getOrCreateTopic(subjectId, topicCache);
 
-      // BUG FIX 4 — check existence before upsert
-      const exists = await prisma.question.findUnique({ where: { id: row.id } });
-
       const payload = {
         topicId,
         year        : row.year,
@@ -310,6 +393,7 @@ async function main() {
         difficulty  : "medium" as const,
         tags        : [
           "pyq",
+          `paper:${row.paperType.toUpperCase()}`,
           `year:${row.year}`,
           `subject:${row.subject}`,
           ...(row.answerStatus ? [`answer_status:${row.answerStatus}`] : []),
@@ -323,7 +407,7 @@ async function main() {
         update: payload,
       });
 
-      if (exists) updated++; else inserted++;
+      upserted++;
     } catch (err) {
       console.error(`  ✗ Failed ${row.id}: ${(err as Error).message}`);
       errors++;
@@ -334,8 +418,7 @@ async function main() {
   console.log("\n" + "─".repeat(50));
   console.log("✅ PYQ Ingestion Complete");
   console.log("─".repeat(50));
-  console.log(`  Inserted  : ${inserted}`);
-  console.log(`  Updated   : ${updated}`);
+  console.log(`  Upserted  : ${upserted}`);
   console.log(`  Errors    : ${errors}`);
   console.log(`  Skipped   : ${skipped.length}`);
 

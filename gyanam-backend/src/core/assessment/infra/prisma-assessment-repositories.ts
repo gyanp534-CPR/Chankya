@@ -9,6 +9,159 @@ import type {
   TestSetRecord,
 } from "../domain/types.js";
 
+const REQUIRED_PAPER_TAG = "paper:GS1";
+const GS1_ID_MARKER = "_GS1_";
+
+function normalizeInlineLists(text: string): string {
+  let next = text.replace(/(\d+\.)([A-Za-z])/g, "$1 $2");
+  next = next.replace(/((?:I{1,3}|IV|V|VI{0,3}|IX|X)\.)([A-Za-z])/g, "$1 $2");
+  next = next.replace(/\s(?=((?:I{1,3}|IV|V|VI{0,3}|IX|X)\.))/g, "\n");
+  next = next.replace(/(?<!\d)(\d+\.\s*[A-Za-z])/g, "\n$1");
+  next = next.replace(/(?<![A-Za-z])([IVX]+\.\s*[A-Za-z])/g, "\n$1");
+  next = next.replace(/\s([IVX]+\.\s)/g, "\n$1");
+  next = next.replace(/\n{2,}/g, "\n");
+  return next.trim();
+}
+
+function numberActionClauses(text: string): string {
+  const actionMatch = text.match(/^(Consider the following actions:)\s*(.+?)\s*(In how many[\s\S]+)$/i);
+  if (!actionMatch) {
+    return text;
+  }
+
+  const [, prefix, bodyRaw, suffixRaw] = actionMatch;
+  const body = bodyRaw ?? "";
+  const suffix = suffixRaw ?? "";
+  const parts = body
+    .split(/\s+(?=Detection of\b)/g)
+    .map((part) => part.trim())
+    .filter((part) => part.length > 0);
+
+  if (parts.length < 3) {
+    return text;
+  }
+
+  const numbered = parts.map((part, index) => `${index + 1}. ${part}`).join("\n");
+  return `${prefix}\n${numbered}\n${suffix}`.trim();
+}
+
+function hasCodeStyleOptions(options: string[]): boolean {
+  return options.some((option) =>
+    /^(?:\d+(?:\s*,\s*\d+)*(?:\s+and\s+\d+)?(?:\s+only)?|both|neither)/i.test(
+      option.trim(),
+    ),
+  );
+}
+
+function numberSentenceList(text: string): string | null {
+  const parts = text
+    .split(/(?<=[.?!])\s+/)
+    .map((part) => part.trim())
+    .filter((part) => part.length > 0)
+    .map((part) => part.replace(/[.?!]$/, "").trim());
+
+  if (parts.length < 3 || parts.length > 6) {
+    return null;
+  }
+
+  if (parts.some((part) => part.length < 8)) {
+    return null;
+  }
+
+  return parts.map((part, index) => `${index + 1}. ${part}`).join("\n");
+}
+
+function numberCapitalizedClauses(text: string): string | null {
+  const parts = text
+    .split(/\s(?=[A-Z][a-z]+(?:\s+[a-z]+){0,5}\s(?:of|on|in|to|for|by|with)\b)/g)
+    .map((part) => part.trim())
+    .filter((part) => part.length > 0)
+    .map((part) => part.replace(/^[,;:-]\s*/, "").replace(/[.?!]$/, "").trim());
+
+  if (parts.length < 3 || parts.length > 6) {
+    return null;
+  }
+
+  if (parts.some((part) => part.length < 6)) {
+    return null;
+  }
+
+  return parts.map((part, index) => `${index + 1}. ${part}`).join("\n");
+}
+
+function cleanStemText(stem: string, options: string[]): string {
+  let text = stem
+    .replace(/\s+/g, " ")
+    .replace(/[\uFFFD]/g, "")
+    .trim();
+
+  text = numberActionClauses(text);
+
+  const codeStyle = hasCodeStyleOptions(options);
+  const hasNumbering = /\b1[\.\)]\s*[A-Za-z]/.test(text);
+
+  if (codeStyle && !hasNumbering) {
+    const withPrefixList = text.match(/^(.*?:)\s*(.+)$/);
+    if (withPrefixList?.[1] && withPrefixList[2]) {
+      const [, prefix, body] = withPrefixList;
+      const numbered = numberSentenceList(body);
+      if (numbered) {
+        text = `${prefix}\n${numbered}`;
+      }
+    }
+
+    const selectMatch = text.match(
+      /^(.*?\?)\s*(.*?)\s*(Select the correct answer using the code given below\.?)$/i,
+    );
+    if (selectMatch?.[1] && selectMatch[2] && selectMatch[3]) {
+      const [, prompt, clauseBlob, instruction] = selectMatch;
+      const numbered =
+        numberSentenceList(clauseBlob) ?? numberCapitalizedClauses(clauseBlob);
+      if (numbered) {
+        text = `${prompt}\n${numbered}\n${instruction}`;
+      }
+    }
+  }
+
+  if (
+    /Consider the following|Which of the above|Select the correct answer using the code/i.test(
+      text,
+    )
+  ) {
+    return normalizeInlineLists(text);
+  }
+
+  const hasInlineList = /\d+\.\s*\w+.*\d+\./.test(text);
+  const normalized = hasInlineList ? normalizeInlineLists(text) : text;
+  return normalized.length > 0 ? normalized : "Question text unavailable.";
+}
+
+function cleanOptionText(option: string): string {
+  const original = option
+    .replace(/\s+/g, " ")
+    .replace(/[\uFFFD]/g, "")
+    .trim();
+
+  let text = option
+    .replace(/\s+/g, " ")
+    .replace(/[\uFFFD]/g, "")
+    .trim();
+
+  text = text.replace(/This passage relates to[\s\S]*$/i, "").trim();
+  text = text.replace(/Read the following\s+.*?passages[\s\S]*$/i, "").trim();
+  text = text.replace(/Your answers\s+.*?passages only[\s\S]*$/i, "").trim();
+  text = text.replace(/Directions?\s+for\s+the\s+following[\s\S]*$/i, "").trim();
+  text = text.replace(/Directions:\s*Read the following[\s\S]*$/i, "").trim();
+  text = text.replace(/\bPage\s+\d+\b[\s\S]*$/i, "").trim();
+
+  const passageMarkerIndex = text.search(/\bPassage\s*[-–—]?\d+\b/i);
+  if (passageMarkerIndex > 20) {
+    text = text.slice(0, passageMarkerIndex).trim();
+  }
+
+  return text.length > 0 ? text : (original.length > 0 ? original : "Option unavailable");
+}
+
 function toQuestion(row: {
   id: string;
   topicId: string;
@@ -21,15 +174,24 @@ function toQuestion(row: {
   trapType?: string | null;
   explanation?: unknown;
   concepts?: Array<{ concept: { id: string; name: string } }>;
-}): Question & { correctIndex: number; conceptNames?: string[]; conceptIds?: string[]; explanation?: unknown } {
+}): Question & {
+  correctIndex: number;
+  conceptNames?: string[];
+  conceptIds?: string[];
+  explanation?: unknown;
+  subjectId?: string;
+  trapType?: string | null;
+} {
   const conceptNames = row.concepts?.map((item) => item.concept.name) ?? [];
   const conceptIds = row.concepts?.map((item) => item.concept.id) ?? [];
+  const cleanedStem = cleanStemText(row.stem, row.options);
+  const cleanedOptions = row.options.map(cleanOptionText);
   return {
     id: row.id,
     topicId: row.topicId,
     subjectId: row.topic?.subjectId,
-    stem: row.stem,
-    options: row.options,
+    stem: cleanedStem,
+    options: cleanedOptions,
     difficulty: row.difficulty,
     tags: row.tags,
     correctIndex: row.correctIndex,
@@ -58,6 +220,10 @@ export class PrismaQuestionRepository implements QuestionRepository {
             questions: {
               some: {
                 deletedAt: null,
+                OR: [
+                  { tags: { has: REQUIRED_PAPER_TAG } },
+                  { id: { contains: GS1_ID_MARKER } },
+                ],
               },
             },
           },
@@ -75,6 +241,11 @@ export class PrismaQuestionRepository implements QuestionRepository {
     const rows = await this.db.question.findMany({
       where: {
         deletedAt: null,
+        OR: [
+          { tags: { has: REQUIRED_PAPER_TAG } },
+          { id: { contains: GS1_ID_MARKER } },
+        ],
+        NOT: [{ tags: { has: "demo" } }, { stem: { startsWith: "Demo Question" } }],
         topic: {
           subjectId,
           deletedAt: null,
@@ -106,6 +277,11 @@ export class PrismaQuestionRepository implements QuestionRepository {
   }): Promise<(Question & { correctIndex: number })[]> {
     const where: Prisma.QuestionWhereInput = {
       deletedAt: null,
+      OR: [
+        { tags: { has: REQUIRED_PAPER_TAG } },
+        { id: { contains: GS1_ID_MARKER } },
+      ],
+      NOT: [{ tags: { has: "demo" } }, { stem: { startsWith: "Demo Question" } }],
     };
 
     if (input.trapType) {
@@ -227,11 +403,12 @@ export class PrismaTestSetRepository implements TestSetRepository {
       },
     });
 
+    const normalizedMode = created.mode === "practicexz" ? "practice" : created.mode;
     return {
       id: created.id,
       subjectId: created.subjectId,
       questionIds: created.questions.sort((a, b) => a.sortOrder - b.sortOrder).map((item) => item.questionId),
-      mode: created.mode,
+      mode: normalizedMode,
       createdAt: created.createdAt.toISOString(),
       seed: created.seed,
       questionCount: created.questionCount,
@@ -255,11 +432,12 @@ export class PrismaTestSetRepository implements TestSetRepository {
       return null;
     }
 
+    const normalizedMode = row.mode === "practicexz" ? "practice" : row.mode;
     return {
       id: row.id,
       subjectId: row.subjectId,
       questionIds: row.questions.map((q) => q.questionId),
-      mode: row.mode,
+      mode: normalizedMode,
       createdAt: row.createdAt.toISOString(),
       seed: row.seed,
       questionCount: row.questionCount,
@@ -268,7 +446,17 @@ export class PrismaTestSetRepository implements TestSetRepository {
 
   public async findQuestionsForTest(testId: string): Promise<(Question & { correctIndex: number })[]> {
     const rows = await this.db.testSetQuestion.findMany({
-      where: { testSetId: testId },
+      where: {
+        testSetId: testId,
+        question: {
+          deletedAt: null,
+          OR: [
+            { tags: { has: REQUIRED_PAPER_TAG } },
+            { id: { contains: GS1_ID_MARKER } },
+          ],
+          NOT: [{ tags: { has: "demo" } }, { stem: { startsWith: "Demo Question" } }],
+        },
+      },
       include: { question: true },
       orderBy: { sortOrder: "asc" },
     });
